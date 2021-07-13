@@ -1,0 +1,18 @@
+@import "variables";
+// --> Generate variables colors
+:root {
+  @each $type, $values in $palette {
+    @each $type-color, $color in $values {
+      --#{$type}-#{$type-color}: #{$color};
+    }
+  }
+  // --> Generate fonts type
+  @each $type-font, $number in $font-weight {
+    --f-type-#{$type-font}: #{$number};
+  }
+
+  // --> Generate radius
+  @each $type-rad, $number in $radius {
+    --rad-#{$type-rad}: #{$number};
+  }
+}
