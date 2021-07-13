@@ -10,6 +10,14 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.17.x' 
+  #force32bit: false # Optional
+  #checkLatest: false # Optional #version LTS o latest de node
+
+- script: node test.js
+
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
