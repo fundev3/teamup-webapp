@@ -1,0 +1,17 @@
+{
+  "extends": ["eslint:recommended", "react-app", "plugin:prettier/recommended"],
+  "rules": {
+    "max-len": ["error", { "code": 100 }],
+    "prefer-promise-reject-errors": ["off"],
+    "react/jsx-filename-extension": ["off"],
+    "no-return-assign": ["off"]
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react"]
+}
