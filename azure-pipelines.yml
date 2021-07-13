@@ -18,7 +18,7 @@ steps:
 
 - script: npm install #installing dependencies (react, axios, etc)
 
-- script: node run build #building the webApp
+- script: npm run build #building the webApp
 
 - script: echo Hello, world! #dummy script
   displayName: 'Run a one-line script'
