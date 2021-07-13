@@ -16,9 +16,11 @@ steps:
   #force32bit: false # Optional
   #checkLatest: false # Optional #version LTS o latest de node
 
-- script: node test.js
+- script: npm install #installing dependencies (react, axios, etc)
 
-- script: echo Hello, world!
+- script: node run build #building the webApp
+
+- script: echo Hello, world! #dummy script
   displayName: 'Run a one-line script'
 
 - script: |
