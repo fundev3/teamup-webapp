@@ -16,14 +16,9 @@ steps:
   #force32bit: false # Optional
   #checkLatest: false # Optional #version LTS o latest de node
 
-- script: npm install #installing dependencies (react, axios, etc)
+ # installing dependencies (react, axios, etc)
+- script: npm install
 
-- script: npm run build #building the webApp
+# building the webApp
+- script: npm run build 
 
-- script: echo Hello, world! #dummy script
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
