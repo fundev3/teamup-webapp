@@ -1,7 +1,4 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# Pipeline for the TeamUp's webApp
 
 trigger:
   # batch runs this pipeline one after the other (useful when there are many contributors)
@@ -29,8 +26,6 @@ stages:
     - task: NodeTool@0
       inputs:
         versionSpec: '14.17.x' 
-      #force32bit: false # Optional
-      #checkLatest: false # Optional #version LTS o latest de node
 
     # installing dependencies (react, axios, etc)
     - script: npm install
@@ -45,5 +40,6 @@ stages:
         PathtoPublish: '$(Agent.BuildDirectory)/s/build'
         ArtifactName: 'drop'
         publishLocation: 'Container'
-    #condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    #not save artifact on PRs
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
         
