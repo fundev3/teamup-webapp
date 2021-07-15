@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+@import "../../scss/styles";
+
+.Card {
+  height: 110px;
+  margin: 10px;
+  font-family: Sans-serif;
+}
+.title {
+  color: rgba(0, 71, 129, 0.938);
+  font-size: large;
+  font-weight: bold;
+}
+.information {
+  display: flex;
+  margin: 10px;
+}
+.information label {
+  margin: 5px;
+}
+.contact {
+  display: flex;
+  margin: 10px;
+}
+.contact label {
+  margin-left: 5px;
+}
+.date {
+  display: flex;
+  float: right;
+  margin-bottom: 15px;
+}
+.date label {
+  margin-left: 5px;
+}
