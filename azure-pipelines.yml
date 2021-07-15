@@ -26,16 +26,20 @@ stages:
     - task: NodeTool@0
       inputs:
         versionSpec: '14.17.x' 
+      displayName: 'Installi Node 14.17.x'
 
     # installing dependencies (react, axios, etc)
     - script: npm install
+      displayName: 'Install dependencies'
 
     # building the webApp
     - script: npm run build
+      displayName: 'Build React webApp'
     #for conditional run of a step or job or stage
 
     
     - task: PublishBuildArtifacts@1
+      displayName: 'Save artifact'
       inputs:
         PathtoPublish: '$(Agent.BuildDirectory)/s/build'
         ArtifactName: 'drop'
