@@ -4,40 +4,48 @@
 # https://aka.ms/yaml
 
 trigger:
-    # batch runs this pipeline one after the other (useful when there are many contributors)
-    batch: true
-    branches:
-        include:
-            - master
-            - develop
+  # batch runs this pipeline one after the other (useful when there are many contributors)
+  batch: true
+  branches:
+    include:
+      - master
+      - develop
 
 pr:
-    autoCancel: true
-    branches:
-        include:
-            - master
-            - develop
+  autoCancel: true
+  branches:
+    include:
+      - master
+      - develop
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '14.17.x' 
-  #force32bit: false # Optional
-  #checkLatest: false # Optional #version LTS o latest de node
+stages:
+- stage: Initial
+  jobs:
+  - job: Initializing
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '14.17.x' 
+      #force32bit: false # Optional
+      #checkLatest: false # Optional #version LTS o latest de node
 
-# installing dependencies (react, axios, etc)
-- script: npm install
+    # installing dependencies (react, axios, etc)
+    - script: npm install
 
-# building the webApp
-- script: npm run build
-#for conditional run of a step or job or stage
-#condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    # building the webApp
+    - script: npm run build
+    #for conditional run of a step or job or stage
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Agent.BuildDirectory)/s/build'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+  - job: Publishing
+    dependsOn: Initializing
+    steps:
+    #condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Agent.BuildDirectory)/s/build'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+        
