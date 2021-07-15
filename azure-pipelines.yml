@@ -39,13 +39,11 @@ stages:
     - script: npm run build
     #for conditional run of a step or job or stage
 
-  - job: Publishing
-    dependsOn: Initializing
-    steps:
-    #condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Agent.BuildDirectory)/s/build'
         ArtifactName: 'drop'
         publishLocation: 'Container'
+    #condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
         
