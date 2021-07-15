@@ -1,11 +1,13 @@
 import { useFormik } from "formik";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import "./ProjectForm.scss";
 
 const validate = (values) => {
   const errors = {};
 
   if (!values.name) {
-    errors.name = "Introduce the name of the project";
+    errors.name = "Introduce the name off the project";
   } else if (values.name.length > 15) {
     errors.name = "Must be 15 characters or less";
   }
@@ -40,84 +42,74 @@ function ProjectForm() {
     },
   });
   return (
-    <form className="container-form" onSubmit={formik.handleSubmit}>
+    <form
+      className="container-form"
+      onSubmit={formik.handleSubmit}
+      noValidate
+      autoComplete="off"
+    >
       <h1 className="container-form__title">Create Project</h1>
       <p>Make your project know and hire the best resumes for it.</p>
 
-      <div className="container-input">
-        <input
-          className="container-input__input"
+      <div className="u-mb-1">
+        <TextField
           id="name"
+          label="Name"
           name="name"
           type="text"
+          variant="outlined"
+          error={formik.touched.name && formik.errors.name}
+          helperText={
+            formik.touched.name && formik.errors.name ? formik.errors.name : ""
+          }
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.name}
         />
-        <label
-          htmlFor="name"
-          className={`container-input__label ${
-            formik.values.name && "container-input__label--active"
-          }`}
-        >
-          Name:
-        </label>
-        {formik.touched.name && formik.errors.name ? (
-          <small className="container-input__error">{formik.errors.name}</small>
-        ) : null}
       </div>
 
-      <div className="container-input">
-        <input
-          className="container-input__input"
+      <div className="u-mb-1">
+        <TextField
           id="contact"
+          label="Contact"
           name="contact"
           type="email"
+          variant="outlined"
+          error={formik.touched.contact && formik.errors.contact}
+          helperText={
+            formik.touched.contact && formik.errors.contact
+              ? formik.errors.contact
+              : ""
+          }
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.contact}
         />
-        <label
-          htmlFor="contact"
-          className={`container-input__label ${
-            formik.values.contact && "container-input__label--active"
-          }`}
-        >
-          Contact:
-        </label>
-        {formik.touched.contact && formik.errors.contact ? (
-          <small className="container-input__error">
-            {formik.errors.contact}
-          </small>
-        ) : null}
       </div>
 
-      <div className="container-input">
-        <textarea
-          className="container-input__input"
+      <div className="u-mb-1">
+        <TextField
+          multiline
+          rows={4}
           id="description"
+          label="Description"
           name="description"
-          rows="4"
+          variant="outlined"
+          error={formik.touched.description && formik.errors.description}
+          helperText={
+            formik.touched.description && formik.errors.description
+              ? formik.errors.description
+              : ""
+          }
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.description}
         />
-        <label
-          htmlFor="description"
-          className={`container-input__label ${
-            formik.values.description && "container-input__label--active"
-          }`}
-        >
-          Description:
-        </label>
-        {formik.touched.description && formik.errors.description ? (
-          <small className="container-input__error">
-            {formik.errors.description}
-          </small>
-        ) : null}
       </div>
 
-      <button className="btn">Create</button>
+      <Button type="submit" variant="contained" color="primary">
+        Create
+      </Button>
     </form>
   );
 }
