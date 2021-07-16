@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Resume({ userId }) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
 
   const refresh = () => {
     let userRes;
@@ -47,14 +47,14 @@ function Resume({ userId }) {
       alert("Saved");
     }
   };
-
-  return (
+  return user ? (
     <Grid container className={classes.root} spacing={5}>
       <Grid item xs={12}>
         <Typography variant="h4" color="primary">
           Resume Details
         </Typography>
       </Grid>
+
       <Grid className={classes.margin} item xs={12}>
         <TextField
           label="First Name"
@@ -119,6 +119,6 @@ function Resume({ userId }) {
         </Button>
       </Grid>
     </Grid>
-  );
+  ) : null;
 }
 export default Resume;

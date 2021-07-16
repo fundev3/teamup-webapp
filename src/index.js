@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-
 //import App from "./components/App/App";
-import Resume from "./components/ResumeDetail/ResumeDetail";
+import Resume from "./components/Resume/ResumeDetail/ResumeDetail";
 
 ReactDOM.render(
   <React.StrictMode>
