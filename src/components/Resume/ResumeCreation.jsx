@@ -3,7 +3,7 @@ import "./ResumeCreation.css";
 import companylogo from "../../assets/company-logo.png";
 import { useFormik } from "formik";
 import { PostResume } from "./ResumeCreationApi.js";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const validate = (values) => {
   const errors = {};
@@ -20,7 +20,7 @@ const validate = (values) => {
   }
   if (!values.title) {
     errors.title = "Job title field is required";
-  } else if (values.title.length > 15) {
+  } else if (values.title.length > 30) {
     errors.title = "Please enter a job title with 15 characters or less";
   }
   if (!values.description) {
@@ -33,6 +33,7 @@ const validate = (values) => {
 };
 
 function ResumeCreation() {
+  const history = useHistory();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -43,9 +44,10 @@ function ResumeCreation() {
     validate,
     onSubmit: (values) => {
       PostResume(values).then((result) => {
-        console.log(result);
+        return result;
       });
       alert("Success! Welcome to TeamUp!");
+      history.push("/");
     },
   });
 

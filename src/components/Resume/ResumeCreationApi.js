@@ -1,18 +1,15 @@
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "http://localhost:7071/api",
-});
-
 export async function PostResume(resume) {
   try {
-    let result = await (
-      await instance.post("/resumes", resume)
-    ).then((response) => {
-      return response;
-    });
-    return result;
-  } catch (error) {
-    console.log(error);
+    const result = await axios.post(
+      //"http://localhost:7071/api/resumes",
+      "https://jsonplaceholder.typicode.com/posts",
+      resume
+    );
+    //return result.data
+    console.log(result.data);
+  } catch (err) {
+    alert("Couldn't save your profile, please try again");
   }
 }
