@@ -28,4 +28,3 @@ steps:
     PathtoPublish: '$(Agent.BuildDirectory)/s/build'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-  
