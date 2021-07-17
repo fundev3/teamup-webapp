@@ -8,26 +8,30 @@ import { Link, useHistory } from "react-router-dom";
 const validate = (values) => {
   const errors = {};
 
-  if (!values.name) {
-    errors.name = "Name field is required";
-  } else if (values.name.length > 10) {
-    errors.name = "Please enter a name with 10 characters or less";
+  if (!values.firstname) {
+    errors.firstname = "Name field is required";
+  } else if (values.firstname.length > 15) {
+    errors.firstname = "Please enter a name with 10 characters or less";
   }
   if (!values.lastname) {
     errors.lastname = "Lastname field is required";
   } else if (values.lastname.length > 15) {
     errors.lastname = "Please enter a lastname with 10 characters or less";
   }
-  if (!values.title) {
-    errors.title = "Job title field is required";
-  } else if (values.title.length > 30) {
-    errors.title = "Please enter a job title with 15 characters or less";
+  if (!values.email) {
+    errors.email = "Email field is required";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = "Invalid email address";
   }
-  if (!values.description) {
-    errors.description = "Bio description field is required";
-  } else if (values.description.length > 150) {
-    errors.description =
-      "Please enter a description with 150 characters or less";
+  if (!values.phone) {
+    errors.phone = "Phone number field is required";
+  } else if (values.phone < 60000000 || values.phone >= 80000000) {
+    errors.phone = "Please enter a valid phone number with 8 characters";
+  }
+  if (!values.summary) {
+    errors.summary = "Bio description field is required";
+  } else if (values.summary.length > 150) {
+    errors.summary = "Please enter a description with 150 characters or less";
   }
   return errors;
 };
@@ -36,17 +40,22 @@ function ResumeCreation() {
   const history = useHistory();
   const formik = useFormik({
     initialValues: {
-      name: "",
+      firstname: "",
       lastname: "",
-      title: "",
-      description: "",
+      email: "",
+      phone: "",
+      summary: "",
     },
     validate,
     onSubmit: (values) => {
       PostResume(values).then((result) => {
-        return result;
+        if (!result) {
+          history.push("/resumecreation");
+        } else {
+          alert("Success! Welcome to TeamUp!");
+          return result;
+        }
       });
-      alert("Success! Welcome to TeamUp!");
       history.push("/");
     },
   });
@@ -70,15 +79,15 @@ function ResumeCreation() {
             <TextField
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.name}
-              id="name"
-              name="name"
+              value={formik.values.firstname}
+              id="firstname"
+              name="firstname"
               type="text"
-              error={formik.touched.name && formik.errors.name}
+              error={formik.touched.firstname && formik.errors.firstname}
               placeholder="Your name"
               helperText={
-                formik.touched.name && formik.errors.name
-                  ? formik.errors.name
+                formik.touched.firstname && formik.errors.firstname
+                  ? formik.errors.firstname
                   : ""
               }
             ></TextField>
@@ -102,19 +111,37 @@ function ResumeCreation() {
             ></TextField>
           </div>
           <div className="label">
-            <h3>Your Title</h3>
+            <h3>Email Address</h3>
             <TextField
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.title}
-              id="title"
-              name="title"
-              type="text"
-              error={formik.touched.title && formik.errors.title}
-              placeholder="Eg: Full Stack Developer"
+              value={formik.values.email}
+              id="email"
+              name="email"
+              type="email"
+              error={formik.touched.email && formik.errors.email}
+              placeholder="Your email address"
               helperText={
-                formik.touched.title && formik.errors.title
-                  ? formik.errors.title
+                formik.touched.email && formik.errors.email
+                  ? formik.errors.email
+                  : ""
+              }
+            ></TextField>
+          </div>
+          <div className="label">
+            <h3>Phone Number</h3>
+            <TextField
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.phone}
+              id="phone"
+              name="phone"
+              type="number"
+              error={formik.touched.phone && formik.errors.phone}
+              placeholder="Your Phone Number"
+              helperText={
+                formik.touched.phone && formik.errors.phone
+                  ? formik.errors.phone
                   : ""
               }
             ></TextField>
@@ -124,18 +151,18 @@ function ResumeCreation() {
             <TextField
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.description}
+              value={formik.values.summary}
               maxRows={4}
               multiline
               variant="outlined"
-              id="description"
-              name="description"
-              error={formik.touched.description && formik.errors.description}
+              id="summary"
+              name="summary"
+              error={formik.touched.summary && formik.errors.summary}
               placeholder="Enter a brief description of you. 
               Describe your professionalskills and experience."
               helperText={
-                formik.touched.description && formik.errors.description
-                  ? formik.errors.description
+                formik.touched.summary && formik.errors.summary
+                  ? formik.errors.summary
                   : ""
               }
             ></TextField>
