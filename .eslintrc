@@ -6,7 +6,9 @@
     "no-duplicate-imports": "error",
     "prefer-promise-reject-errors": ["off"],
     "react/jsx-filename-extension": ["off"],
-    "react/jsx-sort-props": 2
+    "react/jsx-sort-props": 2,
+    "sort-keys": ["error", "asc", {"caseSensitive": true, "natural": false, "minKeys": 2}],
+    "spaced-comment": ["error", "always", { "block": { "balanced": true } }]
   },
   "parserOptions": {
     "ecmaFeatures": {
