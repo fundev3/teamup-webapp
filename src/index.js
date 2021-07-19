@@ -1,12 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-//import App from "./components/App/App";
-import Resume from "./components/Resume/ResumeDetail/ResumeDetail";
+import App from "./components/App/App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Resume userId="1" />
+    <App></App>
   </React.StrictMode>,
   document.getElementById("root")
 );

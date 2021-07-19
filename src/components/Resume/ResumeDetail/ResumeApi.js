@@ -1,14 +1,15 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/users/",
+  baseURL: "http://localhost:7071/api/", //backend api url
 });
 
 export async function GetUser(user) {
   try {
-    let result = await (await instance.get(user)).data;
+    let result = await (await instance.get(user)).data[0];
+    console.log(result);
     return result;
   } catch (error) {
-    console.log(error);
+    alert("User not found"); //change alert message
   }
 }

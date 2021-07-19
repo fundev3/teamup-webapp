@@ -18,9 +18,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
+//userId = number of the resume
 function Resume({ userId }) {
   const [user, setUser] = useState();
+  const [readOnly, setReadOnly] = useState(true);
+  const [showEdit, setShowEdit] = useState("Edit");
+  const classes = useStyles();
 
   const refresh = () => {
     let userRes;
@@ -32,19 +35,15 @@ function Resume({ userId }) {
   };
   useEffect(refresh, [userId]);
 
-  const [readOnly, setReadOnly] = useState(true);
-  const [showEdit, setShowEdit] = useState("Edit");
-  const classes = useStyles();
-
   const edit = (event) => {
     event.preventDefault();
     setReadOnly(!readOnly);
     if (readOnly) {
       setShowEdit("Save");
-      alert("You can edit");
+      alert("You can edit"); //change alert message
     } else {
       setShowEdit("Edit");
-      alert("Saved");
+      alert("Saved"); //change alert message
     }
   };
   return user ? (
@@ -58,7 +57,7 @@ function Resume({ userId }) {
       <Grid className={classes.margin} item xs={12}>
         <TextField
           label="First Name"
-          defaultValue={user.name}
+          defaultValue={user.firstName}
           InputProps={{
             readOnly: readOnly,
           }}
@@ -66,7 +65,7 @@ function Resume({ userId }) {
         />
         <TextField
           label="Last Name"
-          defaultValue={user.username}
+          defaultValue={user.lastName}
           InputProps={{
             readOnly: readOnly,
           }}
@@ -94,7 +93,7 @@ function Resume({ userId }) {
       <Grid item xs={12}>
         <TextField
           label="Biography"
-          defaultValue={user.website}
+          defaultValue={user.summary}
           InputProps={{
             readOnly: readOnly,
           }}
