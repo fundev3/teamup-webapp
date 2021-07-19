@@ -2,9 +2,10 @@
   "extends": ["react-app", "plugin:prettier/recommended"],
   "rules": {
     "max-len": ["error", { "code": 100 }],
+    "no-return-assign": ["off"],
+    "no-duplicate-imports": "error",
     "prefer-promise-reject-errors": ["off"],
-    "react/jsx-filename-extension": ["off"],
-    "no-return-assign": ["off"]
+    "react/jsx-filename-extension": ["off"]
   },
   "parserOptions": {
     "ecmaFeatures": {
