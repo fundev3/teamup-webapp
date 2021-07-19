@@ -5,10 +5,18 @@ const instance = axios.create({
 });
 
 export default async function GetProjects() {
+  let errorHandler = true;
   try {
     let result = await (await instance.get("/users")).data;
     return result;
   } catch (error) {
-    console.log(error);
+    if (error.response) {
+      alert(error);
+    } else if (error.request) {
+      alert(error);
+    } else {
+      alert("Error: Something is wrong");
+    }
+    return errorHandler;
   }
 }
