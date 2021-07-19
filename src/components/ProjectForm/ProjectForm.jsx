@@ -1,33 +1,15 @@
-import { useFormik } from "formik";
+/**
+ * Components Material UI
+ */
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+/**
+ * Hook for handle form
+ */
+import { useFormik } from "formik";
+
+import { projectFormValidations } from "./ProjectFormValidations";
 import "./ProjectForm.scss";
-
-const validate = (values) => {
-  const errors = {};
-
-  if (!values.name) {
-    errors.name = "Introduce the name off the project";
-  } else if (values.name.length > 15) {
-    errors.name = "Must be 15 characters or less";
-  }
-
-  if (!values.description) {
-    errors.description = "Tell a little about your project";
-  } else if (values.description.length > 150) {
-    errors.description = "Must be 150 characters or less";
-  }
-
-  if (!values.contact) {
-    errors.contact = "Introduce the email contact";
-  } else if (
-    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.contact)
-  ) {
-    errors.contact = "Invalid email address";
-  }
-
-  return errors;
-};
 
 function ProjectForm() {
   const formik = useFormik({
@@ -36,11 +18,17 @@ function ProjectForm() {
       contact: "",
       description: "",
     },
-    validate,
+    validate: projectFormValidations,
+    // --> Waiting for API
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+  const hasErrorName = !!formik.touched.name && !!formik.errors.name;
+  const hasErrorContact = !!formik.touched.contact && !!formik.errors.contact;
+  const hasErrorDescription =
+    !!formik.touched.description && !!formik.errors.description;
+
   return (
     <form
       className="container-form"
@@ -58,10 +46,8 @@ function ProjectForm() {
           name="name"
           type="text"
           variant="outlined"
-          error={formik.touched.name && formik.errors.name}
-          helperText={
-            formik.touched.name && formik.errors.name ? formik.errors.name : ""
-          }
+          error={hasErrorName}
+          helperText={hasErrorName ? formik.errors.name : ""}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.name}
@@ -75,12 +61,8 @@ function ProjectForm() {
           name="contact"
           type="email"
           variant="outlined"
-          error={formik.touched.contact && formik.errors.contact}
-          helperText={
-            formik.touched.contact && formik.errors.contact
-              ? formik.errors.contact
-              : ""
-          }
+          error={hasErrorContact}
+          helperText={hasErrorContact ? formik.errors.contact : ""}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.contact}
@@ -95,12 +77,8 @@ function ProjectForm() {
           label="Description"
           name="description"
           variant="outlined"
-          error={formik.touched.description && formik.errors.description}
-          helperText={
-            formik.touched.description && formik.errors.description
-              ? formik.errors.description
-              : ""
-          }
+          error={hasErrorDescription}
+          helperText={hasErrorDescription ? formik.errors.description : ""}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.description}
