@@ -127,3 +127,6 @@ yarn-error.log*
 
 #Webstorm
 .idea
+
+#Visual Studio Code
+.vscode

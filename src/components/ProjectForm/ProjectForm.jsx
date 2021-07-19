@@ -1,24 +1,17 @@
-/**
- * Components Material UI
- */
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-/**
- * Hook for handle form
- */
-import { useFormik } from "formik";
-
 import { projectFormValidations } from "./ProjectFormValidations";
+import { useFormik } from "formik";
 import "./ProjectForm.scss";
 
 function ProjectForm() {
   const formik = useFormik({
     initialValues: {
-      name: "",
       contact: "",
       description: "",
+      name: "",
     },
-    validate: projectFormValidations,
+    validationSchema: projectFormValidations(),
     // --> Waiting for API
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
@@ -31,57 +24,57 @@ function ProjectForm() {
 
   return (
     <form
-      className="container-form"
-      onSubmit={formik.handleSubmit}
-      noValidate
       autoComplete="off"
+      className="container-form"
+      noValidate
+      onSubmit={formik.handleSubmit}
     >
       <h1 className="container-form__title">Create Project</h1>
       <p>Make your project know and hire the best resumes for it.</p>
 
       <div className="u-mb-1">
         <TextField
+          error={hasErrorName}
+          helperText={hasErrorName ? formik.errors.name : ""}
           id="name"
           label="Name"
           name="name"
-          type="text"
-          variant="outlined"
-          error={hasErrorName}
-          helperText={hasErrorName ? formik.errors.name : ""}
-          onChange={formik.handleChange}
           onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          type="text"
           value={formik.values.name}
+          variant="outlined"
         />
       </div>
 
       <div className="u-mb-1">
         <TextField
+          error={hasErrorContact}
+          helperText={hasErrorContact ? formik.errors.contact : ""}
           id="contact"
           label="Contact"
           name="contact"
-          type="email"
-          variant="outlined"
-          error={hasErrorContact}
-          helperText={hasErrorContact ? formik.errors.contact : ""}
-          onChange={formik.handleChange}
           onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          type="email"
           value={formik.values.contact}
+          variant="outlined"
         />
       </div>
 
       <div className="u-mb-1">
         <TextField
-          multiline
-          rows={4}
-          id="description"
-          label="Description"
-          name="description"
-          variant="outlined"
           error={hasErrorDescription}
           helperText={hasErrorDescription ? formik.errors.description : ""}
-          onChange={formik.handleChange}
+          id="description"
+          label="Description"
+          multiline
+          name="description"
           onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          rows={4}
           value={formik.values.description}
+          variant="outlined"
         />
       </div>
 
