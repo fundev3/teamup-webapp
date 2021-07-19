@@ -5,7 +5,8 @@
     "no-return-assign": ["off"],
     "no-duplicate-imports": "error",
     "prefer-promise-reject-errors": ["off"],
-    "react/jsx-filename-extension": ["off"]
+    "react/jsx-filename-extension": ["off"],
+    "react/jsx-sort-props": 2
   },
   "parserOptions": {
     "ecmaFeatures": {
