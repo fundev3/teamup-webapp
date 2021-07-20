@@ -25,7 +25,7 @@ steps:
   displayName: 'Build React webApp'
 
 - script: npm test -- --ci --watchAll=false --passWithNoTests
-  displayName: 'testing'
+  displayName: 'running unit test'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Save artifact'
