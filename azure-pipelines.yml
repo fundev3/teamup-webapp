@@ -21,11 +21,11 @@ steps:
 - script: npm run lint:fix
   displayName: 'Linting'
 
-- script: npm run build
-  displayName: 'Build React webApp'
-
 - script: npm test -- --ci --watchAll=false --passWithNoTests
   displayName: 'Running Unit Test'
+
+- script: npm run build
+  displayName: 'Build React webApp'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Save Artifact'
