@@ -1,70 +1,66 @@
-import { Button, TextField } from "@material-ui/core";
-import "./ResumeCreation.css";
+import * as Yup from "yup";
 import companylogo from "../../assets/company-logo.png";
+import { postResume } from "./ResumeCreationApi.js";
 import { useFormik } from "formik";
-import { PostResume } from "./ResumeCreationApi.js";
+import { Button, TextField } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
+import "./ResumeCreation.css";
 
-const validate = (values) => {
-  const errors = {};
-
-  if (!values.firstname) {
-    errors.firstname = "Name field is required";
-  } else if (values.firstname.length > 15) {
-    errors.firstname = "Please enter a name with 10 characters or less";
-  }
-  if (!values.lastname) {
-    errors.lastname = "Lastname field is required";
-  } else if (values.lastname.length > 15) {
-    errors.lastname = "Please enter a lastname with 10 characters or less";
-  }
-  if (!values.email) {
-    errors.email = "Email field is required";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = "Invalid email address";
-  }
-  if (!values.phone) {
-    errors.phone = "Phone number field is required";
-  } else if (values.phone < 60000000 || values.phone >= 80000000) {
-    errors.phone = "Please enter a valid phone number with 8 characters";
-  }
-  if (!values.summary) {
-    errors.summary = "Bio description field is required";
-  } else if (values.summary.length > 150) {
-    errors.summary = "Please enter a description with 150 characters or less";
-  }
-  return errors;
-};
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email field is required"),
+  firstname: Yup.string()
+    .min(3, "Name is too short - should be 3 characters minimum")
+    .matches(/^[A-Za-z ]*$/, "Please enter valid name")
+    .max(15, "Please enter a name with 15 characters or less")
+    .required("Name field is required"),
+  lastname: Yup.string()
+    .min(5, "Lastname is too short - should be 5 characters minimum")
+    .matches(/^[A-Za-z ]*$/, "Please enter valid lastname")
+    .max(15, "Please enter a lastname with 15 characters or less")
+    .required("Lastname field is required"),
+  phone: Yup.string()
+    .matches(/^[67]\d{7}$/g, "Invalid phone number")
+    .required("Phone number field is required"),
+  summary: Yup.string()
+    .min(10, "Bio description is too short - should be 10 characters minimum")
+    .matches(
+      /^[A-Za-z  .,']*$/g,
+      "Numbers and special characters are not allowed @()-*$#!+=^&"
+    )
+    .max(150, "Please enter a summary with 150 characters or less")
+    .required("Bio description field is required"),
+});
 
 function ResumeCreation() {
   const history = useHistory();
   const formik = useFormik({
     initialValues: {
+      email: "",
       firstname: "",
       lastname: "",
-      email: "",
       phone: "",
       summary: "",
     },
-    validate,
-    onSubmit: (values) => {
-      PostResume(values).then((result) => {
-        if (!result) {
-          history.push("/resumecreation");
-        } else {
-          alert("Success! Welcome to TeamUp!");
-          return result;
-        }
-      });
-      history.push("/");
+    onSubmit: async (values) => {
+      const result = await postResume(values);
+      if (!result.ok) {
+        history.push("/resumecreation");
+      } else {
+        alert("Success! Welcome to TeamUp!");
+        history.push("/");
+        return result;
+      }
     },
+    validationSchema,
   });
 
   return (
     <div className="container-creation-resume">
       <div className="header">
-        <img src={companylogo} alt="logo" className="logo"></img>
-        <Link to="/" style={{ textDecoration: "none", color: "#000000" }}>
+        <img alt="logo" className="logo" src={companylogo} />
+        <Link style={{ color: "#000000", textDecoration: "none" }} to="/">
           <h2>App Name</h2>
         </Link>
       </div>
@@ -73,102 +69,102 @@ function ResumeCreation() {
           <h1>Hello, there!</h1>
           <h2 id="subtitle">Let's build your profile</h2>
         </div>
-        <form onSubmit={formik.handleSubmit} className="container-right">
+        <form className="container-right" onSubmit={formik.handleSubmit}>
           <div className="label">
             <h3>Name</h3>
             <TextField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.firstname}
-              id="firstname"
-              name="firstname"
-              type="text"
               error={formik.touched.firstname && formik.errors.firstname}
-              placeholder="Your name"
               helperText={
                 formik.touched.firstname && formik.errors.firstname
                   ? formik.errors.firstname
                   : ""
               }
-            ></TextField>
+              id="firstname"
+              name="firstname"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              placeholder="Your name"
+              type="text"
+              value={formik.values.firstname}
+            />
           </div>
           <div className="label">
             <h3>Last Name</h3>
             <TextField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.lastname}
-              id="lastname"
-              name="lastname"
-              type="text"
               error={formik.touched.lastname && formik.errors.lastname}
-              placeholder="Your last name"
               helperText={
                 formik.touched.lastname && formik.errors.lastname
                   ? formik.errors.lastname
                   : ""
               }
-            ></TextField>
+              id="lastname"
+              name="lastname"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              placeholder="Your last name"
+              type="text"
+              value={formik.values.lastname}
+            />
           </div>
           <div className="label">
             <h3>Email Address</h3>
             <TextField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-              id="email"
-              name="email"
-              type="email"
               error={formik.touched.email && formik.errors.email}
-              placeholder="Your email address"
               helperText={
                 formik.touched.email && formik.errors.email
                   ? formik.errors.email
                   : ""
               }
-            ></TextField>
+              id="email"
+              name="email"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              placeholder="Your email address"
+              type="email"
+              value={formik.values.email}
+            />
           </div>
           <div className="label">
             <h3>Phone Number</h3>
             <TextField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.phone}
-              id="phone"
-              name="phone"
-              type="number"
               error={formik.touched.phone && formik.errors.phone}
-              placeholder="Your Phone Number"
               helperText={
                 formik.touched.phone && formik.errors.phone
                   ? formik.errors.phone
                   : ""
               }
-            ></TextField>
+              id="phone"
+              name="phone"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              placeholder="Your Phone Number"
+              type="number"
+              value={formik.values.phone}
+            />
           </div>
           <div className="label">
             <h3>Add Bio</h3>
             <TextField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.summary}
-              maxRows={4}
-              multiline
-              variant="outlined"
-              id="summary"
-              name="summary"
               error={formik.touched.summary && formik.errors.summary}
-              placeholder="Enter a brief description of you. 
-              Describe your professionalskills and experience."
               helperText={
                 formik.touched.summary && formik.errors.summary
                   ? formik.errors.summary
                   : ""
               }
-            ></TextField>
+              id="summary"
+              maxRows={4}
+              multiline
+              name="summary"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              placeholder="Enter a brief description of you. 
+              Describe your professionalskills and experience."
+              value={formik.values.summary}
+              variant="outlined"
+            />
           </div>
           <div className="bottom">
-            <Button type="submit" variant="contained" color="primary">
+            <Button color="primary" type="submit" variant="contained">
               Submit
             </Button>
           </div>

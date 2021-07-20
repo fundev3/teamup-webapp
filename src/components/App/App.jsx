@@ -8,6 +8,7 @@ import "./App.scss";
 
 function App() {
   return (
+    // TODO revisit route names
     <Router>
       <NavBar />
       <div className="content">
