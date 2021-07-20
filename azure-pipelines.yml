@@ -15,11 +15,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '14.17.x' 
-  displayName: 'Install Node'
-
 - script: npm ci
   displayName: 'Install dependencies'
 
@@ -33,4 +28,3 @@ steps:
     PathtoPublish: '$(Agent.BuildDirectory)/s/build'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-  
