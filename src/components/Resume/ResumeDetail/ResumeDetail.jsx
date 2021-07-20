@@ -1,23 +1,24 @@
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import React, { useState } from "react";
+import MakeStyles from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import useFetch from "./ResumeApi";
+
+import React, { useState } from "react";
 import "./ResumeDetail.css";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 500,
-  },
+const useStyles = MakeStyles((theme) => ({
   margin: {
     "& > *": {
       margin: theme.spacing(1),
     },
   },
+  root: {
+    width: 500,
+  },
 }));
-//resumeId = resume api link
+// resumeId = resume api link
 function Resume({ resumeId }) {
   const classes = useStyles();
   const { data, error } = useFetch(resumeId);
@@ -29,64 +30,64 @@ function Resume({ resumeId }) {
     setReadOnly(!readOnly);
     if (readOnly) {
       setShowEdit("Save");
-      alert("You can edit"); //change alert message
+      alert("You can edit"); // change alert message
     } else {
       setShowEdit("Edit");
-      alert("Saved"); //change alert message
+      alert("Saved"); // change alert message
     }
   };
   if (error) return <div>ERROR!!! Resume not found</div>;
   return data ? (
-    <Grid container className={classes.root} spacing={5}>
+    <Grid className={classes.root} container spacing={5}>
       <Grid item xs={12}>
-        <Typography variant="h4" color="primary">
+        <Typography color="primary" variant="h4">
           Resume Details
         </Typography>
       </Grid>
 
       <Grid className={classes.margin} item xs={12}>
         <TextField
-          defaultValue={data.firstName}
           InputProps={{
             readOnly: readOnly,
           }}
+          defaultValue={data.firstName}
           label="First Name"
           variant="outlined"
         />
         <TextField
-          defaultValue={data.lastName}
           InputProps={{
             readOnly: readOnly,
           }}
+          defaultValue={data.lastName}
           label="Last Name"
           variant="outlined"
         />
       </Grid>
       <Grid className={classes.margin} item xs={12}>
         <TextField
-          defaultValue={data.email}
           InputProps={{
             readOnly: readOnly,
           }}
+          defaultValue={data.email}
           label="Email"
           variant="outlined"
         />
         <TextField
-          defaultValue={data.phone}
           InputProps={{
             readOnly: readOnly,
           }}
+          defaultValue={data.phone}
           label="Contact"
           variant="outlined"
         />
       </Grid>
       <Grid item xs={12}>
         <TextField
-          defaultValue={data.summary}
-          fullWidth
           InputProps={{
             readOnly: readOnly,
           }}
+          defaultValue={data.summary}
+          fullWidth
           label="Biography"
           multiline
           rows={4}
