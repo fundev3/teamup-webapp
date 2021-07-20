@@ -1,13 +1,12 @@
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com",
-});
-
-export default async function GetProjects() {
-  let errorHandler = true;
+export default async function getProjects() {
+  let handlerError = false;
   try {
-    let result = await (await instance.get("/users")).data;
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/users"
+    );
+    const result = await response.data;
     return result;
   } catch (error) {
     if (error.response) {
@@ -17,6 +16,7 @@ export default async function GetProjects() {
     } else {
       alert("Error: Something is wrong");
     }
-    return errorHandler;
+    handlerError = true;
+    return handlerError;
   }
 }

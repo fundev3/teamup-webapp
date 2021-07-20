@@ -2,7 +2,7 @@ import { Description, Email, CalendarToday } from "@material-ui/icons";
 import "./Card.scss";
 
 function Card(props) {
-  const { id, name, username, email, address } = props;
+  const { address, email, id, name, username } = props;
   return (
     <div key={id} className="Card-Container">
       <div className="Name">{name}</div>
