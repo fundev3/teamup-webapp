@@ -1,15 +1,26 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "http://localhost:7071/api/", //backend api url
-});
+function useFetch(url) {
+  const [data, setData] = useState();
+  const [error, setError] = useState();
 
-export async function GetUser(user) {
-  try {
-    let result = await (await instance.get(user)).data[0];
-    console.log(result);
-    return result;
-  } catch (error) {
-    alert("User not found"); //change alert message
-  }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await (await axios.get(url)).data;
+        setData(res);
+      } catch (err) {
+        setError(err);
+      }
+    }
+    fetchData();
+  }, [url]);
+
+  return {
+    data,
+    error,
+  };
 }
+
+export default useFetch;
