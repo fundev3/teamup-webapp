@@ -21,7 +21,7 @@ steps:
 - script: npm run lint:fix
   displayName: 'linting'
 
-- script: npm test
+- script: npm test -- --ci --watchAll=false
   displayName: 'testing'
 
 - script: npm run build
