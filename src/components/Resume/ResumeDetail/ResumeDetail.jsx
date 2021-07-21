@@ -15,14 +15,13 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     margin: 30,
-    width: 500,
+    width: 760,
   },
 }));
 
 function Resume({ resumeId }) {
   const classes = useStyles();
   const { data, error } = useFetch(resumeId);
-  console.log(data);
   const [readOnly, setReadOnly] = useState(true);
   const [showEdit, setShowEdit] = useState("Edit");
 
@@ -38,18 +37,20 @@ function Resume({ resumeId }) {
   if (error) return <div>ERROR!!! Resume not found</div>;
   return data ? (
     <Grid className={classes.root} container spacing={5}>
-      <Grid item xs={12}>
+      <Grid className={classes.margin} item xs={12}>
         <Typography color="primary" variant="h4">
-          Resume Details
+          {data.name} {data.username}
         </Typography>
+        <div>creation date</div>
+        <div>last update</div>
       </Grid>
 
-      <Grid className={classes.margin} item xs={12}>
+      <Grid className={classes.margin} item xs={18}>
         <TextField
           InputProps={{
             readOnly: readOnly,
           }}
-          defaultValue={data.firstName}
+          defaultValue={data.name}
           label="First Name"
           variant="outlined"
         />
@@ -57,8 +58,17 @@ function Resume({ resumeId }) {
           InputProps={{
             readOnly: readOnly,
           }}
-          defaultValue={data.lastName}
+          defaultValue={data.username}
           label="Last Name"
+          variant="outlined"
+        />
+        <TextField
+          InputProps={{
+            readOnly: readOnly,
+          }}
+          defaultValue="2017-05-24"
+          label="Birthdate"
+          type="date"
           variant="outlined"
         />
       </Grid>
@@ -76,18 +86,26 @@ function Resume({ resumeId }) {
             readOnly: readOnly,
           }}
           defaultValue={data.phone}
-          label="Contact"
+          label="Phone"
           variant="outlined"
         />
-      </Grid>
-      <Grid item xs={12}>
         <TextField
           InputProps={{
             readOnly: readOnly,
           }}
-          defaultValue={data.summary}
+          defaultValue={data.address.street}
+          label="Address"
+          variant="outlined"
+        />
+      </Grid>
+      <Grid className={classes.margin} item xs={12}>
+        <TextField
+          InputProps={{
+            readOnly: readOnly,
+          }}
+          defaultValue={data.website}
           fullWidth
-          label="Biography"
+          label="Summary"
           multiline
           rows={4}
           variant="outlined"
