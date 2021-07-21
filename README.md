@@ -13,4 +13,4 @@ Frontend web app
 - [Prettier](https://prettier.io/)
 - [Video configuration VS Code eslint and prettier](https://www.youtube.com/watch?v=bfyI9yl3qfE)
 
-## Hi, I want to break things
+## Hi, I want to break things... even more
