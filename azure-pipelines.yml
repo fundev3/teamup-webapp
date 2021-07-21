@@ -15,22 +15,22 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: npm ci
-  displayName: 'Install Dependencies'
+  - script: npm ci
+    displayName: "Install Dependencies"
 
-- script: npm run lint:fix
-  displayName: 'Linting'
+  - script: npm run lint:fix
+    displayName: "Linting"
 
-- script: npm test -- --ci --watchAll=false --passWithNoTests
-  displayName: 'Running Unit Test'
+  - script: npm test -- --ci --watchAll=false --passWithNoTests
+    displayName: "Running Unit Test"
 
-- script: npm run build
-  displayName: 'Build React webApp'
+  - script: npm run build
+    displayName: "Build React webApp"
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Save Artifact'
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-  inputs:
-    PathtoPublish: '$(Agent.BuildDirectory)/s/build'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+  - task: PublishBuildArtifacts@1
+    displayName: "Save Artifact"
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    inputs:
+      PathtoPublish: "$(Agent.BuildDirectory)/s/build"
+      ArtifactName: "drop"
+      publishLocation: "Container"
