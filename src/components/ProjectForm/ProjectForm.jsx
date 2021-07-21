@@ -11,11 +11,11 @@ function ProjectForm() {
       description: "",
       name: "",
     },
-    validationSchema: projectFormValidations(),
     // --> Waiting for API
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
+    validationSchema: projectFormValidations(),
   });
   const hasErrorName = !!formik.touched.name && !!formik.errors.name;
   const hasErrorContact = !!formik.touched.contact && !!formik.errors.contact;
@@ -78,7 +78,7 @@ function ProjectForm() {
         />
       </div>
 
-      <Button type="submit" variant="contained" color="primary">
+      <Button color="primary" type="submit" variant="contained">
         Create
       </Button>
     </form>
