@@ -3,10 +3,9 @@ import axios from "axios";
 export default async function getProjects() {
   let handlerError = false;
   try {
-    const response = await axios.get(
+    const { data: result } = await axios.get(
       "https://jsonplaceholder.typicode.com/users"
     );
-    const result = await response.data;
     return result;
   } catch (error) {
     if (error.response) {
