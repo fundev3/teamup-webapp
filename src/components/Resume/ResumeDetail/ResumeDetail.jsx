@@ -1,27 +1,28 @@
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import MakeStyles from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import useFetch from "./ResumeApi";
-
+import { makeStyles } from "@material-ui/core/styles";
+import useFetch from "./useFetch";
 import React, { useState } from "react";
 import "./ResumeDetail.css";
 
-const useStyles = MakeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   margin: {
     "& > *": {
       margin: theme.spacing(1),
     },
   },
   root: {
+    margin: 30,
     width: 500,
   },
 }));
-// resumeId = resume api link
+
 function Resume({ resumeId }) {
   const classes = useStyles();
   const { data, error } = useFetch(resumeId);
+  console.log(data);
   const [readOnly, setReadOnly] = useState(true);
   const [showEdit, setShowEdit] = useState("Edit");
 
@@ -30,10 +31,8 @@ function Resume({ resumeId }) {
     setReadOnly(!readOnly);
     if (readOnly) {
       setShowEdit("Save");
-      alert("You can edit"); // change alert message
     } else {
       setShowEdit("Edit");
-      alert("Saved"); // change alert message
     }
   };
   if (error) return <div>ERROR!!! Resume not found</div>;
