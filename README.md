@@ -1,4 +1,5 @@
 # teamup-webapp
+
 Frontend web app
 
 ### More information about structure
