@@ -18,16 +18,14 @@ function Details() {
         `https://jsonplaceholder.typicode.com/users/${id}`
       );
       setProject(res.data);
-      const logo = project.logo;
-      const name = project.name;
-      const creationDateame = project.creationDate;
-      const description = project.description;
-      const textInvitation = project.textInvitation;
-      const contact = project.contact;
     }
     fetchData();
   }, []);
-
+  const name = project.name;
+  const creationDate = project.creationDate;
+  const description = project.description;
+  const textInvitation = project.textInvitation;
+  const contact = project.contact;
   return (
     <div>
       <Container maxWidth="sm">
