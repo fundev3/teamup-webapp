@@ -42,7 +42,7 @@ function ProjectList() {
         <TableContainer component={Paper}>
           <Table aria-label="simple table" className={classes.table}>
             <TableBody>
-              {Object.keys(projects).length === 0 ? (
+              {projects.length === 0 ? (
                 <TableRow key="1">
                   <TableCell component="th" scope="row">
                     <img
