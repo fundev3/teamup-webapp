@@ -1,18 +1,15 @@
-import { Description, Email,Name } from "@material-ui/icons";
 import "./Box.css";
 
 function Box(props) {
-  const { name, username, email, description } = props;
+  const { title, contact, lastUpdateDate } = props;
   return (
     <div className="Name">
-      {name}
-      <div className="Description">
-        <Description color="primary" />
-        <label>{username}</label>
+      {title}
+      <div className="Date">
+        <label>{lastUpdateDate}</label>
       </div>
       <div className="Contact">
-        <Email color="primary" />
-        <label>{email}</label>
+        <label>{contact.email}</label>
       </div>
     </div>
   );

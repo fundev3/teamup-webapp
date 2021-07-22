@@ -1,17 +1,17 @@
+import Box from "./Box";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
+import GetResume from "./ResumeListAPI.js";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
+import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
-import GetResume from "./ResumeListAPI.js";
-import Box from "./Box";
 import "./ResumeList.css";
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 200,
-    maxWidth: 1010,
+    maxWidth: 900,
+    minWidth: 150,
   },
 });
 
@@ -31,13 +31,15 @@ function ResumeList() {
 
   return (
     <div className="Resumes-Container">
-      <div className="Title">Resumes</div>
-      <Button variant="outlined" color="primary">
-        New Resume
+      <div className="Title">
+        <h1>Resume List</h1>
+      </div>
+      <Button color="secondary" variant="contained">
+        Create Resume
       </Button>
       <div className="Resume-List">
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
+        <TableContainer>
+          <Table aria-label="simple table" className={classes.table}>
             <TableBody>
               {resumes.length > 0
                 ? resumes.map((resume) => <Box {...resume} />)
