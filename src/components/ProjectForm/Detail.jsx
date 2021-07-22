@@ -22,6 +22,7 @@ function Details() {
     fetchData();
   }, []);
   const name = project.name;
+  const logo = project.logo;
   const creationDate = project.creationDate;
   const description = project.description;
   const textInvitation = project.textInvitation;
