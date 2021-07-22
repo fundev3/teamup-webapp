@@ -21,6 +21,7 @@
     "format": "prettier --write .",
     "formatHusky": "prettier --write",
     "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
+    "prepare": "husky install",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
