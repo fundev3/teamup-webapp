@@ -1,8 +1,8 @@
 import { Home } from "./Home.jsx";
 import NavBar from "./NavBar";
-import Projects from "../Project/Projects";
+import Projects from "../projects/Projects";
 import React from "react";
-import ResumeCreation from "../Resume/ResumeCreation.jsx";
+import ResumeCreation from "../resumes/ResumeCreation.jsx";
 import { Typography } from "@material-ui/core";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.scss";
