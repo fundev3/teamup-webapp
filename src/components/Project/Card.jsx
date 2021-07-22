@@ -2,7 +2,7 @@ import { CalendarToday, Email } from "@material-ui/icons";
 import "./Card.scss";
 
 function Card(props) {
-  const { address, email, id, name } = props;
+  const { contact, email, id, name } = props;
   return (
     <div className="Card-Container" key={id}>
       <div className="Name">{name}</div>
@@ -12,7 +12,7 @@ function Card(props) {
       </div>
       <div className="Field Creation-date">
         <CalendarToday color="primary" />
-        <label>{address.zipcode}</label>
+        <label>{contact.name}</label>
       </div>
     </div>
   );
