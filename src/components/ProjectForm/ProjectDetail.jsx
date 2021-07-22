@@ -35,7 +35,7 @@ const Project = () => {
           wrap="nowrap"
         >
           <Grid item xs={2}>
-            <img alt="" height="80" src={project.logo} width="80" />
+            <img alt="" height="75" src={project.logo} width="75" />
           </Grid>
           <Grid item xs={10}>
             <Typography align="justify" gutterBottom variant="h4">
