@@ -1,4 +1,4 @@
-import ProjectForm from "../Project/Projects";
+import ProjectForm from "../ProjectForm/ProjectForm";
 
 import "./App.scss";
 
