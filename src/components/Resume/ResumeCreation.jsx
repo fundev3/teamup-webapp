@@ -1,9 +1,8 @@
 import * as Yup from "yup";
-import companylogo from "../../assets/company-logo.png";
 import { postResume } from "./ResumeCreationApi.js";
 import { useFormik } from "formik";
+import { useHistory } from "react-router-dom";
 import { Button, TextField } from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
 import "./ResumeCreation.css";
 
 const validationSchema = Yup.object({
@@ -26,7 +25,7 @@ const validationSchema = Yup.object({
     .max(20, "Please enter a name with 20 characters or less")
     .required("Name field is required"),
   lastName: Yup.string()
-    .min(5, "Lastname is too short - should be 5 characters minimum")
+    .min(3, "Lastname is too short - should be 3 characters minimum")
     .matches(/^[A-Za-z ]*$/, "Please enter valid lastname")
     .max(20, "Please enter a lastname with 20 characters or less")
     .required("Lastname field is required"),
@@ -70,154 +69,146 @@ function ResumeCreation() {
 
   return (
     <div className="container-creation-resume">
-      <div className="header">
-        <img alt="logo" className="logo" src={companylogo} />
-        <Link style={{ color: "#000000", textDecoration: "none" }} to="/">
-          <h2>App Name</h2>
-        </Link>
+      <div className="container-left">
+        <h1>Hello, there!</h1>
+        <h2 id="subtitle">Let's build your profile</h2>
       </div>
-      <div className="body">
-        <div className="container-left">
-          <h1>Hello, there!</h1>
-          <h2 id="subtitle">Let's build your profile</h2>
+      <form className="container-right" onSubmit={formik.handleSubmit}>
+        <div className="label">
+          <h3>Name</h3>
+          <TextField
+            error={formik.touched.firstName && formik.errors.firstName}
+            helperText={
+              formik.touched.firstName && formik.errors.firstName
+                ? formik.errors.firstName
+                : ""
+            }
+            id="firstName"
+            name="firstName"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            placeholder="Your name"
+            type="text"
+            value={formik.values.firstName}
+          />
         </div>
-        <form className="container-right" onSubmit={formik.handleSubmit}>
-          <div className="label">
-            <h3>Name</h3>
-            <TextField
-              error={formik.touched.firstName && formik.errors.firstName}
-              helperText={
-                formik.touched.firstName && formik.errors.firstName
-                  ? formik.errors.firstName
-                  : ""
-              }
-              id="firstName"
-              name="firstName"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              placeholder="Your name"
-              type="text"
-              value={formik.values.firstName}
-            />
-          </div>
-          <div className="label">
-            <h3>Last Name</h3>
-            <TextField
-              error={formik.touched.lastName && formik.errors.lastName}
-              helperText={
-                formik.touched.lastName && formik.errors.lastName
-                  ? formik.errors.lastName
-                  : ""
-              }
-              id="lastName"
-              name="lastName"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              placeholder="Your last name"
-              type="text"
-              value={formik.values.lastName}
-            />
-          </div>
-          <div className="label">
-            <h3>Date of birth</h3>
-            <TextField
-              error={formik.touched.birthdate && formik.errors.birthdate}
-              helperText={
-                formik.touched.birthdate && formik.errors.birthdate
-                  ? formik.errors.birthdate
-                  : ""
-              }
-              id="birthdate"
-              name="birthdate"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              placeholder="dd/mm/yyyy"
-              type="text"
-              value={formik.values.birthdate}
-            />
-          </div>
-          <div className="label">
-            <h3>Address</h3>
-            <TextField
-              error={formik.touched.direction && formik.errors.direction}
-              helperText={
-                formik.touched.direction && formik.errors.direction
-                  ? formik.errors.direction
-                  : ""
-              }
-              id="direction"
-              name="direction"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              placeholder="Your Address"
-              type="text"
-              value={formik.values.direction}
-            />
-          </div>
-          <div className="label">
-            <h3>Email Address</h3>
-            <TextField
-              error={formik.touched.email && formik.errors.email}
-              helperText={
-                formik.touched.email && formik.errors.email
-                  ? formik.errors.email
-                  : ""
-              }
-              id="email"
-              name="email"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              placeholder="Your email address"
-              type="email"
-              value={formik.values.email}
-            />
-          </div>
-          <div className="label">
-            <h3>Phone Number</h3>
-            <TextField
-              error={formik.touched.phone && formik.errors.phone}
-              helperText={
-                formik.touched.phone && formik.errors.phone
-                  ? formik.errors.phone
-                  : ""
-              }
-              id="phone"
-              name="phone"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              placeholder="Your Phone Number"
-              type="number"
-              value={formik.values.phone}
-            />
-          </div>
-          <div className="label">
-            <h3>Add Bio</h3>
-            <TextField
-              error={formik.touched.summary && formik.errors.summary}
-              helperText={
-                formik.touched.summary && formik.errors.summary
-                  ? formik.errors.summary
-                  : ""
-              }
-              id="summary"
-              maxRows={4}
-              multiline
-              name="summary"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              placeholder="Enter a brief description of you. 
-              Describe your professional skills and experience."
-              value={formik.values.summary}
-              variant="outlined"
-            />
-          </div>
-          <div className="bottom">
-            <Button color="primary" type="submit" variant="contained">
-              Submit
-            </Button>
-          </div>
-        </form>
-      </div>
+        <div className="label">
+          <h3>Last Name</h3>
+          <TextField
+            error={formik.touched.lastName && formik.errors.lastName}
+            helperText={
+              formik.touched.lastName && formik.errors.lastName
+                ? formik.errors.lastName
+                : ""
+            }
+            id="lastName"
+            name="lastName"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            placeholder="Your last name"
+            type="text"
+            value={formik.values.lastName}
+          />
+        </div>
+        <div className="label">
+          <h3>Date of birth</h3>
+          <TextField
+            error={formik.touched.birthdate && formik.errors.birthdate}
+            helperText={
+              formik.touched.birthdate && formik.errors.birthdate
+                ? formik.errors.birthdate
+                : ""
+            }
+            id="birthdate"
+            name="birthdate"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            placeholder="dd/mm/yyyy"
+            type="text"
+            value={formik.values.birthdate}
+          />
+        </div>
+        <div className="label">
+          <h3>Address</h3>
+          <TextField
+            error={formik.touched.direction && formik.errors.direction}
+            helperText={
+              formik.touched.direction && formik.errors.direction
+                ? formik.errors.direction
+                : ""
+            }
+            id="direction"
+            name="direction"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            placeholder="Your Address"
+            type="text"
+            value={formik.values.direction}
+          />
+        </div>
+        <div className="label">
+          <h3>Email Address</h3>
+          <TextField
+            error={formik.touched.email && formik.errors.email}
+            helperText={
+              formik.touched.email && formik.errors.email
+                ? formik.errors.email
+                : ""
+            }
+            id="email"
+            name="email"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            placeholder="Your email address"
+            type="email"
+            value={formik.values.email}
+          />
+        </div>
+        <div className="label">
+          <h3>Phone Number</h3>
+          <TextField
+            error={formik.touched.phone && formik.errors.phone}
+            helperText={
+              formik.touched.phone && formik.errors.phone
+                ? formik.errors.phone
+                : ""
+            }
+            id="phone"
+            name="phone"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            placeholder="Your Phone Number"
+            type="number"
+            value={formik.values.phone}
+          />
+        </div>
+        <div className="label">
+          <h3>Add Bio</h3>
+          <TextField
+            error={formik.touched.summary && formik.errors.summary}
+            helperText={
+              formik.touched.summary && formik.errors.summary
+                ? formik.errors.summary
+                : ""
+            }
+            id="summary"
+            maxRows={4}
+            multiline
+            name="summary"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            placeholder="Enter a brief description of you. 
+            Describe your professional skills and experience."
+            value={formik.values.summary}
+            variant="outlined"
+          />
+        </div>
+        <div className="bottom">
+          <Button color="primary" type="submit" variant="contained">
+            Submit
+          </Button>
+        </div>
+      </form>
     </div>
   );
 }

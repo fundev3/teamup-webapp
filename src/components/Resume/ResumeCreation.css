@@ -1,21 +1,8 @@
 .container-creation-resume{
   display: flex;
-  flex-direction: column;
-  width: 100%;
+  flex-direction: row;
   margin: 60px;
-}
-.body, .header{
-  display: flex;
-  width: 100%;
-}
-.body{
   height: 100%;
-}
-.header{
-  align-items: center;
-}
-.logo{
-  height: 60px;
 }
 .container-left, .container-right{
   display: flex;
@@ -64,4 +51,3 @@ h2{
   display: flex;
   margin: 20px 0px;
 }
-
