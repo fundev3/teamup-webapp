@@ -23,7 +23,8 @@
     "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
     "prepare": "husky install",
     "start": "react-scripts start",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "testHusky": "react-scripts test --watchAll=false --passWithNoTests"
   },
   "eslintConfig": {
     "extends": [
