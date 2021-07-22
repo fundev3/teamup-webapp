@@ -1,5 +1,6 @@
 import { Home } from "./Home.jsx";
 import NavBar from "./NavBar";
+import ProjectForm from "../ProjectForm/ProjectForm";
 import React from "react";
 import ResumeCreation from "../Resume/ResumeCreation.jsx";
 import { Typography } from "@material-ui/core";
@@ -31,7 +32,13 @@ function App() {
             </Typography>
           </Route>
           <Route exact path="/projectlist"></Route>
-          <Route exact path="/projectcreation"></Route>
+          <Route exact path="/projectlist"></Route>
+          <Route
+            className="layout-resume-creation"
+            component={ProjectForm}
+            exact
+            path="/projectcreation"
+          ></Route>
           <Route exact path="/projectdetail/:id"></Route>
           <Route exact path="/resumelist"></Route>
           <Route

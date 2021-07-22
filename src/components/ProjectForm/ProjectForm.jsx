@@ -9,7 +9,9 @@ function ProjectForm() {
     initialValues: {
       contact: "",
       description: "",
+      logo: "",
       name: "",
+      textInvitation: "",
     },
     // --> Waiting for API
     onSubmit: (values) => {
@@ -17,10 +19,13 @@ function ProjectForm() {
     },
     validationSchema: projectFormValidations(),
   });
-  const hasErrorName = !!formik.touched.name && !!formik.errors.name;
   const hasErrorContact = !!formik.touched.contact && !!formik.errors.contact;
   const hasErrorDescription =
     !!formik.touched.description && !!formik.errors.description;
+  const hasErrorLogo = !!formik.touched.logo && !!formik.errors.logo;
+  const hasErrorName = !!formik.touched.name && !!formik.errors.name;
+  const hasErrorTextInvitation =
+    !!formik.touched.textInvitation && !!formik.errors.textInvitation;
 
   return (
     <form
@@ -43,6 +48,21 @@ function ProjectForm() {
           onChange={formik.handleChange}
           type="text"
           value={formik.values.name}
+          variant="outlined"
+        />
+      </div>
+
+      <div className="u-mb-1">
+        <TextField
+          error={hasErrorLogo}
+          helperText={hasErrorLogo ? formik.errors.logo : ""}
+          id="logo"
+          label="Logo"
+          name="logo"
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          type="text"
+          value={formik.values.logo}
           variant="outlined"
         />
       </div>
@@ -74,6 +94,24 @@ function ProjectForm() {
           onChange={formik.handleChange}
           rows={4}
           value={formik.values.description}
+          variant="outlined"
+        />
+      </div>
+
+      <div className="u-mb-1">
+        <TextField
+          error={hasErrorTextInvitation}
+          helperText={
+            hasErrorTextInvitation ? formik.errors.textInvitation : ""
+          }
+          id="textInvitation"
+          label="Text Invitation"
+          multiline
+          name="textInvitation"
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          rows={2}
+          value={formik.values.textInvitation}
           variant="outlined"
         />
       </div>
