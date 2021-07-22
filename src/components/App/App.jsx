@@ -1,9 +1,9 @@
-import ProjectForm from "../ProjectForm/ProjectForm";
+import ResumeList from "../Resume/ResumeList";
 
 import "./App.scss";
 
 function App() {
-  return <ProjectForm />;
+  return <ResumeList />;
 }
 
 export default App;
