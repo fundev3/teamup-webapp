@@ -1,11 +1,14 @@
 import { Home } from "./Home.jsx";
 import NavBar from "./NavBar";
+import React from "react";
+import ResumeCreation from "../Resume/ResumeCreation.jsx";
 import { Typography } from "@material-ui/core";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.scss";
 
 function App() {
   return (
+    // TODO revisit route names
     <Router>
       <NavBar />
       <div className="content">
@@ -27,6 +30,17 @@ function App() {
               Resumes coming soon!
             </Typography>
           </Route>
+          <Route exact path="/projectlist"></Route>
+          <Route exact path="/projectcreation"></Route>
+          <Route exact path="/projectdetail/:id"></Route>
+          <Route exact path="/resumelist"></Route>
+          <Route
+            className="layout-resume-creation"
+            component={ResumeCreation}
+            exact
+            path="/resumecreation"
+          ></Route>
+          <Route exact path="/resumedetail/:id"></Route>
         </Switch>
       </div>
     </Router>
