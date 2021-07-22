@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
-const Project = () => {
+function Details() {
   const { id } = useParams();
   const [project, setProject] = useState([]);
   useEffect(() => {
@@ -18,6 +18,12 @@ const Project = () => {
         `https://jsonplaceholder.typicode.com/users/${id}`
       );
       setProject(res.data);
+      const logo = project.logo;
+      const name = project.name;
+      const creationDateame = project.creationDate;
+      const description = project.description;
+      const textInvitation = project.textInvitation;
+      const contact = project.contact;
     }
     fetchData();
   }, []);
@@ -35,11 +41,11 @@ const Project = () => {
           wrap="nowrap"
         >
           <Grid item xs={2}>
-            <img alt="" height="75" src={project.logo} width="75" />
+            <img alt="" height="75" src={logo} width="75" />
           </Grid>
           <Grid item xs={10}>
             <Typography align="justify" gutterBottom variant="h4">
-              Project: {project.name}
+              Project: {name}
             </Typography>
           </Grid>
         </Grid>
@@ -50,19 +56,19 @@ const Project = () => {
           gutterBottom
           variant="caption"
         >
-          Publish: {project.creationDate}
+          Publish: {creationDate}
         </Typography>
         <Divider variant="middle" />
         <Typography align="justify" color="textSecondary">
-          Description: {project.description}
+          Description: {description}
         </Typography>
         <Divider variant="middle" />
         <Typography align="justify" color="textSecondary">
-          Ref.:{project.textInvitation}
+          Ref.:{textInvitation}
         </Typography>
         <Divider variant="middle" />
         <Typography align="justify" color="primary">
-          Contact Info: {project.contact}
+          Contact Info: {contact}
         </Typography>
         <Typography align="justify" color="textSecondary" variant="subtitle2">
           {id}
@@ -73,5 +79,5 @@ const Project = () => {
       </Container>
     </div>
   );
-};
-export default Project;
+}
+export default Details;
