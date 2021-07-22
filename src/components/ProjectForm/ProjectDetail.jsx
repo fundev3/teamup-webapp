@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+
 const Project = () => {
   const { id } = useParams();
   const [project, setProject] = useState([]);

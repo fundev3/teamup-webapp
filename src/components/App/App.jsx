@@ -9,9 +9,6 @@ function App() {
           <Route path="/project/:id">
             <Project />
           </Route>
-          <Route path="/">
-             <ProjectForm />
-          </Route>
         </Switch>
       </div>
     </Router>
