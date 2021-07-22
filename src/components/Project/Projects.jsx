@@ -42,13 +42,25 @@ function ProjectList() {
         <TableContainer component={Paper}>
           <Table aria-label="simple table" className={classes.table}>
             <TableBody>
-              {projects.map((project) => (
-                <TableRow key={project.id}>
+              {Object.keys(projects).length === 0 ? (
+                <TableRow key="1">
                   <TableCell component="th" scope="row">
-                    <Card {...project} />
+                    <img
+                      alt=""
+                      className="empty-file"
+                      src="https://static.thenounproject.com/png/469473-200.png"
+                    />
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                projects.map((project) => (
+                  <TableRow key={project.id}>
+                    <TableCell component="th" scope="row">
+                      <Card {...project} />
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </TableContainer>

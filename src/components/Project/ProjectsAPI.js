@@ -4,7 +4,7 @@ export default async function getProjects() {
   let handlerError = false;
   try {
     const { data: result } = await axios.get(
-      "https://jsonplaceholder.typicode.com/users"
+      "http://localhost:7071/api/projects"
     );
     return result;
   } catch (error) {
