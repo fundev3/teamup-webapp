@@ -19,7 +19,7 @@ function Details() {
       setProject(response.Project);
     }
     data();
-  }, []);
+  }, [id]);
 
   // Comment Should by remove when the API is complete
   // if (error) return <div>ERROR!!! Project not found</div>;
