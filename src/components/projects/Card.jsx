@@ -1,18 +1,25 @@
-import { CalendarToday, Email } from "@material-ui/icons";
+import { CalendarToday, Person } from "@material-ui/icons";
 import "./Card.scss";
 
 function Card(props) {
-  const { email, id, name } = props;
+  // TODO change properties when the backend is ready
+  const {
+    address: { zipcode },
+    id,
+    name,
+    username,
+  } = props;
+
   return (
     <div className="Card-Container" key={id}>
       <div className="Name">{name}</div>
-      <div className="Field Contact">
-        <Email color="primary" />
-        <label>{email}</label>
+      <div className="Field">
+        <CalendarToday color="primary" />
+        <label>{zipcode}</label>
       </div>
       <div className="Field Creation-date">
-        <CalendarToday color="primary" />
-        <label></label>
+        <Person color="primary" />
+        <label>{username}</label>
       </div>
     </div>
   );

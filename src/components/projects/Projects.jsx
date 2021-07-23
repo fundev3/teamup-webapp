@@ -32,8 +32,6 @@ function ProjectList() {
 
   return (
     <div className="Projects-Container">
-      <div className="Title">PROJECTS</div>
-
       <Button color="primary" variant="outlined">
         New Project
       </Button>
