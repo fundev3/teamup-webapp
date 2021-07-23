@@ -1,4 +1,5 @@
-import axios from "axios";
+import React from "react";
+import useFetch from "./useFetch";
 import { useParams } from "react-router-dom";
 import {
   Button,
@@ -7,27 +8,13 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
 
-function Details() {
+function Details(projectId) {
+  const { project, error } = useFetch(projectId);
   const { id } = useParams();
-  const [project, setProject] = useState([]);
-  useEffect(() => {
-    async function fetchData() {
-      const res = await axios.get(
-        `https://jsonplaceholder.typicode.com/users/${id}`
-      );
-      setProject(res.data);
-    }
-    fetchData();
-  }, []);
-  const name = project.name;
-  const logo = project.logo;
-  const creationDate = project.creationDate;
-  const description = project.description;
-  const textInvitation = project.textInvitation;
   const contact = project.contact;
-  return (
+  if (error) return <div>ERROR!!! Project not found</div>;
+  return data ? (
     <div>
       <Container maxWidth="sm">
         <Grid
@@ -40,11 +27,11 @@ function Details() {
           wrap="nowrap"
         >
           <Grid item xs={2}>
-            <img alt="" height="75" src={logo} width="75" />
+            <img alt="" height="75" src={project.logo} width="75" />
           </Grid>
           <Grid item xs={10}>
             <Typography align="justify" gutterBottom variant="h4">
-              Project: {name}
+              Project: {project.name}
             </Typography>
           </Grid>
         </Grid>
@@ -55,19 +42,19 @@ function Details() {
           gutterBottom
           variant="caption"
         >
-          Publish: {creationDate}
+          Publish: {project.creationDate}
         </Typography>
         <Divider variant="middle" />
         <Typography align="justify" color="textSecondary">
-          Description: {description}
+          Description: {project.description}
         </Typography>
         <Divider variant="middle" />
         <Typography align="justify" color="textSecondary">
-          Ref.:{textInvitation}
+          Ref.:{project.textInvitation}
         </Typography>
         <Divider variant="middle" />
         <Typography align="justify" color="primary">
-          Contact Info: {contact}
+          Contact Info: {contact.name}
         </Typography>
         <Typography align="justify" color="textSecondary" variant="subtitle2">
           {id}
@@ -77,6 +64,8 @@ function Details() {
         </Button>
       </Container>
     </div>
+  ) : (
+    <div>Loading</div>
   );
 }
 export default Details;
