@@ -1,51 +1,52 @@
-.container-creation-resume{
+.container-creation-resume {
   display: flex;
   flex-direction: row;
   margin: 60px;
   height: 100%;
 }
-.container-left, .container-right{
+.container-left,
+.container-right {
   display: flex;
   flex-direction: column;
-  flex:1;
+  flex: 1;
   min-width: 400px;
 }
-.container-left{
+.container-left {
   margin: 40px 0px 0px 60px;
 }
-.container-right{
+.container-right {
   height: 700px;
   margin: 20px 0px 0px 0px;
 }
-h1{
+h1 {
   margin: 0;
 }
-h2{
-  margin: 20px 10px
+h2 {
+  margin: 20px 10px;
 }
-#subtitle{
+#subtitle {
   margin: 0;
   font-weight: 300;
   line-height: 35px;
 }
-.label{
+.label {
   padding: 20px 0px 10px;
   display: flex;
   flex-direction: column;
   width: 400px;
 }
-#custom-input{
+#custom-input {
   width: 400px;
   font-size: 22px;
   margin: 8px 0px;
 }
-#custom-textfield{
+#custom-textfield {
   width: 400px;
   font-size: 22px;
   line-height: 30px;
   margin: 8px 0px;
 }
-.bottom{
+.bottom {
   width: 400px;
   justify-content: flex-end;
   display: flex;

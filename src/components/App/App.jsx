@@ -1,7 +1,8 @@
 import { Home } from "./Home.jsx";
 import NavBar from "./NavBar";
+import Projects from "../projects/Projects";
 import React from "react";
-import ResumeCreation from "../Resume/ResumeCreation.jsx";
+import ResumeCreation from "../resumes/ResumeCreation.jsx";
 import { Typography } from "@material-ui/core";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.scss";
@@ -14,14 +15,7 @@ function App() {
       <div className="content">
         <Switch>
           <Route component={Home} exact path="/"></Route>
-          <Route exact path="/projects">
-            <Typography
-              style={{ color: "#9E9EAA", fontWeight: "700" }}
-              variant="h4"
-            >
-              Projects coming soon!
-            </Typography>
-          </Route>
+          <Route component={Projects} exact path="/projects" />
           <Route exact path="/resumes">
             <Typography
               style={{ color: "#9E9EAA", fontWeight: "700" }}
