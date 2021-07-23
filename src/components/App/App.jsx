@@ -1,3 +1,4 @@
+import Detail from "../projects/Detail";
 import { Home } from "./Home.jsx";
 import NavBar from "./NavBar";
 import Projects from "../projects/Projects";
@@ -26,7 +27,7 @@ function App() {
           </Route>
           <Route exact path="/projectlist"></Route>
           <Route exact path="/projectcreation"></Route>
-          <Route exact path="/projectdetail/:id"></Route>
+          <Route component={Detail} exact path="/projectdetail/:id"></Route>
           <Route exact path="/resumelist"></Route>
           <Route
             className="layout-resume-creation"
