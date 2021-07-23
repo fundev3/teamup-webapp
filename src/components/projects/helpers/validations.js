@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const projectFormValidations = () =>
+export const entry = () =>
   Yup.object({
     contact: Yup.string()
       .email("Invalid email address")

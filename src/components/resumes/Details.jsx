@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import useFetch from "./useFetch";
 import React, { useState } from "react";
-import "./ResumeDetail.css";
+import "./Details.css";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Resume({ resumeId }) {
+function Details({ resumeId }) {
   const classes = useStyles();
   const { data, error } = useFetch(resumeId);
   const [readOnly, setReadOnly] = useState(true);
@@ -130,4 +130,4 @@ function Resume({ resumeId }) {
     <div>Loading</div>
   );
 }
-export default Resume;
+export default Details;
