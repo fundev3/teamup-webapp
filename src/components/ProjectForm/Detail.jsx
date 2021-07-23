@@ -14,7 +14,7 @@ function Details(projectId) {
   const { id } = useParams();
   const contact = project.contact;
   if (error) return <div>ERROR!!! Project not found</div>;
-  return data ? (
+  return project ? (
     <div>
       <Container maxWidth="sm">
         <Grid
