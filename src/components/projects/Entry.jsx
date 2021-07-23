@@ -1,10 +1,10 @@
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { projectFormValidations } from "./ProjectFormValidations";
+import { entry as entryValidations } from "./helpers/validations";
 import { useFormik } from "formik";
-import "./ProjectForm.scss";
+import "./Entry.scss";
 
-function ProjectForm() {
+function Entry() {
   const formik = useFormik({
     initialValues: {
       contact: "",
@@ -15,7 +15,7 @@ function ProjectForm() {
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
-    validationSchema: projectFormValidations(),
+    validationSchema: entryValidations(),
   });
   const hasErrorName = !!formik.touched.name && !!formik.errors.name;
   const hasErrorContact = !!formik.touched.contact && !!formik.errors.contact;
@@ -84,4 +84,4 @@ function ProjectForm() {
     </form>
   );
 }
-export default ProjectForm;
+export default Entry;

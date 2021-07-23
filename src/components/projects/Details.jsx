@@ -13,12 +13,11 @@ function Details() {
   const { id } = useParams();
   const [project, setProject] = useState();
   useEffect(() => {
-    async function data() {
+    async function fetchData() {
       const response = await getProject(id);
-      console.log(response.Project);
       setProject(response.Project);
     }
-    data();
+    fetchData();
   }, [id]);
 
   // Comment Should by remove when the API is complete
