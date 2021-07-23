@@ -1,8 +1,10 @@
+import Detail from "../projects/Detail";
 import { Home } from "./Home.jsx";
 import NavBar from "./NavBar";
 import ProjectForm from "../ProjectForm/ProjectForm";
+import Projects from "../projects/Projects";
 import React from "react";
-import ResumeCreation from "../Resume/ResumeCreation.jsx";
+import ResumeCreation from "../resumes/ResumeCreation.jsx";
 import { Typography } from "@material-ui/core";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.scss";
@@ -15,14 +17,7 @@ function App() {
       <div className="content">
         <Switch>
           <Route component={Home} exact path="/"></Route>
-          <Route exact path="/projects">
-            <Typography
-              style={{ color: "#9E9EAA", fontWeight: "700" }}
-              variant="h4"
-            >
-              Projects coming soon!
-            </Typography>
-          </Route>
+          <Route component={Projects} exact path="/projects" />
           <Route exact path="/resumes">
             <Typography
               style={{ color: "#9E9EAA", fontWeight: "700" }}
@@ -32,14 +27,13 @@ function App() {
             </Typography>
           </Route>
           <Route exact path="/projectlist"></Route>
-          <Route exact path="/projectlist"></Route>
           <Route
             className="layout-resume-creation"
             component={ProjectForm}
             exact
             path="/projectcreation"
           ></Route>
-          <Route exact path="/projectdetail/:id"></Route>
+          <Route component={Detail} exact path="/projectdetail/:id"></Route>
           <Route exact path="/resumelist"></Route>
           <Route
             className="layout-resume-creation"

@@ -1,0 +1,16 @@
+.Card-Container {
+  font-family: Sans-serif;
+}
+.Field {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+.Field label {
+  margin-left: 15px;
+}
+.Name {
+  color: rgba(0, 71, 129, 0.938);
+  font-size: large;
+  font-weight: bold;
+}
