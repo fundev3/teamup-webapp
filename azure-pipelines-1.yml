@@ -23,6 +23,18 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
+    # - script: npm run build-prod
+    #   displayName: 'Build React webApp'
+
+    # - task: ArchiveFiles@2
+    #   displayName: 'Archive files'
+    #   inputs:
+    #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build'
+    #     includeRootFolder: false
+    #     archiveType: zip
+    #     archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    #     replaceExistingArchive: true
+
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
@@ -31,6 +43,7 @@ stages:
         archiveType: zip
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         replaceExistingArchive: true
+
 
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
@@ -49,17 +62,12 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: AzureRmWebAppDeployment@4
-            displayName: 'Azure App Service Deploy: team-up-dev'
+
+          - task: AzureWebApp@1
             inputs:
-              ConnectionType: 'AzureRM'
               azureSubscription: 'devlevel3-dev (a797242d-ce60-41aa-98ca-2e22d5221cfe)'
               appType: 'webAppLinux'
-              WebAppName: 'team-up-dev'
-              packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
-              RuntimeStack: 'NODE|14-lts'
-              StartupCommand: 'npm run serve'
-              ScriptType: 'Inline Script'
-              InlineScript: |
-                npm install -g serve
-                npm run build-prod
+              appName: 'team-up-dev'
+              package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+              runtimeStack: 'NODE|14-lts'
+              startUpCommand: 'npm install && npm run start'
