@@ -67,4 +67,4 @@ stages:
             inputs:
               script: |
                 response=$(curl --write-out '%{http_code}' --silent --output /dev/null http://app-tuweb-$(ENVIRONMENTNAME)-bra.azurewebsites.net)
-                echo 'HTTP code: $response'
+                echo HTTP code: $response
