@@ -129,4 +129,4 @@ yarn-error.log*
 .idea
 
 #Visual Studio Code
-.vscode
+.vscode/settings.json
