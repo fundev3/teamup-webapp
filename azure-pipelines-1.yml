@@ -63,6 +63,8 @@ stages:
               startUpCommand: 'npm install -g serve && serve -n -l 8080'
 
           - task: CmdLine@2
-            displayName: 'Boot-up webapp'
+            displayName: 'Request WebApp'
             inputs:
-              script: 'curl --write-out ''%{http_code}'' --silent --output /dev/null http://app-tuweb-$(ENVIRONMENTNAME)-bra.azurewebsites.net'
+              script: |
+                response=$(curl --write-out '%{http_code}' --silent --output /dev/null http://app-tuweb-$(ENVIRONMENTNAME)-bra.azurewebsites.net)
+                echo 'HTTP code: $response'
