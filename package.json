@@ -18,15 +18,16 @@
     "yup": "^0.32.9"
   },
   "scripts": {
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "format": "prettier --write .",
-    "formatHusky": "prettier --write",
-    "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
-    "prepare": "husky install",
-    "start": "react-scripts start",
     "test": "react-scripts test",
-    "testHusky": "react-scripts test --watchAll=false --passWithNoTests"
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
+    "start-clean": "npm ci && npm run start",
+    "build-prod": "npm ci && npm run format && npm run build",
+    "serve": "serve build -n",
+    "serve-clean": "npm run build-prod && npm run serve"
   },
   "eslintConfig": {
     "extends": [
@@ -59,7 +60,7 @@
   },
   "lint-staged": {
     "*": [
-      "npm run formatHusky"
+      "npm run format"
     ]
   }
 }
