@@ -23,17 +23,27 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
-    - script: npm run build-prod
-      displayName: 'Build React webApp'
+    # - script: npm run build-prod
+    #   displayName: 'Build React webApp'
+
+    # - task: ArchiveFiles@2
+    #   displayName: 'Archive files'
+    #   inputs:
+    #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build'
+    #     includeRootFolder: false
+    #     archiveType: zip
+    #     archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    #     replaceExistingArchive: true
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
         includeRootFolder: false
         archiveType: zip
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         replaceExistingArchive: true
+
 
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
@@ -52,6 +62,7 @@ stages:
       runOnce:
         deploy:
           steps:
+
           - task: AzureWebApp@1
             inputs:
               azureSubscription: 'devlevel3-dev (a797242d-ce60-41aa-98ca-2e22d5221cfe)'
@@ -59,4 +70,4 @@ stages:
               appName: 'team-up-dev'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               runtimeStack: 'NODE|14-lts'
-              startUpCommand: 'npm run start'
+              startUpCommand: 'npm install && npm run start'
