@@ -58,8 +58,8 @@ stages:
               WebAppName: 'team-up-dev'
               packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               RuntimeStack: 'NODE|14-lts'
-              StartupCommand: 'npm run serve'
+              StartupCommand: 'npm run start'
               ScriptType: 'Inline Script'
               InlineScript: |
-                npm install -g serve
-                npm run build-prod
+                npm install --production
+                npm run build --if-present
