@@ -30,6 +30,17 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
+    - script: npm ci
+      displayName: 'Install Dependencies'
+
+    - script: npm run lint:fix
+      displayName: 'Linting'
+
+    - script: npm test -- --ci --watchAll=false --passWithNoTests
+      displayName: 'Running Unit Test'
+
+    - script: npm run build
+      displayName: 'Build React webApp'
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
