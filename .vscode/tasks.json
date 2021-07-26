@@ -1,0 +1,46 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "install",
+			"problemMatcher": [],
+			"label": "npm: install",
+			"detail": "install dependencies from package"
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"options": {"env": {"BROWSER": "none"}},
+			"label": "npm: start",
+			"detail": "start development server",
+			// "dependsOn": "npm: install",
+			"isBackground": true,
+			"problemMatcher": {
+				"owner": "custom",
+				"pattern": {
+					"regexp": "^$"
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "Compiling...",
+					"endsPattern": "Compiled .*"
+				}
+			}
+		},
+		{
+			"type": "shell",
+			"label": "shell: stop server",
+			"isBackground": true,
+			"command": "pkill -f 'start.js'",
+			"presentation": {
+				"echo": true,
+				"reveal": "never",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			}
+		}
+	]
+}
