@@ -10,3 +10,4 @@ coverage
 .github
 .husky
 .vscode
+azure-pipelines.yml
