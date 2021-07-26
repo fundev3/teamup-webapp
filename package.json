@@ -24,6 +24,8 @@
     "eject": "react-scripts eject",
     "test": "react-scripts test",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "format-husky": "prettier --write",
+    "test-husky": "react-scripts test --watchAll=false --passWithNoTests",
     "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
     "start-clean": "npm ci && npm run start",
     "build-prod": "npm ci && npm run format && npm run build",
@@ -61,7 +63,7 @@
   },
   "lint-staged": {
     "*": [
-      "npm run format"
+      "npm run format-husky"
     ]
   }
 }
