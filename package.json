@@ -23,8 +23,10 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "test": "react-scripts test",
-    "format": "prettier --write \"src/**/*.{js,jsx}\"",
-    "format-husky": "prettier --write",
+    "pre-commit": "npx lint-staged",
+    "pre-push": "npm run lint:fix && npm run test-husky",
+    "post-checkout": "npm install",
+    "format": "prettier --write .",
     "test-husky": "react-scripts test --watchAll=false --passWithNoTests",
     "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
     "start-clean": "npm ci && npm run start",
@@ -63,7 +65,7 @@
   },
   "lint-staged": {
     "*": [
-      "npm run format-husky"
+      "npm run format"
     ]
   }
 }
