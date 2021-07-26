@@ -1,0 +1,22 @@
+.Title {
+    color: rgba(83, 14, 14, 0.938);  
+    font-size: large;
+    font-weight: bolder;
+    text-align: center; 
+  }
+  .Resume-Container {
+    width: 120%;
+    margin-top: 25px;
+    margin-bottom: 22px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .Resume-List {
+    margin-top: 15px;
+  }
+  .Button{
+    margin-right: 30px;
+    margin: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+  }

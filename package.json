@@ -45,6 +45,11 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
+<<<<<<< Updated upstream
+=======
+    "husky": "^6.0.0",
+    "lint-staged": "11.0.0",
+>>>>>>> Stashed changes
     "node-sass": "^6.0.1",
     "prettier": "^2.3.2"
   }
