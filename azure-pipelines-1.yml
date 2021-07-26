@@ -50,8 +50,12 @@ stages:
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         replaceExistingArchive: true
 
-    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-      artifact: drop
+    - task: PublishBuildArtifacts@1
+      displayName: 'Save Artifact'
+      inputs:
+        PathtoPublish: '$(Agent.BuildDirectory)/s/build/$(Build.BuildId).zip'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
 
 - stage: Deploy
   displayName: Deploy stage
@@ -63,20 +67,21 @@ stages:
     environment: $(environmentName)
     pool:
       vmImage: $(vmImageName)
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: AzureRmWebAppDeployment@4
-            displayName: 'Azure App Service Deploy: team-up-dev'
-            inputs:
-              azureSubscription: $(azureSubscription)
-              appType: webAppLinux
-              WebAppName: $(webAppName)
-              packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
-              RuntimeStack: 'NODE|10.10'
-              StartupCommand: 'npm run start'
-              ScriptType: 'Inline Script'
-              InlineScript: |
-                npm install -g serve
-                npm run build-prod
+      steps:
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          buildType: 'current'
+          targetPath: '$(Pipeline.Workspace)'
+      - task: AzureRmWebAppDeployment@4
+        displayName: 'Azure App Service Deploy: team-up-dev'
+        inputs:
+          azureSubscription: $(azureSubscription)
+          appType: webAppLinux
+          WebAppName: $(webAppName)
+          packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+          RuntimeStack: 'NODE|10.10'
+          StartupCommand: 'npm run start'
+          ScriptType: 'Inline Script'
+          InlineScript: |
+            npm install -g serve
+            npm run build-prod
