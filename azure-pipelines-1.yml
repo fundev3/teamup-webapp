@@ -86,10 +86,10 @@ stages:
           # startUpCommand: 'npm install -g serve && npm run build-prod'
           startUpCommand: 'npm install -g serve && npm run serve-clean'
 
-      - task: CmdLine@2
-        displayName: 'Request WebApp'
-        inputs:
-          script: |
-            response=$(curl --write-out '%{http_code}' --silent --output /dev/null https://app-tuweb-dev2-bra.azurewebsites.net)
-            echo HTTP code: $response
+      # - task: CmdLine@2
+      #   displayName: 'Request WebApp'
+      #   inputs:
+      #     script: |
+      #       response=$(curl --write-out '%{http_code}' --silent --output /dev/null https://app-tuweb-dev2-bra.azurewebsites.net)
+      #       echo HTTP code: $response
           
