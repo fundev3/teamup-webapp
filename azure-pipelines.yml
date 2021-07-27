@@ -26,7 +26,7 @@ stages:
 
     steps:
       - script: npm ci
-        displayName: 'Install Dependencies'
+        displayName: 'Installing Dependencies'
 
       - script: npm run lint:fix
         displayName: 'Linting'
@@ -47,6 +47,7 @@ stages:
           replaceExistingArchive: true
 
       - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        displayName: Publishing
         artifact: drop
 
 - stage: Deploy
@@ -64,6 +65,7 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
+            displayName: Deploying
             inputs:
               appName: 'team-up-dev' 
               azureSubscription: 'devlevel3-dev (a797242d-ce60-41aa-98ca-2e22d5221cfe)'
@@ -73,7 +75,7 @@ stages:
               startUpCommand: 'npm install -g serve && serve -n -l 8080'
     
           - task: CmdLine@2
-            displayName: 'Request WebApp'
+            displayName: 'Request to WebApp'
             inputs:
               script: |
                 response=$(curl --write-out '%{http_code}' --silent --output /dev/null http://team-up-dev.azurewebsites.net)
