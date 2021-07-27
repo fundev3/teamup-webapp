@@ -5,14 +5,13 @@ trigger:
       - develop
 
 pr:
+  drafts: false
   branches:
     include:
       - main
       - develop
-  drafts: false
 
 variables:
-  environmentName: 'team-up-dev'
   vmImageName: 'ubuntu-latest'
 
 stages:
@@ -39,6 +38,7 @@ stages:
 
       - task: ArchiveFiles@2
         displayName: 'Zipping files'
+        condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
         inputs:
           rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build'
           includeRootFolder: false
@@ -48,16 +48,17 @@ stages:
 
       - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         displayName: Publishing
+        condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
         artifact: drop
 
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
-  condition: succeeded()
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   jobs:
   - deployment: Deploy
     displayName: Deploying
-    environment: $(environmentName)
+    environment: $(envName)
     pool:
       vmImage: $(vmImageName)
     strategy:
@@ -67,7 +68,7 @@ stages:
           - task: AzureWebApp@1
             displayName: Deploying
             inputs:
-              appName: 'team-up-dev' 
+              appName: 'app-tuweb-$(envName)-bra' 
               azureSubscription: 'devlevel3-dev (a797242d-ce60-41aa-98ca-2e22d5221cfe)'
               appType: 'webAppLinux'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
@@ -78,5 +79,5 @@ stages:
             displayName: 'Request to WebApp'
             inputs:
               script: |
-                response=$(curl --write-out '%{http_code}' --silent --output /dev/null http://team-up-dev.azurewebsites.net)
+                response=$(curl --write-out '%{http_code}' --silent --output /dev/null http://app-tuweb-$(envName)-bra.azurewebsites.net)
                 echo HTTP code: $response
