@@ -12,7 +12,7 @@ variables:
   azureSubscription: '560b6aa3-7b5b-43e1-bdfa-ff463fb89d92'
 
   # Web app name
-  webAppName: 'team-up-dev'
+  webAppName: 'app-tuweb-dev2-bra'
 
   # Environment name
   environmentName: 'team-up-dev'
@@ -71,17 +71,23 @@ stages:
       - task: DownloadPipelineArtifact@2
         inputs:
           buildType: 'current'
-          targetPath: '$(Pipeline.Workspace)'
-      - task: AzureRmWebAppDeployment@4
-        displayName: 'Azure App Service Deploy: team-up-dev'
+          itemPattern: 'drop/$(Build.BuildId).zip'
+          targetPath: '$(System.ArtifactsDirectory)'
+
+      - task:  AzureWebApp@1
+        displayName: 'Azure App Service Deploy team-up-dev'
         inputs:
           azureSubscription: $(azureSubscription)
           appType: webAppLinux
           WebAppName: $(webAppName)
-          packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
-          RuntimeStack: 'NODE|10.10'
-          StartupCommand: 'npm run start'
-          ScriptType: 'Inline Script'
-          InlineScript: |
-            npm install -g serve
-            npm run build-prod
+          package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+          RuntimeStack: 'NODE|14-lts'
+          startUpCommand: 'npm install -g serve && serve -n -l 8080'
+
+      - task: CmdLine@2
+        displayName: 'Request WebApp'
+        inputs:
+          script: |
+            response=$(curl --write-out '%{http_code}' --silent --output /dev/null https://app-tuweb-dev2-bra.azurewebsites.net)
+            echo HTTP code: $response
+          
