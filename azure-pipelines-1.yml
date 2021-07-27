@@ -83,7 +83,8 @@ stages:
           WebAppName: 'team-up-dev'
           package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
           RuntimeStack: 'NODE|14-lts'
-          startUpCommand: 'npm install -g serve && npm run build-prod'
+          # startUpCommand: 'npm install -g serve && npm run build-prod'
+          startUpCommand: 'npm install -g serve && npm run serve-clean'
 
       - task: CmdLine@2
         displayName: 'Request WebApp'
