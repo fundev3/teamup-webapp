@@ -9,7 +9,7 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '560b6aa3-7b5b-43e1-bdfa-ff463fb89d92'
+  azureSubscription: 'devlevel3-dev (a797242d-ce60-41aa-98ca-2e22d5221cfe)'
 
   # Web app name
   webAppName: 'app-tuweb-dev2-bra'
