@@ -33,7 +33,7 @@ stages:
       - script: npm test -- --ci --watchAll=false --passWithNoTests
         displayName: 'Running Unit Test'
 
-      - script: npm run build-prod
+      - script: npm run build
         displayName: 'Building React webApp'
 
       - task: ArchiveFiles@2
