@@ -12,13 +12,13 @@ variables:
   azureSubscription: 'devlevel3-dev (a797242d-ce60-41aa-98ca-2e22d5221cfe)'
 
   # Web app name
-  webAppName: 'app-tuweb-dev2-bra'
+  # webAppName: 'app-tuweb-dev2-bra'
 
   # Environment name
-  environmentName: 'team-up-dev'
+  # environmentName: 'team-up-dev'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  # vmImageName: 'ubuntu-latest'
 
 stages:
 - stage: Build
@@ -27,7 +27,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: $(vmImageName)
+      vmImage: 'ubuntu-latest'
 
     steps:
     - script: npm ci
@@ -64,9 +64,9 @@ stages:
   jobs:
   - deployment: Deploy
     displayName: Deploy
-    environment: $(environmentName)
+    environment: 'app-tuweb-dev2-bra'
     pool:
-      vmImage: $(vmImageName)
+      vmImage: 'ubuntu-latest'
       steps:
       - task: DownloadPipelineArtifact@2
         displayName: 'Dowload artifact'
@@ -80,7 +80,7 @@ stages:
         inputs:
           azureSubscription: 'devlevel3-dev (a797242d-ce60-41aa-98ca-2e22d5221cfe)'
           appType: webAppLinux
-          WebAppName: $(webAppName)
+          WebAppName: 'app-tuweb-dev2-bra'
           package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
           RuntimeStack: 'NODE|14-lts'
           startUpCommand: 'npm install -g serve && npm run build-prod'
