@@ -17,7 +17,7 @@ variables:
 
 stages:
 - stage: Build
-  displayName: Buil
+  displayName: Build stage
   jobs:
   - job: Build
     displayName: Building
@@ -40,7 +40,7 @@ stages:
       - task: ArchiveFiles@2
         displayName: 'Zipping files'
         inputs:
-          rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build'
           includeRootFolder: false
           archiveType: zip
           archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
@@ -55,7 +55,7 @@ stages:
   condition: succeeded()
   jobs:
   - deployment: Deploy
-    displayName: Deploy
+    displayName: Deploying
     environment: $(environmentName)
     pool:
       vmImage: $(vmImageName)
