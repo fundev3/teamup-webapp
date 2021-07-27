@@ -71,3 +71,10 @@ stages:
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               runtimeStack: 'NODE|14-lts'
               startUpCommand: 'npm install -g serve && serve -n -l 8080'
+    
+          - task: CmdLine@2
+            displayName: 'Request WebApp'
+            inputs:
+              script: |
+                response=$(curl --write-out '%{http_code}' --silent --output /dev/null http://team-up-dev.azurewebsites.net)
+                echo HTTP code: $response
