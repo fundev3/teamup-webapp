@@ -69,13 +69,14 @@ stages:
       vmImage: $(vmImageName)
       steps:
       - task: DownloadPipelineArtifact@2
+        displayName: 'Dowload artifact'
         inputs:
           buildType: 'current'
           itemPattern: 'drop/$(Build.BuildId).zip'
           targetPath: '$(System.ArtifactsDirectory)'
 
       - task:  AzureWebApp@1
-        displayName: 'Azure App Service Deploy team-up-dev'
+        displayName: 'Azure App Service'
         inputs:
           azureSubscription: $(azureSubscription)
           appType: webAppLinux
