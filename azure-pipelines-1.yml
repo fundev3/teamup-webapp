@@ -64,7 +64,7 @@ stages:
   jobs:
   - deployment: Deploy
     displayName: Deploy
-    environment: 'app-tuweb-dev2-bra'
+    environment: 'team-up-dev'
     pool:
       vmImage: 'ubuntu-latest'
       steps:
@@ -80,7 +80,7 @@ stages:
         inputs:
           azureSubscription: 'devlevel3-dev (a797242d-ce60-41aa-98ca-2e22d5221cfe)'
           appType: webAppLinux
-          WebAppName: 'app-tuweb-dev2-bra'
+          WebAppName: 'team-up-dev'
           package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
           RuntimeStack: 'NODE|14-lts'
           startUpCommand: 'npm install -g serve && npm run build-prod'
