@@ -44,7 +44,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/a'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
         includeRootFolder: false
         archiveType: zip
         archiveFile: $(Build.ArtifactStagingDirectory)/s/$(Build.BuildId).zip
@@ -53,7 +53,7 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: 'Save Artifact'
       inputs:
-        PathtoPublish: '$(Agent.BuildDirectory)/s/build/$(Build.BuildId).zip'
+        PathtoPublish: '$(Agent.BuildDirectory)/../s/build/$(Build.BuildId).zip'
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
