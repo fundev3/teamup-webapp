@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Box.css";
 
 function Box(props) {
-  const { id, name, username } = props;
+  const { address, email, id, name } = props;
   return (
     <>
       <div className="resume-picture">
@@ -15,15 +15,21 @@ function Box(props) {
       <div className="resume-information">
         <div className="Name">{name}</div>
         <div className="Date">
-          <label>{username}</label>
+          {
+            // Last Update Date - Delete commets after integreate with API
+          }
+          <label>{address.zipcode}</label>
         </div>
+        {
+          // email - Delete commets after integreate with API
+        }
         <div className="Contact">
-          <label>{username}</label>
+          <label>{email}</label>
         </div>
       </div>
       <div className="resume-button">
         <Link to={`/resumes/${id}`}>
-          <Button color="primary" variant="contained">
+          <Button color="primary" variant="outlined">
             View Detail
           </Button>
         </Link>

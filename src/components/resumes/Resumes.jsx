@@ -4,7 +4,7 @@ import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import getResumes from "./ResumesAPI.js";
 import React, { useEffect, useState } from "react";
-import "./ResumeList.css";
+import "./Resumes.css";
 
 function ResumeList() {
   const [resumes, setResumes] = useState([]);
@@ -20,7 +20,7 @@ function ResumeList() {
   return (
     <Container className="Resumes-Container">
       <Link to="/resumes/entry">
-        <Button color="primary" variant="outlined">
+        <Button color="secondary" variant="contained">
           New Resume
         </Button>
       </Link>

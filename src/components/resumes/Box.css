@@ -5,9 +5,22 @@
   margin: 12px;
 }
 .resume-picture {
-  padding-left: 30px;
+  padding-left: 80px;
+  padding-right: 8px;
 }
 .resume-picture img {
   width: 100px;
   height: 100px;
+}
+.resume-information {
+  max-width: 300px;
+  width: 300px;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+.resume-button {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  padding-right: 20%;
 }

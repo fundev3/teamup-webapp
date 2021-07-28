@@ -24,7 +24,7 @@ export default async function getResumes() {
   let handlerError = false;
   try {
     const { data: result } = await axios.get(
-      "http://localhost:7071/api/v1/resumes"
+      "https://jsonplaceholder.typicode.com/users"
     );
     return result;
   } catch (error) {
