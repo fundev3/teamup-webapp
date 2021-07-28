@@ -1,15 +1,36 @@
 import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import { entry as entryValidations } from "./helpers/validations";
 import { useFormik } from "formik";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 import "./Entry.scss";
 
+const dummyMemberList = [
+  { idResume: 1, name: "Pedro" },
+  { idResume: 2, name: "Rodrigo" },
+  { idResume: 3, name: "Lilian" },
+  { idResume: 4, name: "Paulo" },
+];
+
 function Entry() {
+  const { id } = useParams();
+  console.log("ID --> ", id);
   const formik = useFormik({
     initialValues: {
-      contact: "",
+      contact: "Jose Ecos",
       description: "",
+      logo: "",
       name: "",
+      textInvitation: "",
     },
     // --> Waiting for API
     onSubmit: (values) => {
@@ -17,10 +38,21 @@ function Entry() {
     },
     validationSchema: entryValidations(),
   });
-  const hasErrorName = !!formik.touched.name && !!formik.errors.name;
-  const hasErrorContact = !!formik.touched.contact && !!formik.errors.contact;
   const hasErrorDescription =
     !!formik.touched.description && !!formik.errors.description;
+  const hasErrorName = !!formik.touched.name && !!formik.errors.name;
+  const hasErrorLogo = !!formik.touched.logo && !!formik.errors.logo;
+  const hasErrorTextInvitation =
+    !!formik.touched.textInvitation && !!formik.errors.textInvitation;
+
+  const handleChange = (event) => {
+    console.log("You are selected ", event.target.value);
+    setMember(event.target.value);
+    setMemberList([...memberList, event.target.value]);
+  };
+
+  const [member, setMember] = useState("");
+  const [memberList, setMemberList] = useState([]);
 
   return (
     <form
@@ -29,7 +61,9 @@ function Entry() {
       noValidate
       onSubmit={formik.handleSubmit}
     >
-      <h1 className="container-form__title">Create Project</h1>
+      <h1 className="container-form__title">
+        {id > 1 ? "Create Project" : "Update Project"}
+      </h1>
       <p>Make your project know and hire the best resumes for it.</p>
 
       <div className="u-mb-1">
@@ -49,13 +83,27 @@ function Entry() {
 
       <div className="u-mb-1">
         <TextField
-          error={hasErrorContact}
-          helperText={hasErrorContact ? formik.errors.contact : ""}
+          error={hasErrorLogo}
+          helperText={hasErrorLogo ? formik.errors.logo : ""}
+          id="logo"
+          name="logo"
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          type="file"
+          value={formik.values.logo}
+          variant="outlined"
+        />
+      </div>
+
+      <div className="u-mb-1">
+        <TextField
+          InputProps={{
+            readOnly: true,
+          }}
+          helperText="This is the owner contact"
           id="contact"
           label="Contact"
           name="contact"
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
           type="email"
           value={formik.values.contact}
           variant="outlined"
@@ -76,6 +124,61 @@ function Entry() {
           value={formik.values.description}
           variant="outlined"
         />
+      </div>
+
+      <div className="u-mb-1">
+        <TextField
+          error={hasErrorTextInvitation}
+          helperText={
+            hasErrorTextInvitation ? formik.errors.textInvitation : ""
+          }
+          id="textInvitation"
+          label="Text invitation"
+          multiline
+          name="textInvitation"
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          rows={2}
+          value={formik.values.textInvitation}
+          variant="outlined"
+        />
+      </div>
+
+      <div className="u-mb-1">
+        <TextField
+          helperText="Select a list of members"
+          id="member"
+          label="Member"
+          name="member"
+          onChange={handleChange}
+          select
+          value={member}
+          variant="outlined"
+        >
+          {dummyMemberList.map((option) => (
+            <MenuItem key={option.name} value={option.name}>
+              {option.name}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
+
+      <div className="u-mb-1">
+        <Typography variant="h6">Your Member List</Typography>
+        <div>
+          <List dense={true}>
+            {memberList.map((member) => (
+              <ListItem key={member}>
+                <ListItemText primary={member} secondary="Secondary text" />
+                <ListItemSecondaryAction>
+                  <IconButton aria-label="delete" edge="end">
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
+          </List>
+        </div>
       </div>
 
       <Button color="primary" type="submit" variant="contained">
