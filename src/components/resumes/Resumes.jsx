@@ -20,7 +20,7 @@ function ResumeList() {
   return (
     <Container className="Resumes-Container">
       <Link to="/resumes/entry">
-        <Button color="secondary" variant="contained">
+        <Button color="primary" variant="contained">
           New Resume
         </Button>
       </Link>
