@@ -21,10 +21,9 @@ export default async function getProjects() {
 
 export async function getProject(id) {
   let handlerError = false;
+  const url = process.env.REACT_APP_PROJECTS_URL;
   try {
-    const { data: result } = await axios.get(
-      `https://fa-tuapi-projects-dev-bra.azurewebsites.net/api/v1/projects/${id}`
-    );
+    const { data: result } = await axios.get(`${url}/${id}`);
     return result;
   } catch (error) {
     if (error.response) {

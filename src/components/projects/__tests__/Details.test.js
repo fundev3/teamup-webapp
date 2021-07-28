@@ -31,7 +31,7 @@ const mockData = {
 
 const mockId = "5a7939fd-59de-44bd-a092-f5d8434584de";
 
-const url = `https://fa-tuapi-projects-dev-bra.azurewebsites.net/api/v1/projects/${mockId}`;
+const url = `${process.env.REACT_APP_PROJECTS_URL}/${mockId}`;
 
 test("should return successfully data from an API", async () => {
   axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
