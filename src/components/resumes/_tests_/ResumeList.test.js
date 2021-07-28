@@ -1,7 +1,9 @@
 import axios from "axios";
-import "@testing-library/jest-dom";
 import getResumes from "../ResumesAPI.js";
+import "@testing-library/jest-dom";
 jest.mock("axios");
+
+const API = "http://localhost:7071/api/v1/resumes";
 
 const mockData = {
   data: [
@@ -48,7 +50,6 @@ const mockData = {
         lastName: "Quintanilla",
         picture: "?",
       },
-      summary: "Paola's summary",
       skills: [
         {
           id: "184bf2b8-abc1-47da-b383-d0e05ca57d4d",
@@ -59,12 +60,11 @@ const mockData = {
           nameSkill: "API",
         },
       ],
+      summary: "Paola's summary",
       title: "My Custom Title",
     },
   ],
 };
-
-const API = "http://localhost:7071/api/v1/resumes";
 
 test("should return a resume list", async () => {
   axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
