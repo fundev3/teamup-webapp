@@ -6,7 +6,7 @@ import Projects from "../projects/Projects";
 import React from "react";
 import ResumeDetails from "../resumes/Details";
 import ResumeEntry from "../resumes/Entry";
-import resumes from "../resumes/ResumeList/ResumeList";
+import resumes from "../resumes/ResumeList";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.scss";
 

@@ -2,7 +2,7 @@ import Box from "./Box";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
-import getResumes from "./ResumeListAPI.js";
+import getResumes from "./ResumesAPI.js";
 import React, { useEffect, useState } from "react";
 import "./ResumeList.css";
 
