@@ -19,3 +19,15 @@ export async function postResume(resume) {
     return { ok: false };
   }
 }
+
+export default async function getResumes() {
+  try {
+    const { data: result } = await axios.get(
+      process.env.REACT_APP_LOCAL_URL_RESUME
+    );
+    return result;
+  } catch (err) {
+    console.log("Couldn't get resumes, please try again", err.response);
+    return { ok: false };
+  }
+}
