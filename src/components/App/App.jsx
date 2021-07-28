@@ -6,7 +6,7 @@ import Projects from "../projects/Projects";
 import React from "react";
 import ResumeDetails from "../resumes/Details";
 import ResumeEntry from "../resumes/Entry";
-import { Typography } from "@material-ui/core";
+import resumes from "../resumes/ResumeList/ResumeList";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.scss";
 
@@ -20,14 +20,7 @@ function App() {
           <Route component={Projects} exact path="/projects" />
           <Route component={ProjectEntry} exact path="/projects/entry" />
           <Route component={ProjectDetails} exact path="/projects/:id" />
-          <Route exact path="/resumes">
-            <Typography
-              style={{ color: "#9E9EAA", fontWeight: "700" }}
-              variant="h4"
-            >
-              Resumes coming soon!
-            </Typography>
-          </Route>
+          <Route component={resumes} exact path="/resumes" />
           <Route
             className="layout-resume-creation"
             component={ResumeEntry}

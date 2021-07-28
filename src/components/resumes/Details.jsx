@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import useFetch from "./useFetch";
+import { Link, useParams } from "react-router-dom";
 import React, { useState } from "react";
 import "./Details.css";
 
@@ -19,9 +20,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Details({ resumeId }) {
+function Details() {
+  const { id } = useParams();
+  const url = "https://jsonplaceholder.typicode.com/users/" + id;
+
   const classes = useStyles();
-  const { data, error } = useFetch(resumeId);
+  const { data, error } = useFetch(url);
   const [readOnly, setReadOnly] = useState(true);
   const [showEdit, setShowEdit] = useState("Edit");
 
@@ -115,15 +119,11 @@ function Details({ resumeId }) {
         <Button color="primary" onClick={edit} variant="contained">
           {showEdit}
         </Button>
-        <Button
-          color="primary"
-          onClick={() => {
-            alert("Back");
-          }}
-          variant="contained"
-        >
-          Back
-        </Button>
+        <Link to="/resumes">
+          <Button color="primary" variant="contained">
+            Back
+          </Button>
+        </Link>
       </Grid>
     </Grid>
   ) : (

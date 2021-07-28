@@ -1,0 +1,22 @@
+.Resumes-Container {
+  margin-right: auto;
+  margin-left: auto;
+  height: 100%;
+  width: 90%;
+  padding-top: 2%;
+}
+.Resumes-List {
+  padding-bottom: 3%;
+}
+.Resume-Box {
+  background-color: #ffffff;
+  padding-left: 100px;
+  padding-right: 100px;
+  margin-top: 20px;
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  vertical-align: middle;
+  padding: 50px;
+}
