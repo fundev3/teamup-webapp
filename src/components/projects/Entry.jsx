@@ -82,6 +82,7 @@ function Entry() {
 
       <div className="u-mb-1">
         <TextField
+          data-testid="input-field"
           error={hasErrorName}
           helperText={hasErrorName ? formik.errors.name : ""}
           id="name"
@@ -97,6 +98,7 @@ function Entry() {
 
       <div className="u-mb-1">
         <TextField
+          data-testid="input-field"
           error={hasErrorLogo}
           helperText={hasErrorLogo ? formik.errors.logo : ""}
           id="logo"
@@ -114,6 +116,7 @@ function Entry() {
           InputProps={{
             readOnly: true,
           }}
+          data-testid="input-field"
           helperText="This is the owner contact"
           id="contact"
           label="Contact"
@@ -126,6 +129,7 @@ function Entry() {
 
       <div className="u-mb-1">
         <TextField
+          data-testid="input-field"
           error={hasErrorDescription}
           helperText={hasErrorDescription ? formik.errors.description : ""}
           id="description"
@@ -142,6 +146,7 @@ function Entry() {
 
       <div className="u-mb-1">
         <TextField
+          data-testid="input-field"
           error={hasErrorTextInvitation}
           helperText={
             hasErrorTextInvitation ? formik.errors.textInvitation : ""
@@ -160,6 +165,7 @@ function Entry() {
 
       <div className="u-mb-1">
         <TextField
+          data-testid="input-field"
           helperText="Select a list of members"
           id="member"
           label="Member"
@@ -206,8 +212,13 @@ function Entry() {
         </div>
       </div>
 
-      <Button color="primary" type="submit" variant="contained">
-        Create
+      <Button
+        color="primary"
+        data-testid="btn-form"
+        type="submit"
+        variant="contained"
+      >
+        {idProject ? "Update" : "Create"}
       </Button>
     </form>
   );
