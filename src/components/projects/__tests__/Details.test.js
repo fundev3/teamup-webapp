@@ -1,8 +1,8 @@
 import Details from "../Details";
 import axios from "axios";
 import { getProject } from "../ProjectsAPI";
-import { render } from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 jest.mock("axios");
@@ -39,7 +39,7 @@ test("should return successfully data from an API", async () => {
   await expect(getProject(mockId)).resolves.toEqual(mockData.data);
 });
 
-test("should return erroneously data from API", async () => {
+test("Should handle API error", async () => {
   const handlerError = true;
   axios.get.mockImplementationOnce(() => Promise.reject(new Error("Fail")));
 
@@ -52,7 +52,7 @@ test("should return erroneously data from API", async () => {
   window.alert = jsdomAlert;
 });
 
-test("should return Details Component", () => {
+test("Should render Details component", async () => {
   axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
 
   render(
@@ -62,6 +62,7 @@ test("should return Details Component", () => {
       </Route>
     </MemoryRouter>
   );
-
+  const projectName = await screen.findByText("Project: TeamUp");
+  expect(projectName).toBeInTheDocument();
   expect(axios.get).toHaveBeenCalledWith(url);
 });
