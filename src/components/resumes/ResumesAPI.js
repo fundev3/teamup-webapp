@@ -20,7 +20,7 @@ export async function postResume(resume) {
   }
 }
 
-export default async function getResumes() {
+export async function getResumes() {
   let handlerError = false;
   try {
     const { data: result } = await axios.get(
