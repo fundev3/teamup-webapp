@@ -10,20 +10,22 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { entry as entryValidations } from "./helpers/validations";
 import { useFormik } from "formik";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import "./Entry.scss";
 
 const dummyMemberList = [
-  { idResume: 1, name: "Pedro" },
-  { idResume: 2, name: "Rodrigo" },
-  { idResume: 3, name: "Lilian" },
-  { idResume: 4, name: "Paulo" },
+  { idResume: 1, isSelected: false, name: "Pedro" },
+  { idResume: 2, isSelected: false, name: "Rodrigo" },
+  { idResume: 3, isSelected: false, name: "Lilian" },
+  { idResume: 4, isSelected: false, name: "Paulo" },
+  { idResume: 5, isSelected: false, name: "Alejandro" },
+  { idResume: 6, isSelected: false, name: "Freddy" },
 ];
 
 function Entry() {
-  const { id } = useParams();
-  console.log("ID --> ", id);
+  const search = useLocation().search;
+  const idProject = new URLSearchParams(search).get("id");
   const formik = useFormik({
     initialValues: {
       contact: "Jose Ecos",
@@ -46,9 +48,21 @@ function Entry() {
     !!formik.touched.textInvitation && !!formik.errors.textInvitation;
 
   const handleChange = (event) => {
-    console.log("You are selected ", event.target.value);
-    setMember(event.target.value);
-    setMemberList([...memberList, event.target.value]);
+    const ID = event.target.value;
+    const member = dummyMemberList.find((member) => member.idResume === ID);
+    member.isSelected = true;
+    setMember("");
+    setMemberList([...memberList, member]);
+  };
+  const removeMember = (selectedMember) => {
+    const member = dummyMemberList.find(
+      (member) => member.idResume === selectedMember.idResume
+    );
+    const newMemberList = memberList.filter(
+      (member) => member.idResume !== selectedMember.idResume
+    );
+    member.isSelected = false;
+    setMemberList([...newMemberList]);
   };
 
   const [member, setMember] = useState("");
@@ -62,7 +76,7 @@ function Entry() {
       onSubmit={formik.handleSubmit}
     >
       <h1 className="container-form__title">
-        {id > 1 ? "Create Project" : "Update Project"}
+        {idProject ? "Update Project" : "Create Project"}
       </h1>
       <p>Make your project know and hire the best resumes for it.</p>
 
@@ -156,7 +170,11 @@ function Entry() {
           variant="outlined"
         >
           {dummyMemberList.map((option) => (
-            <MenuItem key={option.name} value={option.name}>
+            <MenuItem
+              disabled={option.isSelected}
+              key={option.idResume}
+              value={option.idResume}
+            >
               {option.name}
             </MenuItem>
           ))}
@@ -168,10 +186,17 @@ function Entry() {
         <div>
           <List dense={true}>
             {memberList.map((member) => (
-              <ListItem key={member}>
-                <ListItemText primary={member} secondary="Secondary text" />
+              <ListItem key={member.idResume}>
+                <ListItemText
+                  primary={member.name}
+                  secondary="Secondary text"
+                />
                 <ListItemSecondaryAction>
-                  <IconButton aria-label="delete" edge="end">
+                  <IconButton
+                    aria-label="delete"
+                    edge="end"
+                    onClick={() => removeMember(member)}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
