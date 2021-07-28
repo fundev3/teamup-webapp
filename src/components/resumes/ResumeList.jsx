@@ -1,9 +1,9 @@
 import Box from "./Box";
 import Button from "@material-ui/core/Button";
-import GetResume from "./ResumeListAPI.js";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
+import getResumes from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 import "./ResumeList.css";
@@ -19,15 +19,13 @@ function ResumeList() {
   const classes = useStyles();
   const [resumes, setResumes] = useState([]);
 
-  const refresh = () => {
-    let list = [];
-    GetResume()
-      .then((result) => {
-        list = result;
-      })
-      .then(() => setResumes(list));
-  };
-  useEffect(refresh, []);
+  useEffect(() => {
+    async function data() {
+      const response = await getResumes();
+      setResumes(response);
+    }
+    data();
+  }, []);
 
   return (
     <div className="Resumes-Container">
