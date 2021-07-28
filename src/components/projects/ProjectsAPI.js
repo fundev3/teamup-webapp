@@ -21,9 +21,13 @@ export default async function getProjects() {
 
 export async function getProject(id) {
   let handlerError = false;
-  const url = process.env.REACT_APP_PROJECTS_URL;
+  const API_HOST = process.env.REACT_APP_API_HOST;
+  const API_NAME = "projects";
+  const API_VERSION = "v1";
   try {
-    const { data: result } = await axios.get(`${url}/${id}`);
+    const { data: result } = await axios.get(
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}/${id}`
+    );
     return result;
   } catch (error) {
     if (error.response) {

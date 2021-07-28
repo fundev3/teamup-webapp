@@ -31,7 +31,10 @@ const mockData = {
 
 const mockId = "5a7939fd-59de-44bd-a092-f5d8434584de";
 
-const url = `${process.env.REACT_APP_PROJECTS_URL}/${mockId}`;
+const API_HOST = process.env.REACT_APP_API_HOST;
+const API_NAME = "projects";
+const API_VERSION = "v1";
+const url = `${API_HOST}/api/${API_VERSION}/${API_NAME}/${mockId}`;
 
 test("should return successfully data from an API", async () => {
   axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
