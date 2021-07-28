@@ -6,7 +6,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import getResumes from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
-import "./ResumeList.css";
+import "./Resumes.css";
 
 const useStyles = makeStyles({
   table: {

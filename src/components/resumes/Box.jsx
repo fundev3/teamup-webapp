@@ -1,15 +1,15 @@
 import "./Box.css";
 
 function Box(props) {
-  const { title, contact, lastUpdateDate } = props;
+  const { email, id, name } = props;
   return (
     <div className="Name">
-      {title}
+      {name}
       <div className="Date">
-        <label>{lastUpdateDate}</label>
+        <label>{email}</label>
       </div>
       <div className="Contact">
-        <label>{contact.email}</label>
+        <label>{id}</label>
       </div>
     </div>
   );

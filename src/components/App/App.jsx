@@ -6,7 +6,7 @@ import Projects from "../projects/Projects";
 import React from "react";
 import ResumeDetails from "../resumes/Details";
 import ResumeEntry from "../resumes/Entry";
-import ResumeList from "../resumes/ResumeList";
+import Resumes from "../resumes/Resumes";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.scss";
 
@@ -20,7 +20,7 @@ function App() {
           <Route component={Projects} exact path="/projects" />
           <Route component={ProjectEntry} exact path="/projects/entry" />
           <Route component={ProjectDetails} exact path="/projects/:id" />
-          <Route component={ResumeList} exact path="/resumes" />
+          <Route component={Resumes} exact path="/resumes" />
           <Route
             className="layout-resume-creation"
             component={ResumeEntry}
