@@ -5,32 +5,79 @@ trigger:
       - develop
 
 pr:
+  drafts: false
   branches:
     include:
       - main
       - develop
-  drafts: false
 
-pool:
-  vmImage: ubuntu-latest
+variables:
+  vmImageName: 'ubuntu-latest'
 
-steps:
-  - script: npm ci
-    displayName: 'Install Dependencies'
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: Build
+    displayName: Building
+    pool:
+      vmImage: $(vmImageName)
 
-  - script: npm run lint:fix
-    displayName: 'Linting'
+    steps:
+      - script: npm ci
+        displayName: 'Installing Dependencies'
 
-  - script: npm test -- --ci --watchAll=false --passWithNoTests
-    displayName: 'Running Unit Test'
+      - script: npm run lint:fix
+        displayName: 'Linting'
 
-  - script: npm run build
-    displayName: 'Build React webApp'
+      - script: npm test -- --ci --watchAll=false --passWithNoTests
+        displayName: 'Running Unit Test'
 
-  - task: PublishBuildArtifacts@1
-    displayName: 'Save Artifact'
-    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-    inputs:
-      PathtoPublish: '$(Agent.BuildDirectory)/s/build'
-      ArtifactName: 'drop'
-      publishLocation: 'Container'
+      - script: npm run build
+        displayName: 'Building React webApp'
+
+      - task: ArchiveFiles@2
+        displayName: 'Zipping files'
+        condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+        inputs:
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build'
+          includeRootFolder: false
+          archiveType: zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+          replaceExistingArchive: true
+
+      - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        displayName: Publishing
+        condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+        artifact: drop
+
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  jobs:
+  - deployment: Deploy
+    displayName: Deploying
+    environment: $(envName)
+    pool:
+      vmImage: $(vmImageName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: Deploying
+            inputs:
+              appName: 'app-tuweb-$(envName)-bra' 
+              azureSubscription: 'devlevel3-dev (a797242d-ce60-41aa-98ca-2e22d5221cfe)'
+              appType: 'webAppLinux'
+              package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+              runtimeStack: 'NODE|14-lts'
+              startUpCommand: 'npm install -g serve && serve -n -l 8080'
+    
+          - task: CmdLine@2
+            displayName: 'Request to WebApp'
+            inputs:
+              script: |
+                response=$(curl --write-out '%{http_code}' --silent --output /dev/null http://app-tuweb-$(envName)-bra.azurewebsites.net)
+                echo HTTP code: $response
