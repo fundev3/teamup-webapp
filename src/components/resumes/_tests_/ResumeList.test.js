@@ -3,7 +3,7 @@ import getResumes from "../ResumesAPI.js";
 import "@testing-library/jest-dom";
 jest.mock("axios");
 
-const API = "http://localhost:7071/api/v1/resumes";
+const API = process.env.REACT_APP_LOCAL_URL_RESUME;
 
 const mockData = {
   data: [
@@ -71,13 +71,16 @@ test("should return a resume list", async () => {
 
   await expect(getResumes()).resolves.toEqual(mockData.data);
 
-  expect(axios.get).toHaveBeenCalledWith(`${API}`);
+  expect(axios.get).toHaveBeenCalledWith(`${API}/resumes`);
 });
 
 test("should return false", async () => {
   const resolve = { ok: false };
 
-  axios.get.mockImplementationOnce(() => Promise.reject(new Error()));
+  axios.get.mockImplementationOnce(() => Promise.resolve(new Error()));
 
-  expect(getResumes()).rejects.toThrow(resolve);
+  expect(getResumes())
+    .rejects.toThrow(resolve)
+    .then()
+    .catch((err) => {});
 });

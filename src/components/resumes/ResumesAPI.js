@@ -23,7 +23,7 @@ export async function postResume(resume) {
 export default async function getResumes() {
   try {
     const { data: result } = await axios.get(
-      process.env.REACT_APP_LOCAL_URL_RESUME
+      `${process.env.REACT_APP_LOCAL_URL_RESUME}/resumes`
     );
     return result;
   } catch (err) {
