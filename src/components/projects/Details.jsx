@@ -1,5 +1,5 @@
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { getProject } from "./ProjectsAPI";
-import { useParams } from "react-router-dom";
 import {
   Button,
   Container,
@@ -7,6 +7,7 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
+import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 function Details() {
@@ -15,23 +16,29 @@ function Details() {
   useEffect(() => {
     async function fetchData() {
       const response = await getProject(id);
-      setProject(response.Project);
+      setProject(response);
     }
     fetchData();
   }, [id]);
 
-  // Comment Should by remove when the API is complete
-  // if (error) return <div>ERROR!!! Project not found</div>;
+  if (project === true) {
+    return <div>ERROR!!! Project not found</div>;
+  }
 
   return project ? (
     <div>
       <Container maxWidth="sm">
+        <Link to="/projects">
+          <Button color="primary" variant="contained">
+            <ArrowBackIcon></ArrowBackIcon>
+          </Button>
+        </Link>
         <Grid
           alignContent="center"
           alignItems="center"
           container
           direction="row"
-          justify="center"
+          justifyContent="center"
           spacing={1}
           wrap="nowrap"
         >

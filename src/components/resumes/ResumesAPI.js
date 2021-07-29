@@ -28,6 +28,14 @@ export default async function getResumes() {
     return result;
   } catch (err) {
     console.log("Couldn't get resumes, please try again", err.response);
-    return { ok: false };
+    if (error.response) {
+      alert(error);
+    } else if (error.request) {
+      alert(error);
+    } else {
+      alert("Error: Something is wrong");
+    }
+    handlerError = true;
+    return handlerError;
   }
 }
