@@ -10,7 +10,6 @@ describe("TESTING API MOCK", () => {
         idResume: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         name: "string",
       },
-
       creationDate: "2021-07-29T13:18:01.545Z",
       description: "string",
       logo: "string",

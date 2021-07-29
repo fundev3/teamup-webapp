@@ -21,7 +21,6 @@ function Entry() {
       name: "",
       textInvitation: "",
     },
-
     onSubmit: async (values) => {
       const { contact, description, logo, name, textInvitation } = values;
       const members = memberList.map((member) => {
