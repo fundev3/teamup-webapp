@@ -1,9 +1,15 @@
 import axios from "axios";
 import getResumes from "../ResumesAPI.js";
+import ResumeList from "../Resumes";
+import { MemoryRouter, Route } from "react-router-dom";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 jest.mock("axios");
 
-const API = process.env.REACT_APP_LOCAL_URL_RESUME;
+const API_HOST = process.env.REACT_APP_API_RESUMES_URL;
+const API_NAME = "resumes";
+const API_VERSION = "v1";
+const url = `${API_HOST}/api/${API_VERSION}/${API_NAME}`;
 
 const mockData = {
   data: [
@@ -71,11 +77,11 @@ test("should return a resume list", async () => {
 
   await expect(getResumes()).resolves.toEqual(mockData.data);
 
-  expect(axios.get).toHaveBeenCalledWith(`${API}/resumes`);
+  expect(axios.get).toHaveBeenCalledWith(`${url}`);
 });
 
 test("should return false", async () => {
-  const resolve = { ok: false };
+  const resolve = true;
 
   axios.get.mockImplementationOnce(() => Promise.resolve(new Error()));
 
@@ -83,4 +89,19 @@ test("should return false", async () => {
     .rejects.toThrow(resolve)
     .then()
     .catch((err) => {});
+});
+
+test("Should render Resumes component", async () => {
+  axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
+
+  render(
+    <MemoryRouter initialEntries={[`resumes`]}>
+      <Route path="resumes">
+        <ResumeList />
+      </Route>
+    </MemoryRouter>
+  );
+  const resumesScreen = await screen.findByText("Create Resume");
+  expect(resumesScreen).toBeInTheDocument();
+  expect(axios.get).toHaveBeenCalledWith(url);
 });

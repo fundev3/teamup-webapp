@@ -1,5 +1,9 @@
 import axios from "axios";
 
+const API_HOST = process.env.REACT_APP_API_RESUMES_URL;
+const API_NAME = "resumes";
+const API_VERSION = "v1";
+
 export async function postResume(resume) {
   try {
     const result = await axios.post(
@@ -21,13 +25,14 @@ export async function postResume(resume) {
 }
 
 export default async function getResumes() {
+  let handlerError = false;
   try {
     const { data: result } = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL_RESUME}/resumes`
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}`
     );
     return result;
-  } catch (err) {
-    console.log("Couldn't get resumes, please try again", err.response);
+  } catch (error) {
+    console.log("Couldn't get resumes, please try again", error.response);
     if (error.response) {
       alert(error);
     } else if (error.request) {
