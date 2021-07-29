@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Box.css";
 
 function Box(props) {
-  const { address, email, id, name } = props;
+  const { id, contact, personalInformation } = props;
   return (
     <>
       <div className="resume-picture">
@@ -13,12 +13,16 @@ function Box(props) {
         ></img>
       </div>
       <div className="resume-information">
-        <div className="Name">{name}</div>
-        <div className="Contact">
-          <label>{email}</label>
+        <div className="name">
+          {personalInformation.firstName + " " + personalInformation.lastName}
         </div>
-        <div className="Date">
-          <label>{address.zipcode}</label>
+        <div className="date">
+          <label>
+            {personalInformation.firstName + " " + personalInformation.lastName}
+          </label>
+        </div>
+        <div className="contact">
+          <label>{contact.email}</label>
         </div>
       </div>
       <div className="resume-button">

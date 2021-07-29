@@ -18,18 +18,18 @@ function ResumeList() {
   }, []);
 
   return (
-    <Container className="Resumes-Container">
-      <div className="Button-Container">
+    <Container className="resumes-container">
+      <div className="button-container">
         <Link to="/resumes/entry">
           <Button color="primary" variant="contained">
             New Resume
           </Button>
         </Link>
       </div>
-      <div className="Resumes-List" key={resumes.id}>
+      <div className="resumes-list" key={resumes.id}>
         {resumes.length > 0
           ? resumes.map((resume) => (
-              <div className="Resume-Box" key={resume.id}>
+              <div className="resume-box" key={resume.id}>
                 <Box {...resume} />
               </div>
             ))

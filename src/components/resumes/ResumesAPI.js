@@ -24,7 +24,7 @@ export async function getResumes() {
   let result = {};
   try {
     const { data: result } = await axios.get(
-      "https://jsonplaceholder.typicode.com/users"
+      "http://localhost:7071/api/v1/resumes"
     );
     return result;
   } catch (error) {
@@ -42,7 +42,7 @@ export async function getResumes() {
 export async function getResume(id) {
   try {
     const { data: result } = await axios.get(
-      `https://jsonplaceholder.typicode.com/users/${id}`
+      `http://localhost:7071/api/v1/resumes/${id}`
     );
     return result;
   } catch (error) {

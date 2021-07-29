@@ -1,14 +1,14 @@
-.Resumes-Container {
+.resumes-container {
   margin-right: auto;
   margin-left: auto;
   height: 100%;
   width: 90%;
   padding-top: 2%;
 }
-.Resumes-List {
+.resumes-list {
   padding-bottom: 3%;
 }
-.Resume-Box {
+.resume-box {
   background-color: #ffffff;
   margin-top: 20px;
   margin-right: auto;
@@ -20,6 +20,6 @@
   vertical-align: middle;
   width: 700px;
 }
-.Button-Container {
+.button-container {
   margin-left: 20%;
 }
