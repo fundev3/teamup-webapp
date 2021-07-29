@@ -1,8 +1,5 @@
-import Details from "../Details";
 import axios from "axios";
 import { getResume } from "../ProjectsAPI";
-import { MemoryRouter, Route } from "react-router-dom";
-import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 jest.mock("axios");
