@@ -1,16 +1,22 @@
-.Card-Container {
-  font-family: Sans-serif;
+.card-container {
+  font-family: "Roboto", sans-serif;
 }
-.Field {
-  display: flex;
-  align-items: center;
-  margin: 10px;
-}
-.Field label {
-  margin-left: 15px;
-}
-.Name {
-  color: rgba(0, 71, 129, 0.938);
+.name {
+  color: #4350af;
   font-size: large;
   font-weight: bold;
+  margin-bottom: 10px;
+}
+.description {
+  margin-bottom: 10px;
+  color: #585858;
+}
+.details {
+  color: #a7a7a7;
+  margin-left: 10px;
+}
+.detail-field {
+  align-items: center;
+  display: flex;
+  margin: 0px 0px 10px;
 }
