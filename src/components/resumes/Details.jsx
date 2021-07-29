@@ -45,7 +45,6 @@ function Details() {
       setShowEdit("Edit");
     }
   };
-  // if (error) return <div>ERROR!!! Resume not found</div>;
   return data ? (
     <Grid className={classes.root} container spacing={5}>
       <Grid className={classes.margin} item xs={12}>
