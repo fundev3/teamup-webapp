@@ -1,7 +1,6 @@
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import { getResume } from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link, useParams } from "react-router-dom";
@@ -22,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Details() {
   const { id } = useParams();
-
   const classes = useStyles();
   const [data, setData] = useState();
   const [readOnly, setReadOnly] = useState(true);
@@ -30,8 +28,10 @@ function Details() {
 
   useEffect(() => {
     async function fetchData() {
+      const id = "dd05d77a-ca64-401a-be39-8e1ea84e2f83";
       const response = await getResume(id);
       setData(response);
+      console.log(response);
     }
     fetchData();
   }, [id]);
@@ -48,11 +48,8 @@ function Details() {
   return data ? (
     <Grid className={classes.root} container spacing={5}>
       <Grid className={classes.margin} item xs={12}>
-        <Typography color="primary" variant="h4">
-          {data.name} {data.username}
-        </Typography>
-        <div>creation date</div>
-        <div>last update</div>
+        <div>creation date: {data.creationDate}</div>
+        <div>last update: {data.lastUpdate}</div>
       </Grid>
 
       <Grid className={classes.margin} item xs={18}>
@@ -60,7 +57,7 @@ function Details() {
           InputProps={{
             readOnly: readOnly,
           }}
-          defaultValue={data.name}
+          defaultValue={data.personalInformation.firstName}
           label="First Name"
           variant="outlined"
         />
@@ -68,7 +65,7 @@ function Details() {
           InputProps={{
             readOnly: readOnly,
           }}
-          defaultValue={data.username}
+          defaultValue={data.personalInformation.lastName}
           label="Last Name"
           variant="outlined"
         />
@@ -87,7 +84,7 @@ function Details() {
           InputProps={{
             readOnly: readOnly,
           }}
-          defaultValue={data.email}
+          defaultValue={data.contact.email}
           label="Email"
           variant="outlined"
         />
@@ -95,7 +92,7 @@ function Details() {
           InputProps={{
             readOnly: readOnly,
           }}
-          defaultValue={data.phone}
+          defaultValue={data.contact.phone}
           label="Phone"
           variant="outlined"
         />
@@ -103,7 +100,7 @@ function Details() {
           InputProps={{
             readOnly: readOnly,
           }}
-          defaultValue={data.address.street}
+          defaultValue={data.contact.direction}
           label="Address"
           variant="outlined"
         />
@@ -113,7 +110,7 @@ function Details() {
           InputProps={{
             readOnly: readOnly,
           }}
-          defaultValue={data.website}
+          defaultValue={data.summary}
           fullWidth
           label="Summary"
           multiline
