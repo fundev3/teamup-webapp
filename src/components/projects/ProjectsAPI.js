@@ -44,9 +44,6 @@ export async function getProject(id) {
   }
 }
 
-/**
- * POST: create project
- */
 export async function postProject(project) {
   try {
     const route = process.env.REACT_APP_API_HOST;

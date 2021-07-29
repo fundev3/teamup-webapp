@@ -54,13 +54,10 @@ function MemberList({ memberList, setMemberList }) {
     setMemberList([...memberList, member]);
   };
   const removeMember = (selectedMember) => {
-    const member = dummyMemberList.find(
-      (member) => member.idResume === selectedMember.idResume
-    );
     const newMemberList = memberList.filter(
       (member) => member.idResume !== selectedMember.idResume
     );
-    member.isSelected = false;
+    selectedMember.isSelected = false;
     setMemberList([...newMemberList]);
   };
 
