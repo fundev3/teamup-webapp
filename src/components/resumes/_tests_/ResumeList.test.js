@@ -101,7 +101,7 @@ test("Should render Resumes component", async () => {
       </Route>
     </MemoryRouter>
   );
-  const resumesScreen = await screen.findByText("Create Resume");
+  const resumesScreen = await screen.findByText("My Custom Title");
   expect(resumesScreen).toBeInTheDocument();
   expect(axios.get).toHaveBeenCalledWith(url);
 });
