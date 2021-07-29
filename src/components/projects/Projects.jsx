@@ -43,7 +43,10 @@ function ProjectList() {
       </Button>
 
       <div className="Projects-List">
-        <TableContainer component={Paper}>
+        <TableContainer
+          component={Paper}
+          style={{ maxWidth: "1000px", minWidth: "500px" }}
+        >
           {projects.length === 0 ? (
             <div className="empty-file">
               <DescriptionRoundedIcon
