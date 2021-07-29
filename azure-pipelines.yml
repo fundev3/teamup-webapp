@@ -81,3 +81,15 @@ stages:
               script: |
                 response=$(curl --write-out '%{http_code}' --silent --output /dev/null http://app-tuweb-$(envName)-bra.azurewebsites.net)
                 echo HTTP code: $response
+          - task: AzureAppServiceSettings@1
+            displayName: 'Setting custom env variables'
+            inputs:
+              azureSubscription: 'devlevel3-dev-conn'
+              appName: 'app-tuweb-dev-bra'
+              resourceGroupName: 'rg-tuweb-dev-bra'
+              appSettings: |
+                [{
+                "name" : "REACT_APP_API_HOST",
+                "value" : "https://fa-tuapi-projects--bra.azurewebsites.net",
+                "slotSetting" : false 
+                }]
