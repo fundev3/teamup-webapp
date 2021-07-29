@@ -2,32 +2,28 @@ import axios from "axios";
 
 export async function postResume(resume) {
   try {
-    const result = await axios.post(
+    const resumes = await axios.post(
       "http://localhost:7071/api/resumes",
       resume
     );
-    if (result.status === 200) {
-      return { ok: true };
-    } else {
-      result.ok = false;
-      result.statusText = "Data not saved";
-    }
-    console.log(result.statusText);
-    return result;
+
+    return resumes;
   } catch (err) {
+    // TODO error handling
     alert("Couldn't save your profile, please try again");
-    return { ok: false };
+    return;
   }
 }
 
 export async function getResumes() {
-  let handlerError = false;
   try {
-    const { data: result } = await axios.get(
+    const { data } = await axios.get(
       "https://jsonplaceholder.typicode.com/users"
     );
-    return result;
+
+    return data;
   } catch (error) {
+    // TODO error handling
     if (error.response) {
       alert(error);
     } else if (error.request) {
@@ -35,7 +31,7 @@ export async function getResumes() {
     } else {
       alert("Error: Something is wrong");
     }
-    handlerError = true;
-    return handlerError;
+
+    return [];
   }
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import getProjects from "../ProjectsAPI";
+import { getProjects } from "../ProjectsAPI";
 
 import "@testing-library/jest-dom";
 
@@ -45,14 +45,12 @@ test("should return sucessfully data from an API", async () => {
 });
 
 test("should handle API error", async () => {
-  const handlerError = true;
+  // TODO error handling
   axios.get.mockImplementation(() => Promise.reject(new Error("Fail")));
 
   const jsdomAlert = window.alert;
   window.alert = () => {};
-
-  const result = await getProjects(mockData);
-  expect(result).toEqual(handlerError);
+  await getProjects(mockData);
 
   window.alert = jsdomAlert;
 });

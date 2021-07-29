@@ -1,6 +1,6 @@
 import Card from "./Card";
 import DescriptionRoundedIcon from "@material-ui/icons/DescriptionRounded";
-import getProjects from "./ProjectsAPI.js";
+import { getProjects } from "./ProjectsAPI.js";
 import { useHistory } from "react-router-dom";
 import {
   Button,
@@ -18,13 +18,10 @@ function ProjectList() {
 
   useEffect(() => {
     async function data() {
-      const response = await getProjects();
-      if (response === true) {
-        return;
-      } else {
-        setProjects(response);
-      }
+      const projects = await getProjects();
+      setProjects(projects);
     }
+
     data();
   }, []);
 
