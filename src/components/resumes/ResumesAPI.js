@@ -20,8 +20,8 @@ export async function postResume(resume) {
   }
 }
 
-export default async function getResumes() {
-  let handlerError = false;
+export async function getResumes() {
+  let result = {};
   try {
     const { data: result } = await axios.get(
       "https://jsonplaceholder.typicode.com/users"
@@ -35,7 +35,24 @@ export default async function getResumes() {
     } else {
       alert("Error: Something is wrong");
     }
-    handlerError = true;
-    return handlerError;
+    return result;
+  }
+}
+
+export async function getResume(id) {
+  try {
+    const { data: result } = await axios.get(
+      `https://jsonplaceholder.typicode.com/users/${id}`
+    );
+    return result;
+  } catch (error) {
+    if (error.response) {
+      alert(error);
+    } else if (error.request) {
+      alert(error);
+    } else {
+      alert("Error: Something is wrong");
+    }
+    return error;
   }
 }

@@ -2,10 +2,10 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
+import { getResume } from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
-import useFetch from "./useFetch";
 import { Link, useParams } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Details.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,12 +22,19 @@ const useStyles = makeStyles((theme) => ({
 
 function Details() {
   const { id } = useParams();
-  const url = "https://jsonplaceholder.typicode.com/users/" + id;
 
   const classes = useStyles();
-  const { data, error } = useFetch(url);
+  const [data, setData] = useState();
   const [readOnly, setReadOnly] = useState(true);
   const [showEdit, setShowEdit] = useState("Edit");
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getResume(id);
+      setData(response);
+    }
+    fetchData();
+  }, [id]);
 
   const edit = (event) => {
     event.preventDefault();
@@ -38,7 +45,7 @@ function Details() {
       setShowEdit("Edit");
     }
   };
-  if (error) return <div>ERROR!!! Resume not found</div>;
+  // if (error) return <div>ERROR!!! Resume not found</div>;
   return data ? (
     <Grid className={classes.root} container spacing={5}>
       <Grid className={classes.margin} item xs={12}>

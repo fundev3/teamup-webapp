@@ -11,9 +11,15 @@
 .Resume-Box {
   background-color: #ffffff;
   margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
   border-radius: 5px;
-  width: 100%;
   display: flex;
   vertical-align: middle;
   padding: 50px;
+  padding-left: 20px;
+  width: 700px;
+}
+.button-create {
+  margin-left: 30%;
 }

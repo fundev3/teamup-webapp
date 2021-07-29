@@ -29,7 +29,7 @@ function Box(props) {
       </div>
       <div className="resume-button">
         <Link to={`/resumes/${id}`}>
-          <Button color="primary" variant="outlined">
+          <Button color="primary" variant="contained">
             View Detail
           </Button>
         </Link>
