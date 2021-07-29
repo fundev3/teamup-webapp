@@ -14,23 +14,17 @@ function Box(props) {
       </div>
       <div className="resume-information">
         <div className="Name">{name}</div>
-        <div className="Date">
-          {
-            // Last Update Date - Delete commets after integreate with API
-          }
-          <label>{address.zipcode}</label>
-        </div>
-        {
-          // email - Delete commets after integreate with API
-        }
         <div className="Contact">
           <label>{email}</label>
+        </div>
+        <div className="Date">
+          <label>{address.zipcode}</label>
         </div>
       </div>
       <div className="resume-button">
         <Link to={`/resumes/${id}`}>
           <Button color="primary" variant="contained">
-            View Detail
+            Detail
           </Button>
         </Link>
       </div>

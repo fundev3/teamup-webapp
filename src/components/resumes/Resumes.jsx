@@ -19,11 +19,13 @@ function ResumeList() {
 
   return (
     <Container className="Resumes-Container">
-      <Link to="/resumes/entry">
-        <Button className="button-create" color="primary" variant="contained">
-          New Resume
-        </Button>
-      </Link>
+      <div className="Button-Container">
+        <Link to="/resumes/entry">
+          <Button color="primary" variant="contained">
+            New Resume
+          </Button>
+        </Link>
+      </div>
       <div className="Resumes-List" key={resumes.id}>
         {resumes.length > 0
           ? resumes.map((resume) => (

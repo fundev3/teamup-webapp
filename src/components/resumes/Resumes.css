@@ -13,13 +13,13 @@
   margin-top: 20px;
   margin-right: auto;
   margin-left: auto;
+  padding: 50px;
+  padding-left: 20px;
   border-radius: 5px;
   display: flex;
   vertical-align: middle;
-  padding: 50px;
-  padding-left: 20px;
   width: 700px;
 }
-.button-create {
-  margin-left: 30%;
+.Button-Container {
+  margin-left: 20%;
 }
