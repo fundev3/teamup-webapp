@@ -15,6 +15,10 @@ function Entry() {
   const idProject = new URLSearchParams(search).get("id");
   const formik = useFormik({
     initialValues: {
+      /**
+       * The initial value is Jose Ecos because we don't have API to handle contacts yet.
+       * Once the API exists it will be removed
+       */
       contact: "Jose Ecos",
       description: "",
       logo: "",
