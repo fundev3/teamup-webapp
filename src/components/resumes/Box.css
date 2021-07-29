@@ -5,8 +5,7 @@
   margin: 12px;
 }
 .resume-picture {
-  padding-left: 50px;
-  padding-right: 8px;
+  padding: 8px 50px;
 }
 .resume-picture img {
   width: 100px;
@@ -14,8 +13,7 @@
 }
 .resume-information {
   width: 300px;
-  margin-left: 50px;
-  margin-right: 50px;
+  margin: 0px 50px;
 }
 .resume-button {
   margin-top: auto;
