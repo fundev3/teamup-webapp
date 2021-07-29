@@ -46,7 +46,7 @@ export async function getProject(id) {
 
 export async function postProject(project) {
   try {
-    const route = process.env.REACT_APP_API_HOST;
+    const route = API_HOST;
     const response = await axios.post(`${route}/projects`, project);
     if (response.status === 201) return { ok: true, response };
     return { ok: false, response: null };

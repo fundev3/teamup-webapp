@@ -22,7 +22,7 @@ describe("TESTING API MOCK", () => {
       name: "string",
       textInvitation: "string",
     };
-    const route = `${process.env.REACT_APP_API_HOST}/projects`;
+    const route = `${process.env.REACT_APP_API_PROJECTS_URL}/projects`;
     mock.onPost(route).reply(201, project);
     const response = await axios.post(route);
     expect(response.data).toEqual(project);
@@ -31,7 +31,7 @@ describe("TESTING API MOCK", () => {
 
   test("Should has error to save project", async () => {
     const mock = new MockAdapter(axios);
-    const route = `${process.env.REACT_APP_API_HOST}/projects`;
+    const route = `${process.env.REACT_APP_API_PROJECTS_URL}/projects`;
     mock.onPost(route).reply(500);
     let error;
     try {
