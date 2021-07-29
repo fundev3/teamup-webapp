@@ -61,7 +61,7 @@ function ProjectList() {
             </div>
           ) : (
             projects.map((project) => (
-              <TableRow key={project.id}>
+              <TableRow>
                 <TableCell component="th" scope="row">
                   <div className="box-card">
                     <div className="left">
