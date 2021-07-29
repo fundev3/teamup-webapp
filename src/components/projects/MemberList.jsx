@@ -1,6 +1,6 @@
+import DeleteIcon from "@material-ui/icons/Delete";
 import { useState } from "react";
 import {
-  DeleteIcon,
   IconButton,
   List,
   ListItem,
