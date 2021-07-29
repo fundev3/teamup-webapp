@@ -1,29 +1,16 @@
 import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
-import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuItem from "@material-ui/core/MenuItem";
+import MemberList from "./MemberList";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import { entry as entryValidations } from "./helpers/validations";
+import { postProject } from "./ProjectsAPI";
 import { useFormik } from "formik";
-import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import "./Entry.scss";
 
-const dummyMemberList = [
-  { idResume: 1, isSelected: false, name: "Pedro" },
-  { idResume: 2, isSelected: false, name: "Rodrigo" },
-  { idResume: 3, isSelected: false, name: "Lilian" },
-  { idResume: 4, isSelected: false, name: "Paulo" },
-  { idResume: 5, isSelected: false, name: "Alejandro" },
-  { idResume: 6, isSelected: false, name: "Freddy" },
-];
-
 function Entry() {
+  const [memberList, setMemberList] = useState([]);
+  const history = useHistory();
   const search = useLocation().search;
   const idProject = new URLSearchParams(search).get("id");
   const formik = useFormik({
@@ -34,9 +21,36 @@ function Entry() {
       name: "",
       textInvitation: "",
     },
-    // --> Waiting for API
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+
+    onSubmit: async (values) => {
+      const { contact, description, logo, name, textInvitation } = values;
+      const members = memberList.map((member) => {
+        return {
+          idResume: member.idResume,
+          name: member.name,
+        };
+      });
+      const project = {
+        /**
+         * TODO: (contact: will consume api) It will be the contact of the owner of the project
+         */
+        contact: {
+          idResume: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          name: contact,
+        },
+        creationDate: new Date().toDateString(),
+        description,
+        logo,
+        memberList: [...members],
+        name,
+        textInvitation,
+      };
+      const response = await postProject(project);
+      if (response.ok) {
+        alert("Project created !!!");
+        return history.push("/projects");
+      }
+      alert(`The project was not saved ${response.error}`);
     },
     validationSchema: entryValidations(),
   });
@@ -46,27 +60,6 @@ function Entry() {
   const hasErrorLogo = !!formik.touched.logo && !!formik.errors.logo;
   const hasErrorTextInvitation =
     !!formik.touched.textInvitation && !!formik.errors.textInvitation;
-
-  const handleChange = (event) => {
-    const ID = event.target.value;
-    const member = dummyMemberList.find((member) => member.idResume === ID);
-    member.isSelected = true;
-    setMember("");
-    setMemberList([...memberList, member]);
-  };
-  const removeMember = (selectedMember) => {
-    const member = dummyMemberList.find(
-      (member) => member.idResume === selectedMember.idResume
-    );
-    const newMemberList = memberList.filter(
-      (member) => member.idResume !== selectedMember.idResume
-    );
-    member.isSelected = false;
-    setMemberList([...newMemberList]);
-  };
-
-  const [member, setMember] = useState("");
-  const [memberList, setMemberList] = useState([]);
 
   return (
     <form
@@ -163,54 +156,7 @@ function Entry() {
         />
       </div>
 
-      <div className="u-mb-1">
-        <TextField
-          data-testid="input-field"
-          helperText="Select a list of members"
-          id="member"
-          label="Member"
-          name="member"
-          onChange={handleChange}
-          select
-          value={member}
-          variant="outlined"
-        >
-          {dummyMemberList.map((option) => (
-            <MenuItem
-              disabled={option.isSelected}
-              key={option.idResume}
-              value={option.idResume}
-            >
-              {option.name}
-            </MenuItem>
-          ))}
-        </TextField>
-      </div>
-
-      <div className="u-mb-1">
-        <Typography variant="h6">Your Member List</Typography>
-        <div>
-          <List dense={true}>
-            {memberList.map((member) => (
-              <ListItem key={member.idResume}>
-                <ListItemText
-                  primary={member.name}
-                  secondary="Secondary text"
-                />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    aria-label="delete"
-                    edge="end"
-                    onClick={() => removeMember(member)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      </div>
+      <MemberList memberList={memberList} setMemberList={setMemberList} />
 
       <Button
         color="primary"
