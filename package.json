@@ -30,7 +30,7 @@
     "test-husky": "react-scripts test --watchAll=false --passWithNoTests",
     "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
     "start-clean": "npm ci && npm run start",
-    "build-prod": "npm ci && npm run format && npm run build",
+    "build-prod": "npm ci && npm run build",
     "serve": "serve build -n",
     "serve-clean": "npm run build-prod && npm run serve"
   },

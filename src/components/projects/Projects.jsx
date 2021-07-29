@@ -13,8 +13,7 @@ import "./Projects.scss";
 
 const useStyles = makeStyles({
   table: {
-    maxWidth: 1010,
-    minWidth: 200,
+    maxWidth: "100%",
   },
 });
 

@@ -1,0 +1,15 @@
+.Name {
+  color: rgba(13, 27, 46, 0.938);
+  font-size: large;
+  font-weight: bold;
+  margin: 12px;
+}
+
+.Box-Container {
+  font-family: Sans-serif;
+}
+
+.Field {
+  display: flex;
+  margin: 12px;
+}
