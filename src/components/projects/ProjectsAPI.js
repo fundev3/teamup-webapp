@@ -1,4 +1,9 @@
 import axios from "axios";
+
+const API_HOST = process.env.REACT_APP_API_HOST;
+const API_NAME = "projects";
+const API_VERSION = "v1";
+
 export default async function getProjects() {
   let handlerError = false;
   try {
@@ -22,36 +27,9 @@ export default async function getProjects() {
 export async function getProject(id) {
   let handlerError = false;
   try {
-    const result = {
-      Project: {
-        contact: {
-          idResume: "3e45512e-34er-22dd-a645-f5d7856998tr",
-          name: "Jose Ecos",
-        },
-        creationDate: "2015-05-22T14:56:28.000Z",
-        description: "Centralize resumes and projects",
-        id: "5a7939fd-59de-44bd-a092-f5d8434584de",
-        logo: "./logo.svg",
-        memberList: [
-          {
-            idResume: "6g45454r-56uy-65dr-a362-f5d5849859hg",
-            name: "Raul Gamarra",
-          },
-          {
-            idResume: "3e45512e-34er-22dd-a645-f5d7856998tr",
-            name: "Cristian Chavez",
-          },
-          {
-            idResume: "3e45543h-34er-22dd-a645-f5d7856998tr",
-            name: "Martin Callejas",
-          },
-        ],
-        name: "TeamUp",
-        state: 1,
-        textInvitation:
-          "We invite you to collaborate with the development team",
-      },
-    };
+    const { data: result } = await axios.get(
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}/${id}`
+    );
     return result;
   } catch (error) {
     if (error.response) {
