@@ -6,10 +6,10 @@
 }
 
 .Box-Container {
-    font-family: Sans-serif;
-  }
+  font-family: Sans-serif;
+}
 
-  .Field {
-    display: flex;
-    margin: 12px;
-  }
+.Field {
+  display: flex;
+  margin: 12px;
+}
