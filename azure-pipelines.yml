@@ -33,7 +33,9 @@ stages:
       - script: npm test -- --ci --watchAll=false --passWithNoTests
         displayName: 'Running Unit Test'
       
-      - script: echo 'REACT_APP_API_HOST = $(API_HOST)' > .env
+      - script: |
+          echo 'REACT_APP_API_PROJECTS_HOST = $(API_PROJECTS_HOST)' > .env
+          echo 'REACT_APP_API_RESUMES_HOST = $(API_RESUMES_HOST)' >> .env
         displayName: 'Adding environment variables'
 
       - script: npm run build
