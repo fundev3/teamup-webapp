@@ -1,15 +1,11 @@
+import Resumes from "../Resumes";
 import axios from "axios";
 import getResumes from "../ResumesAPI.js";
-import ResumeList from "../Resumes";
 import { MemoryRouter, Route } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-jest.mock("axios");
 
-const API_HOST = process.env.REACT_APP_API_RESUMES_URL;
-const API_NAME = "resumes";
-const API_VERSION = "v1";
-const url = `${API_HOST}/api/${API_VERSION}/${API_NAME}`;
+jest.mock("axios");
 
 const mockData = {
   data: [
@@ -72,6 +68,11 @@ const mockData = {
   ],
 };
 
+const API_HOST = process.env.REACT_APP_API_RESUMES_URL;
+const API_NAME = "resumes";
+const API_VERSION = "v1";
+const url = `${API_HOST}/api/${API_VERSION}/${API_NAME}`;
+
 test("should return a resume list", async () => {
   axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
 
@@ -97,11 +98,13 @@ test("Should render Resumes component", async () => {
   render(
     <MemoryRouter initialEntries={[`resumes`]}>
       <Route path="resumes">
-        <ResumeList />
+        <Resumes />
       </Route>
     </MemoryRouter>
   );
-  const resumesScreen = await screen.findByText("My Custom Title");
+  const resumesScreen = await screen.findByText(
+    "rodrigo.baldivieso@fundacion-jala.org"
+  );
   expect(resumesScreen).toBeInTheDocument();
   expect(axios.get).toHaveBeenCalledWith(url);
 });
