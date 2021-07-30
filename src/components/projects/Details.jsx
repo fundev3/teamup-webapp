@@ -1,5 +1,6 @@
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { getProject } from "./ProjectsAPI";
+import { isEmpty } from "../../helpers";
 import {
   Button,
   Container,
@@ -12,7 +13,8 @@ import React, { useEffect, useState } from "react";
 
 function Details() {
   const { id } = useParams();
-  const [project, setProject] = useState();
+  const [project, setProject] = useState({});
+
   useEffect(() => {
     async function fetchData() {
       const response = await getProject(id);
@@ -21,11 +23,12 @@ function Details() {
     fetchData();
   }, [id]);
 
-  if (project === true) {
-    return <div>ERROR!!! Project not found</div>;
-  }
+  if (isEmpty(project)) return <div>ERROR!!! Project not found</div>;
 
-  return project ? (
+  const { contact, creationDate, description, logo, name, textInvitation } =
+    project;
+
+  return (
     <div>
       <Container maxWidth="sm">
         <Link to="/projects">
@@ -43,11 +46,11 @@ function Details() {
           wrap="nowrap"
         >
           <Grid item xs={2}>
-            <img alt="" height="75" src={project.logo} width="75" />
+            <img alt="" height="75" src={logo} width="75" />
           </Grid>
           <Grid item xs={10}>
             <Typography align="justify" gutterBottom variant="h4">
-              Project: {project.name}
+              Project: {name}
             </Typography>
           </Grid>
         </Grid>
@@ -58,27 +61,26 @@ function Details() {
           gutterBottom
           variant="caption"
         >
-          Publish: {project.creationDate}
+          Publish: {creationDate}
         </Typography>
         <Divider variant="middle" />
         <Typography align="justify" color="textSecondary">
-          Description: {project.description}
+          Description: {description}
         </Typography>
         <Divider variant="middle" />
         <Typography align="justify" color="textSecondary">
-          Ref.:{project.textInvitation}
+          Ref.:{textInvitation}
         </Typography>
         <Divider variant="middle" />
         <Typography align="justify" color="primary">
-          Contact Info: {project.contact.name}
+          Contact Info: {contact.name}
         </Typography>
         <Button color="primary" variant="contained">
           Send CV
         </Button>
       </Container>
     </div>
-  ) : (
-    <div>Loading</div>
   );
 }
+
 export default Details;

@@ -6,21 +6,16 @@ const API_VERSION = "v1";
 
 export async function postResume(resume) {
   try {
-    const result = await axios.post(
+    const resumes = await axios.post(
       "http://localhost:7071/api/resumes",
       resume
     );
-    if (result.status === 200) {
-      return { ok: true };
-    } else {
-      result.ok = false;
-      result.statusText = "Data not saved";
-    }
-    console.log(result.statusText);
-    return result;
+
+    return resumes;
   } catch (err) {
+    // TODO error handling
     alert("Couldn't save your profile, please try again");
-    return { ok: false };
+    return;
   }
 }
 
@@ -30,9 +25,10 @@ export default async function getResumes() {
     const { data: result } = await axios.get(
       `${API_HOST}/api/${API_VERSION}/${API_NAME}`
     );
-    return result;
+
+    return data;
   } catch (error) {
-    console.log("Couldn't get resumes, please try again", error.response);
+    // TODO error handling
     if (error.response) {
       alert(error);
     } else if (error.request) {
@@ -40,7 +36,7 @@ export default async function getResumes() {
     } else {
       alert("Error: Something is wrong");
     }
-    handlerError = true;
-    return handlerError;
+
+    return [];
   }
 }
