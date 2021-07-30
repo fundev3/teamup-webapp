@@ -33,7 +33,7 @@ const mockData = {
   ],
 };
 
-const API_HOST = process.env.REACT_APP_API_HOST;
+const API_HOST = process.env.REACT_APP_API_PROJECTS_URL;
 const API_NAME = "projects";
 const API_VERSION = "v1";
 const url = `${API_HOST}/api/${API_VERSION}/${API_NAME}`;
