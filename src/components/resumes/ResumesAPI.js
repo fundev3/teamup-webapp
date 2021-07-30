@@ -39,3 +39,20 @@ export async function getResumes() {
     return handlerError;
   }
 }
+
+export async function getResume(id) {
+  try {
+    const { data } = await axios.get(`http://localhost:7071/api/resumes/${id}`);
+    return data;
+  } catch (error) {
+    // TODO error handling
+    if (error.response) {
+      alert(error);
+    } else if (error.request) {
+      alert(error);
+    } else {
+      alert("Error: Something is wrong");
+    }
+    return;
+  }
+}
