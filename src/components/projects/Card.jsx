@@ -2,24 +2,25 @@ import { CalendarToday, Person } from "@material-ui/icons";
 import "./Card.scss";
 
 function Card(props) {
-  // TODO change properties when the backend is ready
-  const {
-    address: { zipcode },
-    id,
-    name,
-    username,
-  } = props;
+  const { id, contact, creationDate, description, name } = props;
+  const newCreationDate = creationDate.split("T")[0];
 
   return (
     <div className="Card-Container" key={id}>
-      <div className="Name">{name}</div>
-      <div className="Field">
-        <CalendarToday color="primary" />
-        <label>{zipcode}</label>
+      <div className="name">{name}</div>
+      <div className="description">
+        <label>{description}</label>
       </div>
-      <div className="Field Creation-date">
-        <Person color="primary" />
-        <label>{username}</label>
+      <div className="detail-field">
+        <Person color="primary" style={{ fontSize: "1.3rem" }} />
+        <label className="details">{contact.name}</label>
+      </div>
+      <div className="detail-field">
+        <CalendarToday
+          color="primary"
+          style={{ fontSize: "1.2rem", marginLeft: "1px" }}
+        />
+        <label className="details">{newCreationDate}</label>
       </div>
     </div>
   );
