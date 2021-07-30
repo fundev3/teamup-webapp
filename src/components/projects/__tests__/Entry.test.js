@@ -32,7 +32,6 @@ describe("Entry", () => {
   });
   test("Should render Entry component", () => {
     renderEntryWithIdProject();
-    screen.debug();
   });
 
   test("Should render title create without id project on url", () => {
@@ -45,7 +44,6 @@ describe("Entry", () => {
     renderEntryWithoutIdProject();
     const button = screen.getByTestId("btn-form");
     expect(button).toHaveTextContent("Create");
-    screen.debug(button);
   });
 
   test("Should render title update with id project on url", () => {
@@ -58,7 +56,6 @@ describe("Entry", () => {
     renderEntryWithIdProject();
     const button = screen.getByTestId("btn-form");
     expect(button).toHaveTextContent("Update");
-    screen.debug(button);
   });
 
   test("Should render subtitle", () => {
@@ -72,7 +69,6 @@ describe("Entry", () => {
   test("Should render 6 inputs in form", () => {
     renderEntryWithoutIdProject();
     const test = screen.getAllByTestId("input-field");
-    // screen.debug(test);
     expect(test.length).toBeGreaterThanOrEqual(6);
   });
 });
