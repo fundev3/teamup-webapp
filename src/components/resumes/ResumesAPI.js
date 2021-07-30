@@ -21,10 +21,10 @@ export async function postResume(resume) {
 }
 
 export async function getResumes() {
-  let result = {};
+  let handlerError = false;
   try {
     const { data: result } = await axios.get(
-      "http://localhost:7071/api/v1/resumes"
+      "http://localhost:7071/api/resumes"
     );
     return result;
   } catch (error) {
@@ -35,24 +35,7 @@ export async function getResumes() {
     } else {
       alert("Error: Something is wrong");
     }
-    return result;
-  }
-}
-
-export async function getResume(id) {
-  try {
-    const { data: result } = await axios.get(
-      `http://localhost:7071/api/v1/resumes/${id}`
-    );
-    return result;
-  } catch (error) {
-    if (error.response) {
-      alert(error);
-    } else if (error.request) {
-      alert(error);
-    } else {
-      alert("Error: Something is wrong");
-    }
-    return error;
+    handlerError = true;
+    return handlerError;
   }
 }
