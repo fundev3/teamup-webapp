@@ -18,14 +18,8 @@ function Entry() {
       summary: "",
     },
     onSubmit: async (values) => {
-      const result = await postResume(values);
-      if (!result.ok) {
-        history.push("/resumes/entry");
-      } else {
-        alert("Success! Welcome to TeamUp!");
-        history.push("/");
-        return result;
-      }
+      await postResume(values);
+      history.push("/");
     },
     validationSchema: entryValidations(),
   });

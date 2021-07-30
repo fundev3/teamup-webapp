@@ -3,7 +3,7 @@ import "./Card.scss";
 
 function Card(props) {
   const { id, contact, creationDate, description, name } = props;
-  const newCreationDate = creationDate.split("T")[0];
+  const creationDateFormatted = creationDate.split("T")[0];
 
   return (
     <div className="Card-Container" key={id}>
@@ -20,7 +20,7 @@ function Card(props) {
           color="primary"
           style={{ fontSize: "1.2rem", marginLeft: "1px" }}
         />
-        <label className="details">{newCreationDate}</label>
+        <label className="details">{creationDateFormatted}</label>
       </div>
     </div>
   );
