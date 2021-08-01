@@ -19,10 +19,9 @@ export async function postResume(resume) {
   }
 }
 
-export default async function getResumes() {
-  let handlerError = false;
+export async function getResumes() {
   try {
-    const { data: result } = await axios.get(
+    const { data } = await axios.get(
       `${API_HOST}/api/${API_VERSION}/${API_NAME}`
     );
 
