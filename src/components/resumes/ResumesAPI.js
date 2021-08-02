@@ -1,5 +1,9 @@
 import axios from "axios";
 
+const API_HOST = process.env.REACT_APP_API_RESUMES_URL;
+const API_NAME = "resumes";
+const API_VERSION = "v1";
+
 export async function postResume(resume) {
   try {
     const resumes = await axios.post(
@@ -18,7 +22,7 @@ export async function postResume(resume) {
 export async function getResumes() {
   try {
     const { data } = await axios.get(
-      "https://jsonplaceholder.typicode.com/users"
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}`
     );
 
     return data;
@@ -33,5 +37,27 @@ export async function getResumes() {
     }
 
     return [];
+  }
+}
+
+export async function getResume(id) {
+  let handlerError = false;
+  const data = {};
+  try {
+    const { data } = await axios.get(
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}/${id}`
+    );
+    return { data, handlerError };
+  } catch (error) {
+    // TODO error handling
+    if (error.response) {
+      alert(error);
+    } else if (error.request) {
+      alert(error);
+    } else {
+      alert("Error: Something is wrong");
+    }
+    handlerError = true;
+    return { data, handlerError };
   }
 }
