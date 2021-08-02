@@ -1,9 +1,8 @@
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
 import "./Box.css";
 
 function Box(props) {
-  const { id, contact, personalInformation, summary } = props;
+  const { contact, personalInformation, summary } = props;
   return (
     <>
       <div className="resume-picture">
@@ -24,11 +23,9 @@ function Box(props) {
         </div>
       </div>
       <div className="resume-button">
-        <Link to={`/resumes/${id}`}>
-          <Button color="primary" variant="contained">
-            Detail
-          </Button>
-        </Link>
+        <Button color="primary" variant="contained">
+          Detail
+        </Button>
       </div>
     </>
   );

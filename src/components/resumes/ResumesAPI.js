@@ -48,7 +48,7 @@ export async function getResumes() {
 export async function getResume(id) {
   try {
     const { data } = await axios.get(
-      `http://fa-tuapi-resumes-dev-bra.azurewebsites.net/api/v1/resumes/${id}`
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}/${id}`
     );
     return data;
   } catch (error) {
