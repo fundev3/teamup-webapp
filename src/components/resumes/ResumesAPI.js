@@ -1,5 +1,9 @@
 import axios from "axios";
 
+const API_HOST = process.env.REACT_APP_API_RESUMES_URL;
+const API_NAME = "resumes";
+const API_VERSION = "v1";
+
 export async function postResume(resume) {
   try {
     const result = await axios.post(
@@ -23,8 +27,8 @@ export async function postResume(resume) {
 export async function getResumes() {
   let handlerError = false;
   try {
-    const { data: result } = await axios.get(
-      "http://fa-tuapi-resumes-dev-bra.azurewebsites.net/api/v1/resumes"
+    const { data } = await axios.get(
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}`
     );
     return result;
   } catch (error) {
