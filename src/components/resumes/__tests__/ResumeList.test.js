@@ -40,6 +40,6 @@ test("Should render a button to create a resume", async () => {
     </MemoryRouter>
   );
 
-  const resumesScreen = await screen.findByText("Create Resume");
+  const resumesScreen = await screen.findByText("New Resume");
   expect(resumesScreen).toBeInTheDocument();
 });
