@@ -1,10 +1,5 @@
-import Details from "../Details";
 import MockAdapter from "axios-mock-adapter";
-import { act } from "react-dom/test-utils";
 import axios from "axios";
-import { getResume } from "../ResumesAPI.js";
-import { MemoryRouter, Route } from "react-router-dom";
-import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 var mock = new MockAdapter(axios);
@@ -46,4 +41,28 @@ test("Should get resume by Id with success response", async () => {
   const response = await axios.get(url);
   expect(response.data).toEqual(resume);
   expect(response.status).toBe(200);
+});
+
+test("Should return error 404", async () => {
+  const mock = new MockAdapter(axios);
+  mock.onGet(url).reply(404);
+  let error;
+  try {
+    await axios.get(url);
+  } catch (e) {
+    error = e.response;
+  }
+  expect(error.status).toBe(404);
+});
+
+test("Should return bad request error", async () => {
+  const mock = new MockAdapter(axios);
+  mock.onGet(url).reply(400);
+  let error;
+  try {
+    await axios.get(url);
+  } catch (e) {
+    error = e.response;
+  }
+  expect(error.status).toBe(400);
 });
