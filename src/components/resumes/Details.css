@@ -1,0 +1,9 @@
+.avatar-resume {
+  width: 150px;
+  height: 150px;
+  margin-left: 33%;
+}
+.footer {
+  display: flex;
+  margin: 30%;
+}

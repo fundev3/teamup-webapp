@@ -4,6 +4,7 @@ import Loading from "./Loading";
 import NotFound from "./NotFound";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
+import avatar from "../../assets/img_avatar.jpg";
 import { getResume } from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link, useParams } from "react-router-dom";
@@ -13,8 +14,7 @@ import "./Details.css";
 const useStyles = makeStyles((theme) => ({
   paper: {
     color: theme.palette.text.secondary,
-    margin: 10,
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
   },
   root: {
     "& .MuiTextField-root": {
@@ -39,7 +39,6 @@ function Details() {
       const error = response.handlerError;
       setError(error);
       setData(data);
-      console.log(process.env);
     }
     fetchData();
   }, [id]);
@@ -58,13 +57,17 @@ function Details() {
     <Grid
       className={classes.content}
       style={{
+        bottom: 130,
         left: "30%",
         position: "absolute",
-        top: "20%",
+        top: 130,
       }}
     >
       <Paper className={classes.paper}>
         <form autoComplete="off" className={classes.root} noValidate>
+          <div>
+            <img alt="" className="avatar-resume" src={avatar} />
+          </div>
           <div>
             <TextField
               InputProps={{
@@ -96,7 +99,18 @@ function Details() {
               InputProps={{
                 readOnly: readOnly,
               }}
+              defaultValue={data.personalInformation.birthdate}
+              label="Birthdate"
+              variant="standard"
+            />
+          </div>
+          <div>
+            <TextField
+              InputProps={{
+                readOnly: readOnly,
+              }}
               defaultValue={data.contact.direction}
+              fullWidth
               label="Address"
               variant="standard"
             />
@@ -120,13 +134,14 @@ function Details() {
               defaultValue={data.summary}
               fullWidth
               label="Summary"
+              margin="normal"
               multiline
               rows={2}
               variant="standard"
             />
           </div>
         </form>
-        <Grid className={classes.field} item xs={12}>
+        <Grid ClassName="footer" item xs={12}>
           <Button color="primary" onClick={edit} variant="contained">
             {showEdit}
           </Button>
