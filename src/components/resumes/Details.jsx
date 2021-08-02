@@ -1,29 +1,48 @@
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import Loading from "./Loading";
+import NotFound from "./NotFound";
+import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
+import { getResume } from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
-import useFetch from "./useFetch";
-import React, { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./Details.css";
 
 const useStyles = makeStyles((theme) => ({
-  margin: {
-    "& > *": {
-      margin: theme.spacing(1),
-    },
+  paper: {
+    color: theme.palette.text.secondary,
+    margin: 10,
+    padding: theme.spacing(2),
   },
   root: {
-    margin: 30,
-    width: 760,
+    "& .MuiTextField-root": {
+      margin: theme.spacing(2),
+    },
   },
 }));
 
-function Details({ resumeId }) {
+function Details() {
+  let { id } = useParams();
+  id = "40b3f7e3-eaba-4b0f-bbef-5f5882af3ced";
   const classes = useStyles();
-  const { data, error } = useFetch(resumeId);
+  const [data, setData] = useState();
+  const [error, setError] = useState();
   const [readOnly, setReadOnly] = useState(true);
   const [showEdit, setShowEdit] = useState("Edit");
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getResume(id);
+      const data = response.data;
+      const error = response.handlerError;
+      setError(error);
+      setData(data);
+      console.log(process.env);
+    }
+    fetchData();
+  }, [id]);
 
   const edit = (event) => {
     event.preventDefault();
@@ -34,100 +53,93 @@ function Details({ resumeId }) {
       setShowEdit("Edit");
     }
   };
-  if (error) return <div>ERROR!!! Resume not found</div>;
+  if (error) return <NotFound />;
   return data ? (
-    <Grid className={classes.root} container spacing={5}>
-      <Grid className={classes.margin} item xs={12}>
-        <Typography color="primary" variant="h4">
-          {data.name} {data.username}
-        </Typography>
-        <div>creation date</div>
-        <div>last update</div>
-      </Grid>
-
-      <Grid className={classes.margin} item xs={18}>
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue={data.name}
-          label="First Name"
-          variant="outlined"
-        />
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue={data.username}
-          label="Last Name"
-          variant="outlined"
-        />
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue="2017-05-24"
-          label="Birthdate"
-          type="date"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid className={classes.margin} item xs={12}>
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue={data.email}
-          label="Email"
-          variant="outlined"
-        />
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue={data.phone}
-          label="Phone"
-          variant="outlined"
-        />
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue={data.address.street}
-          label="Address"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid className={classes.margin} item xs={12}>
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue={data.website}
-          fullWidth
-          label="Summary"
-          multiline
-          rows={4}
-          variant="outlined"
-        />
-      </Grid>
-      <Grid className={classes.margin} item xs={12}>
-        <Button color="primary" onClick={edit} variant="contained">
-          {showEdit}
-        </Button>
-        <Button
-          color="primary"
-          onClick={() => {
-            alert("Back");
-          }}
-          variant="contained"
-        >
-          Back
-        </Button>
-      </Grid>
+    <Grid
+      className={classes.content}
+      style={{
+        left: "30%",
+        position: "absolute",
+        top: "20%",
+      }}
+    >
+      <Paper className={classes.paper}>
+        <form autoComplete="off" className={classes.root} noValidate>
+          <div>
+            <TextField
+              InputProps={{
+                readOnly: readOnly,
+              }}
+              defaultValue={data.personalInformation.firstName}
+              label="First Name"
+              variant="standard"
+            />
+            <TextField
+              InputProps={{
+                readOnly: readOnly,
+              }}
+              defaultValue={data.personalInformation.lastName}
+              label="Last Name"
+              variant="standard"
+            />
+          </div>
+          <div>
+            <TextField
+              InputProps={{
+                readOnly: readOnly,
+              }}
+              defaultValue={data.contact.phone}
+              label="Phone"
+              variant="standard"
+            />
+            <TextField
+              InputProps={{
+                readOnly: readOnly,
+              }}
+              defaultValue={data.contact.direction}
+              label="Address"
+              variant="standard"
+            />
+          </div>
+          <div>
+            <TextField
+              InputLabelProps={{
+                shrink: true,
+              }}
+              defaultValue={data.contact.email}
+              fullWidth
+              label="Email"
+              variant="standard"
+            />
+          </div>
+          <div>
+            <TextField
+              InputProps={{
+                readOnly: readOnly,
+              }}
+              defaultValue={data.summary}
+              fullWidth
+              label="Summary"
+              multiline
+              rows={2}
+              variant="standard"
+            />
+          </div>
+        </form>
+        <Grid className={classes.field} item xs={12}>
+          <Button color="primary" onClick={edit} variant="contained">
+            {showEdit}
+          </Button>
+          <Link to="/resumes">
+            <Button color="primary" variant="contained">
+              Back
+            </Button>
+          </Link>
+        </Grid>
+      </Paper>
     </Grid>
   ) : (
-    <div>Loading</div>
+    <Loading />
   );
 }
 export default Details;
