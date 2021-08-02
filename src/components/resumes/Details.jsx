@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Details() {
   let { id } = useParams();
-  id = "40b3f7e3-eaba-4b0f-bbef-5f5882af3ced";
   const classes = useStyles();
   const [data, setData] = useState();
   const [error, setError] = useState();
