@@ -41,7 +41,7 @@ function Details() {
           alignItems="center"
           container
           direction="row"
-          justify="center"
+          justifyContent="center"
           spacing={1}
           wrap="nowrap"
         >
