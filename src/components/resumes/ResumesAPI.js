@@ -25,13 +25,14 @@ export async function postResume(resume) {
 }
 
 export async function getResumes() {
-  let handlerError = false;
   try {
     const { data } = await axios.get(
       `${API_HOST}/api/${API_VERSION}/${API_NAME}`
     );
-    return result;
+
+    return data;
   } catch (error) {
+    // TODO error handling
     if (error.response) {
       alert(error);
     } else if (error.request) {
@@ -39,8 +40,8 @@ export async function getResumes() {
     } else {
       alert("Error: Something is wrong");
     }
-    handlerError = true;
-    return handlerError;
+
+    return [];
   }
 }
 
