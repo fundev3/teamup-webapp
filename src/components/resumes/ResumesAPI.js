@@ -24,7 +24,7 @@ export async function getResumes() {
   let handlerError = false;
   try {
     const { data: result } = await axios.get(
-      "http://localhost:7071/api/resumes"
+      "http://fa-tuapi-resumes-dev-bra.azurewebsites.net/api/v1/resumes"
     );
     return result;
   } catch (error) {
@@ -42,7 +42,9 @@ export async function getResumes() {
 
 export async function getResume(id) {
   try {
-    const { data } = await axios.get(`http://localhost:7071/api/resumes/${id}`);
+    const { data } = await axios.get(
+      `http://fa-tuapi-resumes-dev-bra.azurewebsites.net/api/v1/resumes/${id}`
+    );
     return data;
   } catch (error) {
     // TODO error handling
