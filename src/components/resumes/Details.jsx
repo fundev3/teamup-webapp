@@ -5,9 +5,11 @@ import NotFound from "./NotFound";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import avatar from "../../assets/img_avatar.jpg";
+import { entry as entryValidations } from "./helpers/validations";
 import { getResume } from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link, useParams } from "react-router-dom";
+import { useFormik } from "formik";
+import { Link, useHistory, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./Details.css";
 
@@ -30,6 +32,7 @@ function Details() {
   const [error, setError] = useState();
   const [readOnly, setReadOnly] = useState(true);
   const [showEdit, setShowEdit] = useState("Edit");
+  const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -47,10 +50,18 @@ function Details() {
     setReadOnly(!readOnly);
     if (readOnly) {
       setShowEdit("Save");
+      setDisabled(false);
     } else {
       setShowEdit("Edit");
+      setDisabled(true);
     }
   };
+
+  const formik = useFormik({
+    initialValues: {},
+    validationSchema: entryValidations(),
+  });
+
   if (error) return <NotFound />;
   return data ? (
     <Grid
@@ -71,27 +82,58 @@ function Details() {
           <div>
             <TextField
               defaultValue={data.personalInformation.firstName}
-              disabled
+              disabled={disabled}
+              error={formik.touched.firstName && formik.errors.firstName}
+              helperText={
+                formik.touched.firstName && formik.errors.firstName
+                  ? formik.errors.firstName
+                  : ""
+              }
+              id="firstName"
               label="First Name"
+              name="firstName"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="text"
               variant="standard"
             />
             <TextField
               defaultValue={data.personalInformation.lastName}
-              disabled
+              disabled={disabled}
+              error={formik.touched.lastName && formik.errors.lastName}
+              helperText={
+                formik.touched.lastName && formik.errors.lastName
+                  ? formik.errors.lastName
+                  : ""
+              }
+              id="lastName"
               label="Last Name"
-              variant="standard"
+              name="lastName"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="text"
             />
           </div>
           <div>
             <TextField
               defaultValue={data.contact.phone}
-              disabled
+              disabled={disabled}
+              error={formik.touched.phone && formik.errors.phone}
+              helperText={
+                formik.touched.phone && formik.errors.phone
+                  ? formik.errors.phone
+                  : ""
+              }
+              id="phone"
               label="Phone"
-              variant="standard"
+              name="phone"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="number"
             />
             <TextField
               defaultValue={data.personalInformation.birthdate}
-              disabled
+              disabled={disabled}
               label="Birthdate"
               variant="standard"
             />
@@ -99,29 +141,60 @@ function Details() {
           <div>
             <TextField
               defaultValue={data.contact.direction}
-              disabled
+              disabled={disabled}
+              error={formik.touched.direction && formik.errors.direction}
               fullWidth
+              helperText={
+                formik.touched.direction && formik.errors.direction
+                  ? formik.errors.direction
+                  : ""
+              }
+              id="direction"
               label="Address"
-              variant="standard"
+              name="direction"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="text"
             />
           </div>
           <div>
             <TextField
               defaultValue={data.contact.email}
-              disabled
+              disabled={disabled}
+              error={formik.touched.email && formik.errors.email}
               fullWidth
+              helperText={
+                formik.touched.email && formik.errors.email
+                  ? formik.errors.email
+                  : ""
+              }
+              id="email"
               label="Email"
-              variant="standard"
+              name="email"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="email"
             />
           </div>
           <div>
             <TextField
               defaultValue={data.summary}
-              disabled
+              disabled={disabled}
+              error={formik.touched.summary && formik.errors.summary}
               fullWidth
+              helperText={
+                formik.touched.summary && formik.errors.summary
+                  ? formik.errors.summary
+                  : ""
+              }
+              id="summary"
               label="Summary"
               margin="normal"
+              maxRows={4}
               multiline
+              name="summary"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
               rows={2}
               variant="standard"
             />
