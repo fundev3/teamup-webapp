@@ -140,14 +140,17 @@ function Details() {
             />
           </div>
         </form>
-        <Grid ClassName="footer" item xs={12}>
+        <Grid
+          className="footer"
+          container
+          direction="row"
+          justifyContent="center"
+        >
           <Button color="primary" onClick={edit} variant="contained">
             {showEdit}
           </Button>
           <Link to="/resumes">
-            <Button color="primary" variant="contained">
-              Back
-            </Button>
+            <Button variant="contained">Cancel</Button>
           </Link>
         </Grid>
       </Paper>
