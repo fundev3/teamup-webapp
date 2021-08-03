@@ -1,15 +1,22 @@
-.Name {
+.name {
   color: rgba(13, 27, 46, 0.938);
   font-size: large;
   font-weight: bold;
   margin: 12px;
 }
-
-.Box-Container {
-  font-family: Sans-serif;
+.resume-picture {
+  padding: 8px 40px;
 }
-
-.Field {
-  display: flex;
-  margin: 12px;
+.resume-picture img {
+  width: 100px;
+  height: 100px;
+}
+.resume-information {
+  width: 300px;
+  margin: 0px 20px;
+}
+.resume-button {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-right: 5%;
 }

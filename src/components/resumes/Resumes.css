@@ -1,23 +1,25 @@
-.Title {
-  color: rgba(83, 14, 14, 0.938);
-  font-size: large;
-  font-weight: bolder;
-  text-align: center;
-}
-
-.Resumes-Container {
-  padding-top: 20px;
-  width: 80%;
-  margin-bottom: 20px;
-  margin-left: auto;
+.resumes-container {
   margin-right: auto;
+  margin-left: auto;
+  height: 100%;
+  width: 90%;
+  padding-top: 2%;
 }
-.Resume-List {
-  margin-top: 10px;
+.resumes-list {
+  padding-bottom: 3%;
 }
-.Button {
-  margin-right: 30px;
-  margin: 20px;
+.resume-box {
+  background-color: #ffffff;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 50px;
+  padding-left: 20px;
+  border-radius: 5px;
   display: flex;
-  flex-direction: row-reverse;
+  vertical-align: middle;
+  width: 700px;
+}
+.button-container {
+  margin-left: 20%;
 }
