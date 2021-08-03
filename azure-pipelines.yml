@@ -34,8 +34,8 @@ stages:
         displayName: 'Running Unit Test'
       
       - script: |
-          echo 'REACT_APP_API_PROJECTS_HOST = $(API_PROJECTS_HOST)' > .env
-          echo 'REACT_APP_API_RESUMES_HOST = $(API_RESUMES_HOST)' >> .env
+          echo 'REACT_APP_API_PROJECTS_URL = $(API_PROJECTS_HOST)' > .env
+          echo 'REACT_APP_API_RESUMES_URL = $(API_RESUMES_HOST)' >> .env
         displayName: 'Adding environment variables'
 
       - script: npm run build
