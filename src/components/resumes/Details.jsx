@@ -55,11 +55,12 @@ function Details() {
   return data ? (
     <Grid
       className={classes.content}
+      container
+      direction="row"
+      justifyContent="center"
       style={{
-        bottom: 130,
-        left: "30%",
         position: "absolute",
-        top: 130,
+        top: "150px",
       }}
     >
       <Paper className={classes.paper}>
@@ -69,46 +70,36 @@ function Details() {
           </div>
           <div>
             <TextField
-              InputProps={{
-                readOnly: readOnly,
-              }}
               defaultValue={data.personalInformation.firstName}
+              disabled
               label="First Name"
               variant="standard"
             />
             <TextField
-              InputProps={{
-                readOnly: readOnly,
-              }}
               defaultValue={data.personalInformation.lastName}
+              disabled
               label="Last Name"
               variant="standard"
             />
           </div>
           <div>
             <TextField
-              InputProps={{
-                readOnly: readOnly,
-              }}
               defaultValue={data.contact.phone}
+              disabled
               label="Phone"
               variant="standard"
             />
             <TextField
-              InputProps={{
-                readOnly: readOnly,
-              }}
               defaultValue={data.personalInformation.birthdate}
+              disabled
               label="Birthdate"
               variant="standard"
             />
           </div>
           <div>
             <TextField
-              InputProps={{
-                readOnly: readOnly,
-              }}
               defaultValue={data.contact.direction}
+              disabled
               fullWidth
               label="Address"
               variant="standard"
@@ -116,10 +107,8 @@ function Details() {
           </div>
           <div>
             <TextField
-              InputLabelProps={{
-                shrink: true,
-              }}
               defaultValue={data.contact.email}
+              disabled
               fullWidth
               label="Email"
               variant="standard"
@@ -127,10 +116,8 @@ function Details() {
           </div>
           <div>
             <TextField
-              InputProps={{
-                readOnly: readOnly,
-              }}
               defaultValue={data.summary}
+              disabled
               fullWidth
               label="Summary"
               margin="normal"

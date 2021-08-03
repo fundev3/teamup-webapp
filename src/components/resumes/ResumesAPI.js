@@ -7,7 +7,7 @@ const API_VERSION = "v1";
 export async function postResume(resume) {
   try {
     const result = await axios.post(
-      "http://localhost:7071/api/resumes",
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}`,
       resume
     );
     if (result.status === 200) {
@@ -16,7 +16,6 @@ export async function postResume(resume) {
       result.ok = false;
       result.statusText = "Data not saved";
     }
-    console.log(result.statusText);
     return result;
   } catch (err) {
     alert("Couldn't save your profile, please try again");

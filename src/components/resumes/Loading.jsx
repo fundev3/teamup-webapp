@@ -1,18 +1,20 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import loadingImg from "../../assets/loading.gif";
+import loadingGift from "../../assets/loading.gif";
 
 function Loading() {
   return (
     <Grid
+      container
+      direction="row"
+      justifyContent="center"
       style={{
-        left: "20%",
         position: "absolute",
-        top: "20%",
+        top: "200px",
       }}
     >
-      <Box bgcolor="background.paper" p={10}>
-        <img alt="" src={loadingImg}></img>
+      <Box bgcolor="background.paper">
+        <img alt="" src={loadingGift}></img>
       </Box>
     </Grid>
   );
