@@ -1,13 +1,13 @@
 import Card from "./Card";
 import DescriptionRoundedIcon from "@material-ui/icons/DescriptionRounded";
+import SearchIcon from "@material-ui/icons/Search";
 import { getProjects } from "./ProjectsAPI.js";
 import { useHistory } from "react-router-dom";
 import {
   Button,
+  CardContent,
+  InputBase,
   Paper,
-  TableCell,
-  TableContainer,
-  TableRow,
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
@@ -30,58 +30,57 @@ function ProjectList() {
   function handleEntryClick() {
     history.push("/projects/entry");
   }
-  function handleViewClick(id) {
-    history.push(`/projects/${id}`);
-  }
-  return (
-    <div className="Projects-Container">
-      <Button color="primary" onClick={handleEntryClick} variant="contained">
-        New Project
-      </Button>
 
-      <div className="Projects-List">
-        <TableContainer
-          component={Paper}
-          style={{ maxWidth: "1000px", minWidth: "500px" }}
-        >
-          {projects.length === 0 ? (
-            <div className="empty-file">
-              <DescriptionRoundedIcon
-                style={{ color: "#e2e2e2", fontSize: "10rem" }}
-              />
-              <Typography
-                style={{
-                  color: "#d2d2d2",
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                }}
-              >
-                Looks like, there are no projects
-              </Typography>
+  return (
+    <div className="projects-container">
+      <div className="top-content">
+        <Button color="primary" onClick={handleEntryClick} variant="contained">
+          New Project
+        </Button>
+        <div className="search-box">
+          <div className="search-box-input">
+            <InputBase placeholder="Search project…" />
+          </div>
+          <div className="search-box-icon">
+            <SearchIcon style={{ color: "#ffffff" }} />
+          </div>
+        </div>
+      </div>
+      <div className="projects-list">
+        {projects.length === 0 ? (
+          <div className="empty-file">
+            <DescriptionRoundedIcon
+              style={{ color: "#e2e2e2", fontSize: "10rem", margin: "30px" }}
+            />
+            <Typography
+              style={{
+                color: "#d2d2d2",
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+              }}
+            >
+              Sorry, we couldn't complete your request.
+            </Typography>
+          </div>
+        ) : (
+          projects.map((project) => (
+            <div className="box-paper">
+              <Paper style={{ margin: "20px 0px", width: "500px" }}>
+                <CardContent
+                  className="box-inside"
+                  style={{
+                    alignItems: "center",
+                    display: "flex",
+                    height: "270px",
+                    width: "500px",
+                  }}
+                >
+                  <Card {...project} />
+                </CardContent>
+              </Paper>
             </div>
-          ) : (
-            projects.map((project) => (
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  <div className="box-card">
-                    <div className="left">
-                      <Card {...project} />
-                    </div>
-                    <div className="right">
-                      <Button
-                        color="primary"
-                        onClick={() => handleViewClick(project.id)}
-                        variant="contained"
-                      >
-                        View
-                      </Button>
-                    </div>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))
-          )}
-        </TableContainer>
+          ))
+        )}
       </div>
     </div>
   );
