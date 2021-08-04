@@ -1,133 +1,247 @@
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import Loading from "./Loading";
+import NotFound from "./NotFound";
+import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
+import avatar from "../../assets/img_avatar.jpg";
+import { entry as entryValidations } from "./helpers/validations";
+import { getResume } from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
-import useFetch from "./useFetch";
-import React, { useState } from "react";
+import { useFormik } from "formik";
+import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./Details.css";
 
 const useStyles = makeStyles((theme) => ({
-  margin: {
-    "& > *": {
-      margin: theme.spacing(1),
-    },
+  paper: {
+    color: theme.palette.text.secondary,
+    padding: theme.spacing(4),
   },
   root: {
-    margin: 30,
-    width: 760,
+    "& .MuiTextField-root": {
+      margin: theme.spacing(2),
+    },
   },
 }));
 
-function Details({ resumeId }) {
+function Details() {
+  let { id } = useParams();
   const classes = useStyles();
-  const { data, error } = useFetch(resumeId);
-  const [readOnly, setReadOnly] = useState(true);
-  const [showEdit, setShowEdit] = useState("Edit");
+  const [data, setData] = useState();
+  const [error, setError] = useState();
+  const [stateButton, setStateButton] = useState("Edit");
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getResume(id);
+      const data = response.data;
+      const error = response.handlerError;
+      setError(error);
+      setData(data);
+    }
+    fetchData();
+  }, [id]);
 
   const edit = (event) => {
     event.preventDefault();
-    setReadOnly(!readOnly);
-    if (readOnly) {
-      setShowEdit("Save");
+    if (disabled) {
+      setStateButton("Save");
+      setDisabled(false);
     } else {
-      setShowEdit("Edit");
+      setStateButton("Edit");
+      setDisabled(true);
     }
   };
-  if (error) return <div>ERROR!!! Resume not found</div>;
-  return data ? (
-    <Grid className={classes.root} container spacing={5}>
-      <Grid className={classes.margin} item xs={12}>
-        <Typography color="primary" variant="h4">
-          {data.name} {data.username}
-        </Typography>
-        <div>creation date</div>
-        <div>last update</div>
-      </Grid>
 
-      <Grid className={classes.margin} item xs={18}>
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue={data.name}
-          label="First Name"
-          variant="outlined"
-        />
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue={data.username}
-          label="Last Name"
-          variant="outlined"
-        />
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue="2017-05-24"
-          label="Birthdate"
-          type="date"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid className={classes.margin} item xs={12}>
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue={data.email}
-          label="Email"
-          variant="outlined"
-        />
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue={data.phone}
-          label="Phone"
-          variant="outlined"
-        />
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue={data.address.street}
-          label="Address"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid className={classes.margin} item xs={12}>
-        <TextField
-          InputProps={{
-            readOnly: readOnly,
-          }}
-          defaultValue={data.website}
-          fullWidth
-          label="Summary"
-          multiline
-          rows={4}
-          variant="outlined"
-        />
-      </Grid>
-      <Grid className={classes.margin} item xs={12}>
-        <Button color="primary" onClick={edit} variant="contained">
-          {showEdit}
-        </Button>
-        <Button
-          color="primary"
-          onClick={() => {
-            alert("Back");
-          }}
-          variant="contained"
+  const initialValues = {
+    birthdate: data?.personalInformation?.birthdate || "",
+    direction: data?.contact?.direction || "",
+    email: data?.contact?.email || "",
+    firstName: data?.personalInformation?.firstName || "",
+    lastName: data?.personalInformation?.lastName || "",
+    phone: data?.contact?.phone || "",
+    summary: data?.summary || "",
+  };
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: initialValues,
+    onSubmit: edit,
+    validationSchema: entryValidations(),
+  });
+
+  if (error) return <NotFound />;
+  return data ? (
+    <Grid
+      className={classes.content}
+      container
+      direction="row"
+      justifyContent="center"
+      style={{
+        position: "absolute",
+        top: "150px",
+      }}
+    >
+      <Paper className={classes.paper}>
+        <form autoComplete="off" className={classes.root} noValidate>
+          <div>
+            <img alt="" className="avatar-resume" src={avatar} />
+          </div>
+          <div>
+            <TextField
+              defaultValue={data.personalInformation.firstName}
+              disabled={disabled}
+              error={
+                formik.touched.firstName && Boolean(formik.errors.firstName)
+              }
+              helperText={
+                formik.touched.firstName && formik.errors.firstName
+                  ? formik.errors.firstName
+                  : ""
+              }
+              id="firstName"
+              label="First Name"
+              name="firstName"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="text"
+              variant="standard"
+            />
+            <TextField
+              defaultValue={data.personalInformation.lastName}
+              disabled={disabled}
+              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+              helperText={
+                formik.touched.lastName && formik.errors.lastName
+                  ? formik.errors.lastName
+                  : ""
+              }
+              id="lastName"
+              label="Last Name"
+              name="lastName"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="text"
+              variant="standard"
+            />
+          </div>
+          <div>
+            <TextField
+              defaultValue={data.contact.phone}
+              disabled={disabled}
+              error={formik.touched.phone && Boolean(formik.errors.phone)}
+              helperText={
+                formik.touched.phone && formik.errors.phone
+                  ? formik.errors.phone
+                  : ""
+              }
+              id="phone"
+              label="Phone"
+              name="phone"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="number"
+              variant="standard"
+            />
+            <TextField
+              defaultValue="2017-05-24"
+              disabled={disabled}
+              error={
+                formik.touched.birthdate && Boolean(formik.errors.birthdate)
+              }
+              id="birthdate"
+              label="Birthdate"
+              name="birthdate"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="date"
+              variant="standard"
+            />
+          </div>
+          <div>
+            <TextField
+              defaultValue={data.contact.direction}
+              disabled={disabled}
+              error={
+                formik.touched.direction && Boolean(formik.errors.direction)
+              }
+              fullWidth
+              helperText={
+                formik.touched.direction && formik.errors.direction
+                  ? formik.errors.direction
+                  : ""
+              }
+              id="direction"
+              label="Address"
+              name="direction"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="text"
+              variant="standard"
+            />
+          </div>
+          <div>
+            <TextField
+              defaultValue={data.contact.email}
+              disabled={disabled}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              fullWidth
+              helperText={
+                formik.touched.email && formik.errors.email
+                  ? formik.errors.email
+                  : ""
+              }
+              id="email"
+              label="Email"
+              name="email"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="email"
+              variant="standard"
+            />
+          </div>
+          <div>
+            <TextField
+              defaultValue={data.summary}
+              disabled={disabled}
+              error={formik.touched.summary && Boolean(formik.errors.summary)}
+              fullWidth
+              helperText={
+                formik.touched.summary && formik.errors.summary
+                  ? formik.errors.summary
+                  : ""
+              }
+              id="summary"
+              label="Summary"
+              maxRows={4}
+              multiline
+              name="summary"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              rows={2}
+              variant="standard"
+            />
+          </div>
+        </form>
+        <Grid
+          className="footer"
+          container
+          direction="row"
+          justifyContent="center"
         >
-          Back
-        </Button>
-      </Grid>
+          <Button color="primary" onClick={edit} variant="contained">
+            {stateButton}
+          </Button>
+          <Link to="/resumes">
+            <Button variant="contained">Cancel</Button>
+          </Link>
+        </Grid>
+      </Paper>
     </Grid>
   ) : (
-    <div>Loading</div>
+    <Loading />
   );
 }
 export default Details;

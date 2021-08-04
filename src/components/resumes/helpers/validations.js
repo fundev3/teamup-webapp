@@ -29,7 +29,8 @@ export const entry = () =>
       .matches(/^[67]\d{7}$/g, "Invalid phone number")
       .required("Phone number field is required"),
     summary: Yup.string()
-      .min(20, "Bio description is too short - should be 20 characters minimum")
+      // At the moment I change this to avoid mistakes, in the future change 15 for 20
+      .min(15, "Bio description is too short - should be 15 characters minimum")
       .matches(
         /^[A-Za-z  .,']*$/g,
         "Numbers and special characters are not allowed @()-*$#!+=^&"
