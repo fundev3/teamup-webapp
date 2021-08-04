@@ -9,7 +9,7 @@ import { entry as entryValidations } from "./helpers/validations";
 import { getResume } from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./Details.css";
 
@@ -30,8 +30,7 @@ function Details() {
   const classes = useStyles();
   const [data, setData] = useState();
   const [error, setError] = useState();
-  const [readOnly, setReadOnly] = useState(true);
-  const [showEdit, setShowEdit] = useState("Edit");
+  const [stateButton, setStateButton] = useState("Edit");
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
@@ -47,18 +46,29 @@ function Details() {
 
   const edit = (event) => {
     event.preventDefault();
-    setReadOnly(!readOnly);
-    if (readOnly) {
-      setShowEdit("Save");
+    if (disabled) {
+      setStateButton("Save");
       setDisabled(false);
     } else {
-      setShowEdit("Edit");
+      setStateButton("Edit");
       setDisabled(true);
     }
   };
 
+  const initialValues = {
+    birthdate: data?.personalInformation?.birthdate || "",
+    direction: data?.contact?.direction || "",
+    email: data?.contact?.email || "",
+    firstName: data?.personalInformation?.firstName || "",
+    lastName: data?.personalInformation?.lastName || "",
+    phone: data?.contact?.phone || "",
+    summary: data?.summary || "",
+  };
+
   const formik = useFormik({
-    initialValues: {},
+    enableReinitialize: true,
+    initialValues: initialValues,
+    onSubmit: edit,
     validationSchema: entryValidations(),
   });
 
@@ -83,7 +93,9 @@ function Details() {
             <TextField
               defaultValue={data.personalInformation.firstName}
               disabled={disabled}
-              error={formik.touched.firstName && formik.errors.firstName}
+              error={
+                formik.touched.firstName && Boolean(formik.errors.firstName)
+              }
               helperText={
                 formik.touched.firstName && formik.errors.firstName
                   ? formik.errors.firstName
@@ -100,7 +112,7 @@ function Details() {
             <TextField
               defaultValue={data.personalInformation.lastName}
               disabled={disabled}
-              error={formik.touched.lastName && formik.errors.lastName}
+              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
               helperText={
                 formik.touched.lastName && formik.errors.lastName
                   ? formik.errors.lastName
@@ -112,13 +124,14 @@ function Details() {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               type="text"
+              variant="standard"
             />
           </div>
           <div>
             <TextField
               defaultValue={data.contact.phone}
               disabled={disabled}
-              error={formik.touched.phone && formik.errors.phone}
+              error={formik.touched.phone && Boolean(formik.errors.phone)}
               helperText={
                 formik.touched.phone && formik.errors.phone
                   ? formik.errors.phone
@@ -130,11 +143,20 @@ function Details() {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               type="number"
+              variant="standard"
             />
             <TextField
-              defaultValue={data.personalInformation.birthdate}
+              defaultValue="2017-05-24"
               disabled={disabled}
+              error={
+                formik.touched.birthdate && Boolean(formik.errors.birthdate)
+              }
+              id="birthdate"
               label="Birthdate"
+              name="birthdate"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="date"
               variant="standard"
             />
           </div>
@@ -142,7 +164,9 @@ function Details() {
             <TextField
               defaultValue={data.contact.direction}
               disabled={disabled}
-              error={formik.touched.direction && formik.errors.direction}
+              error={
+                formik.touched.direction && Boolean(formik.errors.direction)
+              }
               fullWidth
               helperText={
                 formik.touched.direction && formik.errors.direction
@@ -155,13 +179,14 @@ function Details() {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               type="text"
+              variant="standard"
             />
           </div>
           <div>
             <TextField
               defaultValue={data.contact.email}
               disabled={disabled}
-              error={formik.touched.email && formik.errors.email}
+              error={formik.touched.email && Boolean(formik.errors.email)}
               fullWidth
               helperText={
                 formik.touched.email && formik.errors.email
@@ -174,13 +199,14 @@ function Details() {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               type="email"
+              variant="standard"
             />
           </div>
           <div>
             <TextField
               defaultValue={data.summary}
               disabled={disabled}
-              error={formik.touched.summary && formik.errors.summary}
+              error={formik.touched.summary && Boolean(formik.errors.summary)}
               fullWidth
               helperText={
                 formik.touched.summary && formik.errors.summary
@@ -189,7 +215,6 @@ function Details() {
               }
               id="summary"
               label="Summary"
-              margin="normal"
               maxRows={4}
               multiline
               name="summary"
@@ -207,7 +232,7 @@ function Details() {
           justifyContent="center"
         >
           <Button color="primary" onClick={edit} variant="contained">
-            {showEdit}
+            {stateButton}
           </Button>
           <Link to="/resumes">
             <Button variant="contained">Cancel</Button>
