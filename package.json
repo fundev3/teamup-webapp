@@ -26,6 +26,7 @@
     "pre-commit": "npx lint-staged",
     "pre-push": "npm run lint:fix && npm run test-husky",
     "post-checkout": "npm install",
+    "postbuild": "node webconfig/copyWebConfig.js",
     "format": "prettier --write .",
     "test-husky": "react-scripts test --watchAll=false --passWithNoTests",
     "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
