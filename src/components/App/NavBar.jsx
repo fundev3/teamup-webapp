@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
+import logoNavbar from "../../assets/logo-teamup1.png";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import "./NavBar.scss";
 
@@ -8,15 +9,7 @@ function NavBar() {
     <AppBar position="static">
       <Toolbar className="navbar">
         <div className="logo-content">
-          <Typography
-            style={{
-              fontSize: "1.7rem",
-              fontWeight: "700",
-              letterSpacing: "-0.08em",
-            }}
-          >
-            TeamUp
-          </Typography>
+          <img alt="logo" src={logoNavbar} style={{ height: "42px" }} />
         </div>
         <div className="navbar-content">
           <NavLink
