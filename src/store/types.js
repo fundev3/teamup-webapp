@@ -1,0 +1,1 @@
+export const ALERT_SUCCESS = "ALERT_SUCCESS";
