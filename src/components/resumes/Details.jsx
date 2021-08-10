@@ -1,4 +1,5 @@
 import Button from "@material-ui/core/Button";
+import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
@@ -55,6 +56,8 @@ function Details() {
     }
   };
 
+  const handleDelete = () => {};
+
   const initialValues = {
     birthdate: data?.personalInformation?.birthdate || "",
     direction: data?.contact?.direction || "",
@@ -62,6 +65,7 @@ function Details() {
     firstName: data?.personalInformation?.firstName || "",
     lastName: data?.personalInformation?.lastName || "",
     phone: data?.contact?.phone || "",
+    skills: data?.skills || [],
     summary: data?.summary || "",
   };
 
@@ -223,6 +227,16 @@ function Details() {
               rows={2}
               variant="standard"
             />
+          </div>
+          <div className="skills-side">
+            <p>Skills</p>
+            {data.skills.map((skill) => (
+              <Chip
+                className="chip"
+                label={skill.nameSkill}
+                onDelete={stateButton == "Save" ? handleDelete : null}
+              />
+            ))}
           </div>
         </form>
         <Grid
