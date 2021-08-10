@@ -1,14 +1,8 @@
-import { createStore } from "redux";
-import reducer from "./reducer";
+import alertReducer from "./reducers/alertReducer";
+import { combineReducers, createStore } from "redux";
 
-const initialState = {
-  alert: {
-    message: "",
-    showAlert: false,
-    type: "success",
-  },
-};
+const allReducers = combineReducers({ alert: alertReducer });
 
-const store = createStore(reducer, initialState);
+const store = createStore(allReducers);
 
 export default store;

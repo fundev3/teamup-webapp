@@ -3,16 +3,20 @@ import MemberList from "./MemberList";
 import TextField from "@material-ui/core/TextField";
 import { entry as entryValidations } from "./helpers/validations";
 import { postProject } from "./ProjectsAPI";
+import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { useState } from "react";
+import { alertError, alertSuccess } from "../../store/actions/alertActions";
 import { useHistory, useLocation } from "react-router-dom";
 import "./Entry.scss";
 
 function Entry() {
   const [memberList, setMemberList] = useState([]);
+  const dispatch = useDispatch();
   const history = useHistory();
   const search = useLocation().search;
   const idProject = new URLSearchParams(search).get("id");
+
   const formik = useFormik({
     initialValues: {
       /**
@@ -50,10 +54,10 @@ function Entry() {
       };
       const response = await postProject(project);
       if (response.ok) {
-        alert("Project created !!!");
+        dispatch(alertSuccess("Project created !!!"));
         return history.push("/projects");
       }
-      alert(`The project was not saved ${response.error}`);
+      dispatch(alertError(`The project was not saved ${response.error}`));
     },
     validationSchema: entryValidations(),
   });

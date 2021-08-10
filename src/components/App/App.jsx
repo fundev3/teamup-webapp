@@ -4,19 +4,14 @@ import NavBar from "./NavBar";
 import ProjectDetails from "../projects/Details";
 import ProjectEntry from "../projects/Entry";
 import Projects from "../projects/Projects";
+import React from "react";
 import ResumeDetails from "../resumes/Details";
 import ResumeEntry from "../resumes/Entry";
 import Resumes from "../resumes/Resumes";
-import { selectAlert } from "../../store/selectors.js";
-import { useSelector } from "react-redux";
-import React, { useState } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.scss";
 
 function App() {
-  const alert = useSelector(selectAlert);
-  const [open, setOpen] = useState(alert.showAlert);
-
   return (
     <Router>
       <NavBar />
@@ -35,13 +30,8 @@ function App() {
           />
           <Route component={ResumeDetails} exact path="/resumes/:id" />
         </Switch>
+        <AlertService />
       </div>
-      <AlertService
-        message={alert.message}
-        open={open}
-        setOpen={setOpen}
-        type={alert.type}
-      />
     </Router>
   );
 }

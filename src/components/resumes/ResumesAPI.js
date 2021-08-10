@@ -1,4 +1,6 @@
+import { alertError } from "../../store/actions/alertActions";
 import axios from "axios";
+import store from "../../store";
 
 const API_HOST = process.env.REACT_APP_API_RESUMES_URL;
 const API_NAME = "resumes";
@@ -18,7 +20,7 @@ export async function postResume(resume) {
     }
     return result;
   } catch (err) {
-    alert("Couldn't save your profile, please try again");
+    store.dispatch(alertError("Couldn't save your profile, please try again"));
     return { ok: false };
   }
 }
@@ -32,11 +34,11 @@ export async function getResumes() {
     return data;
   } catch (error) {
     if (error.response) {
-      alert(error);
+      store.dispatch(alertError(error));
     } else if (error.request) {
-      alert(error);
+      store.dispatch(alertError(error.message));
     } else {
-      alert("Error: Something is wrong");
+      store.dispatch(alertError("Error: Something is wrong"));
     }
     handlerError = true;
     return handlerError;
@@ -54,11 +56,11 @@ export async function getResume(id) {
   } catch (error) {
     // TODO error handling
     if (error.response) {
-      alert(error);
+      store.dispatch(alertError(error));
     } else if (error.request) {
-      alert(error);
+      store.dispatch(alertError(error.message));
     } else {
-      alert("Error: Something is wrong");
+      store.dispatch(alertError("Error: Something is wrong"));
     }
     handlerError = true;
     return { data, handlerError };
