@@ -34,7 +34,7 @@ export async function getResumes() {
     return data;
   } catch (error) {
     if (error.response) {
-      store.dispatch(alertError(error));
+      store.dispatch(alertError(error.message));
     } else if (error.request) {
       store.dispatch(alertError(error.message));
     } else {
@@ -56,7 +56,7 @@ export async function getResume(id) {
   } catch (error) {
     // TODO error handling
     if (error.response) {
-      store.dispatch(alertError(error));
+      store.dispatch(alertError(error.message));
     } else if (error.request) {
       store.dispatch(alertError(error.message));
     } else {
