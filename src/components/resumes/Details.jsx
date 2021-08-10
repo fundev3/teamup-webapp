@@ -1,4 +1,5 @@
 import Button from "@material-ui/core/Button";
+import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
@@ -54,6 +55,8 @@ function Details() {
       setDisabled(true);
     }
   };
+
+  const handleDelete = () => {};
 
   const initialValues = {
     birthdate: data?.personalInformation?.birthdate || "",
@@ -223,6 +226,15 @@ function Details() {
               rows={2}
               variant="standard"
             />
+          </div>
+          <div>
+            {data.skills.map((skill) => (
+              <Chip
+                className="chip"
+                label={skill.nameSkill}
+                onDelete={handleDelete}
+              />
+            ))}
           </div>
         </form>
         <Grid
