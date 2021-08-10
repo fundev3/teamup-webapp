@@ -1,6 +1,8 @@
 import Entry from "../Entry";
+import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
+import store from "../../../store";
 import { cleanup, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
@@ -9,9 +11,11 @@ function renderEntryWithIdProject() {
   const route = "/projects/entry?id=7878";
   history.push(route);
   return render(
-    <Router history={history}>
-      <Entry />
-    </Router>
+    <Provider store={store}>
+      <Router history={history}>
+        <Entry />
+      </Router>
+    </Provider>
   );
 }
 
@@ -20,9 +24,11 @@ function renderEntryWithoutIdProject() {
   const route = "/projects/entry";
   history.push(route);
   return render(
-    <Router history={history}>
-      <Entry />
-    </Router>
+    <Provider store={store}>
+      <Router history={history}>
+        <Entry />
+      </Router>
+    </Provider>
   );
 }
 
