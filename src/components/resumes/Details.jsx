@@ -228,7 +228,8 @@ function Details() {
               variant="standard"
             />
           </div>
-          <div>
+          <div className="skills-side">
+            <p>Skills</p>
             {data.skills.map((skill) => (
               <Chip
                 className="chip"
