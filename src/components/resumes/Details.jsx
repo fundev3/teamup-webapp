@@ -65,6 +65,7 @@ function Details() {
     firstName: data?.personalInformation?.firstName || "",
     lastName: data?.personalInformation?.lastName || "",
     phone: data?.contact?.phone || "",
+    skills: data?.skills || [],
     summary: data?.summary || "",
   };
 
@@ -232,7 +233,7 @@ function Details() {
               <Chip
                 className="chip"
                 label={skill.nameSkill}
-                onDelete={handleDelete}
+                onDelete={stateButton == "Save" ? handleDelete : null}
               />
             ))}
           </div>
