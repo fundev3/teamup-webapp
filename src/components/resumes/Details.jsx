@@ -1,20 +1,36 @@
-import Button from "@material-ui/core/Button";
-import Chip from "@material-ui/core/Chip";
-import Grid from "@material-ui/core/Grid";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
-import Paper from "@material-ui/core/Paper";
+import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import avatar from "../../assets/img_avatar.jpg";
 import { entry as entryValidations } from "./helpers/validations";
-import { getResume } from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
+import {
+  Button,
+  Chip,
+  Grid,
+  IconButton,
+  InputBase,
+  Paper,
+} from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { getResume, getSkillsByName } from "./ResumesAPI.js";
 import "./Details.css";
 
 const useStyles = makeStyles((theme) => ({
+  divider: {
+    height: 28,
+    margin: 4,
+  },
+  iconButton: {
+    padding: 10,
+  },
+  input: {
+    flex: 1,
+    marginLeft: theme.spacing(1),
+  },
   paper: {
     color: theme.palette.text.secondary,
     padding: theme.spacing(4),
@@ -24,15 +40,24 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
     },
   },
+  searchBoxContainer: {
+    alignItems: "center",
+    display: "flex",
+    marginBottom: "15px",
+    padding: "2px 4px",
+    width: "100%",
+  },
 }));
 
 function Details() {
   let { id } = useParams();
   const classes = useStyles();
+  const handleDelete = () => {};
   const [data, setData] = useState();
   const [error, setError] = useState();
   const [stateButton, setStateButton] = useState("Edit");
   const [disabled, setDisabled] = useState(true);
+  const [skillInput, setSkillInput] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -56,7 +81,10 @@ function Details() {
     }
   };
 
-  const handleDelete = () => {};
+  const getSkills = async (event) => {
+    event.preventDefault();
+    const response = await getSkillsByName(skillInput);
+  };
 
   const initialValues = {
     birthdate: data?.personalInformation?.birthdate || "",
@@ -230,12 +258,30 @@ function Details() {
           </div>
           <div className="skills-side">
             <p>Skills</p>
+            <Paper className={classes.searchBoxContainer} component="form">
+              <InputBase
+                className={classes.input}
+                disabled={disabled}
+                inputProps={{ "aria-label": "search google maps" }}
+                onChange={(event) => setSkillInput(event.target.value)}
+                placeholder="Search Skills"
+              />
+              <IconButton
+                aria-label="search"
+                className={classes.iconButton}
+                disabled={disabled}
+                onClick={getSkills}
+                type="submit"
+              >
+                <SearchIcon />
+              </IconButton>
+            </Paper>
             {data.skills.map((skill) => (
               <Chip
                 className="chip"
                 key={skill.id}
                 label={skill.name}
-                onDelete={stateButton == "Save" ? handleDelete : null}
+                onDelete={stateButton === "Save" ? handleDelete : null}
               />
             ))}
           </div>
