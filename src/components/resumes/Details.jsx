@@ -257,12 +257,14 @@ function Details() {
             <Paper className={classes.searchBoxContainer} component="form">
               <InputBase
                 className={classes.input}
+                disabled={disabled}
                 inputProps={{ "aria-label": "search google maps" }}
                 placeholder="Search Skills"
               />
               <IconButton
                 aria-label="search"
                 className={classes.iconButton}
+                disabled={disabled}
                 type="submit"
               >
                 <SearchIcon />
