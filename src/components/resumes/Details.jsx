@@ -13,11 +13,11 @@ import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import avatar from "../../assets/img_avatar.jpg";
 import { entry as entryValidations } from "./helpers/validations";
-import { getResume } from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { getResume, getSkillsByName } from "./ResumesAPI.js";
 import "./Details.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -80,15 +80,11 @@ function Details() {
     }
   };
 
-  const getSkills = (event) => {
+  const getSkills = async (event) => {
+    console.log("Skill input: ", skillInput);
     event.preventDefault();
-    if (disabled) {
-      setStateButton("Save");
-      setDisabled(false);
-    } else {
-      setStateButton("Edit");
-      setDisabled(true);
-    }
+    const response = await getSkillsByName(skillInput);
+    console.log(response);
   };
 
   const [skillInput, setSkillInput] = useState("");
