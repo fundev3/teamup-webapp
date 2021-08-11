@@ -54,7 +54,7 @@ function Entry() {
       };
       const response = await postProject(project);
       if (response.ok) {
-        dispatch(alertSuccess("Project created !!!"));
+        dispatch(alertSuccess("Project has been created successfully"));
         return history.push("/projects");
       }
       dispatch(alertError(`The project was not saved ${response.error}`));
