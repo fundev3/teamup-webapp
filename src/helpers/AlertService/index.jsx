@@ -1,4 +1,5 @@
 import Alert from "@material-ui/lab/Alert";
+import { Slide } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import { makeStyles } from "@material-ui/core/styles";
 import { selectAlert } from "../../store/selectors.js";
@@ -23,11 +24,15 @@ export default function AlertService() {
     setOpen(alert.showAlert);
   }, [alert]);
 
+  function TransitionLeft(props) {
+    return <Slide {...props} direction="left" />;
+  }
+
   return (
     <div className={classes.root}>
       <Snackbar
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-        autoHideDuration={6000}
+        TransitionComponent={TransitionLeft}
+        autoHideDuration={2500}
         onClose={() => setOpen(false)}
         open={open}
       >
