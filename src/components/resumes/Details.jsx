@@ -52,10 +52,12 @@ const useStyles = makeStyles((theme) => ({
 function Details() {
   let { id } = useParams();
   const classes = useStyles();
+  const handleDelete = () => {};
   const [data, setData] = useState();
   const [error, setError] = useState();
   const [stateButton, setStateButton] = useState("Edit");
   const [disabled, setDisabled] = useState(true);
+  const [skillInput, setSkillInput] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -80,15 +82,9 @@ function Details() {
   };
 
   const getSkills = async (event) => {
-    console.log("Skill input: ", skillInput);
     event.preventDefault();
     const response = await getSkillsByName(skillInput);
-    console.log(response);
   };
-
-  const [skillInput, setSkillInput] = useState("");
-
-  const handleDelete = () => {};
 
   const initialValues = {
     birthdate: data?.personalInformation?.birthdate || "",
