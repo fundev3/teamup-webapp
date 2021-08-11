@@ -1,17 +1,19 @@
-import Button from "@material-ui/core/Button";
-import Chip from "@material-ui/core/Chip";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import InputBase from "@material-ui/core/InputBase";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
-import Paper from "@material-ui/core/Paper";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import avatar from "../../assets/img_avatar.jpg";
 import { entry as entryValidations } from "./helpers/validations";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
+import {
+  Button,
+  Chip,
+  Grid,
+  IconButton,
+  InputBase,
+  Paper,
+} from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { getResume, getSkillsByName } from "./ResumesAPI.js";
@@ -283,7 +285,7 @@ function Details() {
                 className="chip"
                 key={skill.id}
                 label={skill.name}
-                onDelete={stateButton == "Save" ? handleDelete : null}
+                onDelete={stateButton === "Save" ? handleDelete : null}
               />
             ))}
           </div>
