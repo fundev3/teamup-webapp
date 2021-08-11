@@ -80,6 +80,19 @@ function Details() {
     }
   };
 
+  const getSkills = (event) => {
+    event.preventDefault();
+    if (disabled) {
+      setStateButton("Save");
+      setDisabled(false);
+    } else {
+      setStateButton("Edit");
+      setDisabled(true);
+    }
+  };
+
+  const [skillInput, setSkillInput] = useState("");
+
   const handleDelete = () => {};
 
   const initialValues = {
@@ -259,12 +272,14 @@ function Details() {
                 className={classes.input}
                 disabled={disabled}
                 inputProps={{ "aria-label": "search google maps" }}
+                onChange={(event) => setSkillInput(event.target.value)}
                 placeholder="Search Skills"
               />
               <IconButton
                 aria-label="search"
                 className={classes.iconButton}
                 disabled={disabled}
+                onClick={getSkills}
                 type="submit"
               >
                 <SearchIcon />
