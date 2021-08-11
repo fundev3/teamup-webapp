@@ -1,3 +1,4 @@
+import AlertService from "../../helpers/AlertService";
 import { Home } from "./Home.jsx";
 import NavBar from "./NavBar";
 import ProjectDetails from "../projects/Details";
@@ -29,6 +30,7 @@ function App() {
           />
           <Route component={ResumeDetails} exact path="/resumes/:id" />
         </Switch>
+        <AlertService />
       </div>
     </Router>
   );

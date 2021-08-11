@@ -1,4 +1,6 @@
+import { alertError } from "../../store/actions/alertActions";
 import axios from "axios";
+import store from "../../store";
 
 const API_HOST = process.env.REACT_APP_API_PROJECTS_URL;
 const API_NAME = "projects";
@@ -14,11 +16,11 @@ export async function getProjects() {
   } catch (error) {
     // TODO error handling
     if (error.response) {
-      alert(error);
+      store.dispatch(alertError(error.message));
     } else if (error.request) {
-      alert(error);
+      store.dispatch(alertError(error.message));
     } else {
-      alert("Error: Something is wrong");
+      store.dispatch(alertError("Error: Something is wrong"));
     }
 
     return [];
@@ -35,11 +37,11 @@ export async function getProject(id) {
   } catch (error) {
     // TODO error handling
     if (error.response) {
-      alert(error);
+      store.dispatch(alertError(error.message));
     } else if (error.request) {
-      alert(error);
+      store.dispatch(alertError(error.message));
     } else {
-      alert("Error: Something is wrong");
+      store.dispatch(alertError("Error: Something is wrong"));
     }
 
     return;
