@@ -233,7 +233,8 @@ function Details() {
             {data.skills.map((skill) => (
               <Chip
                 className="chip"
-                label={skill.nameSkill}
+                key={skill.id}
+                label={skill.name}
                 onDelete={stateButton == "Save" ? handleDelete : null}
               />
             ))}
