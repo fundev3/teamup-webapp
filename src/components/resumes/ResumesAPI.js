@@ -53,7 +53,6 @@ export async function getResume(id) {
     );
     return { data, handlerError };
   } catch (error) {
-    // TODO error handling
     if (error.response) {
       alert(error);
     } else if (error.request) {
@@ -73,7 +72,6 @@ export async function getSkillsByName(name) {
     const { data } = await axios.get(`${API_NAME_SKILLS}?name=${name}`);
     return { data, handlerError };
   } catch (error) {
-    // TODO error handling
     if (error.response) {
       alert(error);
     } else if (error.request) {
