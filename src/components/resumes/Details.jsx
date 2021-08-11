@@ -1,9 +1,15 @@
 import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
+import DirectionsIcon from "@material-ui/icons/Directions";
+import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import InputBase from "@material-ui/core/InputBase";
 import Loading from "./Loading";
+import MenuIcon from "@material-ui/icons/Menu";
 import NotFound from "./NotFound";
 import Paper from "@material-ui/core/Paper";
+import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import avatar from "../../assets/img_avatar.jpg";
 import { entry as entryValidations } from "./helpers/validations";
@@ -15,6 +21,17 @@ import React, { useEffect, useState } from "react";
 import "./Details.css";
 
 const useStyles = makeStyles((theme) => ({
+  divider: {
+    height: 28,
+    margin: 4,
+  },
+  iconButton: {
+    padding: 10,
+  },
+  input: {
+    flex: 1,
+    marginLeft: theme.spacing(1),
+  },
   paper: {
     color: theme.palette.text.secondary,
     padding: theme.spacing(4),
@@ -23,6 +40,13 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiTextField-root": {
       margin: theme.spacing(2),
     },
+  },
+  searchBoxContainer: {
+    alignItems: "center",
+    display: "flex",
+    marginBottom: "15px",
+    padding: "2px 4px",
+    width: "100%",
   },
 }));
 
@@ -230,6 +254,20 @@ function Details() {
           </div>
           <div className="skills-side">
             <p>Skills</p>
+            <Paper className={classes.searchBoxContainer} component="form">
+              <InputBase
+                className={classes.input}
+                inputProps={{ "aria-label": "search google maps" }}
+                placeholder="Search Skills"
+              />
+              <IconButton
+                aria-label="search"
+                className={classes.iconButton}
+                type="submit"
+              >
+                <SearchIcon />
+              </IconButton>
+            </Paper>
             {data.skills.map((skill) => (
               <Chip
                 className="chip"
