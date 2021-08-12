@@ -3,11 +3,8 @@ import axios from "axios";
 import "@testing-library/jest-dom";
 
 var mock = new MockAdapter(axios);
-
 const id = "40b3f7e3-eaba-4b0f-bbef-5f5882af3ced";
-
-// const API_HOST = process.env.REACT_APP_API_PROJECTS_URL;
-const API_HOST = "https://fa-tuapi-resumes-dev-bra.azurewebsites.net";
+const API_HOST = process.env.REACT_APP_API_PROJECTS_URL;
 const API_NAME = "resumes";
 const API_VERSION = "v1";
 const url = `${API_HOST}/api/${API_VERSION}/${API_NAME}/${id}`;

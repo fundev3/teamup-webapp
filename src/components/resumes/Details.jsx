@@ -59,11 +59,11 @@ function Details() {
   const [stateButton, setStateButton] = useState("Edit");
   const [disabled, setDisabled] = useState(true);
   const [skillInput, setSkillInput] = useState("");
-  const [open, setOpen] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
   const [dataSkills, setDataSkills] = React.useState([]);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpenModal(true);
   };
 
   useEffect(() => {
@@ -283,11 +283,13 @@ function Details() {
               >
                 <SearchIcon />
               </IconButton>
-              {open ? (
+              {openModal ? (
                 <ModalSkills
+                  data={data.skills}
                   dataSkills={dataSkills}
                   idUser={id}
-                  setTrigger={setOpen}
+                  setData={setData}
+                  setOpenModal={setOpenModal}
                 ></ModalSkills>
               ) : null}
             </Paper>

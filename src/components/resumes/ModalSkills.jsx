@@ -20,13 +20,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalSkills({ dataSkills, idUser, setTrigger }) {
+export default function ModalSkills({
+  dataSkills,
+  idUser,
+  setOpenModal,
+  data,
+}) {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
-
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
@@ -37,12 +41,17 @@ export default function ModalSkills({ dataSkills, idUser, setTrigger }) {
     setChecked(newChecked);
   };
 
-  const sendSkillsWithId = () => {
-    checked.map((checked) => {
-      postSkillsById(idUser, checked.name);
-      console.log(idUser, checked.name);
-    });
-    setTrigger(false);
+  const sendSkillsWithId = async (event) => {
+    event.preventDefault();
+    for (let i = 0; i < checked.length; i++) {
+      const check = checked[i];
+      const result = data.find((skill) => skill.name === check.name);
+      if (result == null) {
+        const reponse = await postSkillsById(idUser, check.name);
+        data.push(check);
+      }
+    }
+    setOpenModal(false);
   };
 
   return (
@@ -50,7 +59,7 @@ export default function ModalSkills({ dataSkills, idUser, setTrigger }) {
       <Dialog
         aria-describedby="alert-dialog-description"
         aria-labelledby="alert-dialog-title"
-        onClose={() => setTrigger(false)}
+        onClose={() => setOpenModal(false)}
         open={true}
       >
         <DialogTitle id="alert-dialog-title">{"Add Skills"}</DialogTitle>
@@ -86,7 +95,7 @@ export default function ModalSkills({ dataSkills, idUser, setTrigger }) {
           <Button color="primary" onClick={sendSkillsWithId}>
             Add Skill
           </Button>
-          <Button autoFocus color="primary" onClick={() => setTrigger(false)}>
+          <Button autoFocus color="primary" onClick={() => setOpenModal(false)}>
             Cancel
           </Button>
         </DialogActions>
