@@ -23,10 +23,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ModalSkills({
+  allInfoData,
   dataSkills,
   idUser,
   setOpenModal,
   data,
+  setData,
 }) {
   const classes = useStyles();
   const [skillChecked, setSkillChecked] = React.useState([]);
@@ -51,7 +53,7 @@ export default function ModalSkills({
       if (result == null) {
         const response = await postSkillsById(idUser, skillCheck.name);
         if (!response.handlerError) {
-          data.push(skillCheck);
+          setData(allInfoData, allInfoData.skills.push(skillCheck));
         }
       }
     }

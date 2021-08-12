@@ -61,7 +61,6 @@ function Details() {
   const [skillInput, setSkillInput] = useState("");
   const [openModal, setOpenModal] = React.useState(false);
   const [dataSkills, setDataSkills] = React.useState([]);
-
   const handleClickOpen = () => {
     setOpenModal(true);
   };
@@ -285,6 +284,7 @@ function Details() {
               </IconButton>
               {openModal ? (
                 <ModalSkills
+                  allInfoData={data}
                   data={data.skills}
                   dataSkills={dataSkills}
                   idUser={id}
