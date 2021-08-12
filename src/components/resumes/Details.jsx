@@ -89,8 +89,8 @@ function Details() {
   };
   const getSkills = async (event) => {
     event.preventDefault();
-    const reponse = await getSkillsByName(skillInput);
-    setDataSkills(reponse.data);
+    const response = await getSkillsByName(skillInput);
+    setDataSkills(response.data);
     handleClickOpen();
   };
 

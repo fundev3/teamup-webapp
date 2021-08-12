@@ -47,7 +47,7 @@ export default function ModalSkills({
       const check = checked[i];
       const result = data.find((skill) => skill.name === check.name);
       if (result == null) {
-        const reponse = await postSkillsById(idUser, check.name);
+        const response = await postSkillsById(idUser, check.name);
         data.push(check);
       }
     }
