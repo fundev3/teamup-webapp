@@ -87,7 +87,7 @@ export async function getSkillsByName(name) {
   }
 }
 
-export async function PostSkillsById(id, skill) {
+export async function postSkillsById(id, skill) {
   let handlerError = false;
   const data = {};
   try {

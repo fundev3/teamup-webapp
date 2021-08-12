@@ -8,9 +8,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Loading from "./Loading";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useEffect } from "react";
+import { postSkillsById } from "./ResumesAPI.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ModalSkills({ dataSkills, idUser, setTrigger }) {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState([0]);
+  const [checked, setChecked] = React.useState([]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -38,7 +38,11 @@ export default function ModalSkills({ dataSkills, idUser, setTrigger }) {
   };
 
   const sendSkillsWithId = () => {
-    console.log("post");
+    checked.map((checked) => {
+      postSkillsById(idUser, checked.name);
+      console.log(idUser, checked.name);
+    });
+    setTrigger(false);
   };
 
   return (
@@ -79,10 +83,10 @@ export default function ModalSkills({ dataSkills, idUser, setTrigger }) {
           </List>
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={() => setTrigger(false)}>
+          <Button color="primary" onClick={sendSkillsWithId}>
             Add Skill
           </Button>
-          <Button autoFocus color="primary" onClick={sendSkillsWithId()}>
+          <Button autoFocus color="primary" onClick={() => setTrigger(false)}>
             Cancel
           </Button>
         </DialogActions>
