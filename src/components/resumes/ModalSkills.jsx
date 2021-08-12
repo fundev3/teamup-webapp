@@ -1,16 +1,18 @@
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { postSkillsById } from "./ResumesAPI.js";
+import {
+  Button,
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,28 +29,30 @@ export default function ModalSkills({
   data,
 }) {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState([]);
+  const [skillChecked, setSkillChecked] = React.useState([]);
 
   const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+    const currentIndex = skillChecked.indexOf(value);
+    const newChecked = [...skillChecked];
 
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
     }
-    setChecked(newChecked);
+    setSkillChecked(newChecked);
   };
 
   const sendSkillsWithId = async (event) => {
     event.preventDefault();
-    for (let i = 0; i < checked.length; i++) {
-      const check = checked[i];
-      const result = data.find((skill) => skill.name === check.name);
+    for (let i = 0; i < skillChecked.length; i++) {
+      const skillCheck = skillChecked[i];
+      const result = data.find((skill) => skill.name === skillCheck.name);
       if (result == null) {
-        const response = await postSkillsById(idUser, check.name);
-        data.push(check);
+        const response = await postSkillsById(idUser, skillCheck.name);
+        if (!response.handlerError) {
+          data.push(skillCheck);
+        }
       }
     }
     setOpenModal(false);
