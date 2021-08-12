@@ -85,3 +85,24 @@ export async function getSkillsByName(name) {
     return { data, handlerError };
   }
 }
+
+export async function postSkillsById(id, skill) {
+  let handlerError = false;
+  const data = {};
+  try {
+    const { data } = await axios.get(
+      `${API_NAME_SKILLS}?id=${id}&skill=${skill}`
+    );
+    return { data, handlerError };
+  } catch (error) {
+    if (error.response) {
+      store.dispatch(alertError(error.message));
+    } else if (error.request) {
+      store.dispatch(alertError(error.message));
+    } else {
+      store.dispatch(alertError("Error: Something is wrong"));
+    }
+    handlerError = true;
+    return { data, handlerError };
+  }
+}

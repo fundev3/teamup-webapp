@@ -1,4 +1,5 @@
 import Loading from "./Loading";
+import ModalSkills from "./ModalSkills";
 import NotFound from "./NotFound";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
@@ -58,6 +59,11 @@ function Details() {
   const [stateButton, setStateButton] = useState("Edit");
   const [disabled, setDisabled] = useState(true);
   const [skillInput, setSkillInput] = useState("");
+  const [openModal, setOpenModal] = React.useState(false);
+  const [dataSkills, setDataSkills] = React.useState([]);
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -80,10 +86,11 @@ function Details() {
       setDisabled(true);
     }
   };
-
   const getSkills = async (event) => {
     event.preventDefault();
     const response = await getSkillsByName(skillInput);
+    setDataSkills(response.data);
+    handleClickOpen();
   };
 
   const initialValues = {
@@ -275,6 +282,16 @@ function Details() {
               >
                 <SearchIcon />
               </IconButton>
+              {openModal ? (
+                <ModalSkills
+                  allInfoData={data}
+                  data={data.skills}
+                  dataSkills={dataSkills}
+                  idUser={id}
+                  setData={setData}
+                  setOpenModal={setOpenModal}
+                ></ModalSkills>
+              ) : null}
             </Paper>
             {data.skills.map((skill) => (
               <Chip
