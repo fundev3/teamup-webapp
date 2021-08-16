@@ -1,0 +1,35 @@
+.container {
+  margin-top: 50px;
+}
+.paper {
+  padding: 60px;
+  margin-top: 30px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #4350af;
+}
+
+h5 {
+  color: #4350af;
+}
+
+.MuiAvatar-root.avatar {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}
+
+.owner {
+  display: flex;
+  align-items: center;
+}
