@@ -1,22 +1,45 @@
 .name {
-  color: rgba(13, 27, 46, 0.938);
+  color: #3f51b5;
   font-size: large;
   font-weight: bold;
-  margin: 12px;
+  margin-top: 14px;
+}
+.date {
+  font-size: 13px;
 }
 .resume-picture {
-  padding: 8px 40px;
+  padding: 0px;
+  margin: 0px;
 }
 .resume-picture img {
   width: 100px;
   height: 100px;
 }
 .resume-information {
-  width: 300px;
-  margin: 0px 20px;
+  margin-top: 0px;
+  /* width: 300px; */
+  /* margin: 0px 20px; */
 }
 .resume-button {
   margin-top: auto;
   margin-bottom: auto;
-  padding-right: 5%;
+  text-align: center;
+  textdecoration: "none";
+}
+.head-resume {
+  display: flex;
+  height: 100px;
+}
+.body-resume {
+  height: 150px;
+  border-bottom-style: solid;
+  border-color: #9999;
+  margin-bottom: 15px;
+  border-width: 0.5px;
+  padding: 0px 15px;
+  text-align: justify;
+}
+
+.chip-skills {
+  height: 100px;
 }
