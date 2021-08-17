@@ -32,5 +32,5 @@ test("should render details component", async () => {
   });
 
   expect(axios.get).toHaveBeenCalledWith(url);
-  expect(screen.getByText(`Project: ${fakeProject.name}`)).toBeInTheDocument();
+  expect(screen.getByText(fakeProject.name)).toBeInTheDocument();
 });
