@@ -6,12 +6,6 @@
   margin-top: 30px;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 50px;
-}
-
 .back-button {
   display: flex;
   align-items: center;
@@ -19,17 +13,12 @@
   color: #4350af;
 }
 
-h5 {
-  color: #4350af;
+h6.MuiTypography-h6.overview {
+  margin-bottom: 20px;
 }
 
 .MuiAvatar-root.avatar {
   width: 30px;
   height: 30px;
   display: inline-block;
-}
-
-.owner {
-  display: flex;
-  align-items: center;
 }

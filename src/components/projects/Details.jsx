@@ -1,14 +1,18 @@
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import { getProject } from "./ProjectsAPI";
-import image from "../../assets/img_avatar.jpg";
 import { isEmpty } from "../../helpers";
-import logo2 from "../../assets/project-img.jpeg";
+import projectPhoto from "../../assets/project-img.svg";
+import user from "../../assets/user-img.svg";
 import {
   Avatar,
+  Box,
   Button,
   Container,
   Divider,
-  Grid,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
   Paper,
   Typography,
 } from "@material-ui/core";
@@ -30,9 +34,12 @@ function Details() {
 
   if (isEmpty(project)) return <div>ERROR!!! Project not found</div>;
 
-  const { contact, creationDate, description, logo, name, textInvitation } =
-    project;
-
+  const { contact, creationDate, description, name, memberList } = project;
+  const creationDateFormatted = creationDate
+    .split("T")[0]
+    .split("-")
+    .reverse()
+    .join("/");
   return (
     <div>
       <Container className="container">
@@ -40,39 +47,58 @@ function Details() {
           <ArrowBackIos></ArrowBackIos>
           Back
         </Link>
-        <Paper className="paper" elevation={3}>
-          <div className="header">
-            <img alt="" src={logo2} width="140" />
-            <Container className="info">
-              <Typography align="justify" gutterBottom variant="h5">
+        <Paper className="paper" elevation={3} mt={4}>
+          <Box alignItems="center" display="flex" mb={6}>
+            <img alt="" src={projectPhoto} width="140" />
+            <Container>
+              <Typography align="justify" color="primary" variant="h5">
                 {name}
               </Typography>
-              <Typography color="textSecondary">
-                Created: {creationDate}
+              <Typography color="textSecondary" gutterBottom>
+                Created: {creationDateFormatted}
               </Typography>
-              <div className="owner">
-                <Avatar className="avatar" src={image} />
+              <Box alignItems="center" display="flex">
+                <Avatar className="avatar" src={user} />
                 <Typography align="justify" color="textSecondary">
                   {contact.name}
                 </Typography>
-              </div>
+              </Box>
             </Container>
             <Button color="primary" variant="contained">
               Apply
             </Button>
-          </div>
+          </Box>
           <Divider light />
-          <div className="body">
-            <Typography align="justify" color="primary" variant="h6">
-              Overview:
-            </Typography>
-            <Typography color="textSecondary" gutterBottom variant="body2">
-              {description}
-            </Typography>
-            <Typography align="justify" color="textSecondary">
-              Ref.:{textInvitation}
-            </Typography>
-          </div>
+          <Box display="flex" pt={5}>
+            <Box width="75%">
+              <Typography
+                align="justify"
+                className="overview"
+                color="primary"
+                variant="h6"
+              >
+                Overview
+              </Typography>
+              <Typography color="textSecondary" p={2} variant="body2">
+                {description}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography align="justify" color="primary" variant="h6">
+                Teammates working here
+              </Typography>
+              <List>
+                {memberList.map((member, key) => (
+                  <ListItem button key={key}>
+                    <ListItemAvatar>
+                      <Avatar src={user} />
+                    </ListItemAvatar>
+                    <ListItemText id={key} primary={member.name} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          </Box>
         </Paper>
       </Container>
     </div>
