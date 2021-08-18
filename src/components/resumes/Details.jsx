@@ -137,7 +137,7 @@ function Details() {
             </div>
             <div>
               <TextField
-                defaultValue={data.personalInformation.firstName}
+                defaultValue={data.person.firstName}
                 disabled={disabled}
                 error={
                   formik.touched.firstName && Boolean(formik.errors.firstName)
@@ -156,7 +156,7 @@ function Details() {
                 variant="standard"
               />
               <TextField
-                defaultValue={data.personalInformation.lastName}
+                defaultValue={data.person.lastName}
                 disabled={disabled}
                 error={
                   formik.touched.lastName && Boolean(formik.errors.lastName)
