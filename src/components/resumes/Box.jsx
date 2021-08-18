@@ -1,6 +1,6 @@
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import User from "../../assets/user.svg";
+import { User } from "../../constants/images";
 import { makeStyles } from "@material-ui/core/styles";
 import { Chip, Paper, Typography } from "@material-ui/core";
 import "./Box.css";

@@ -1,8 +1,6 @@
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import { getProject } from "./ProjectsAPI";
 import { isEmpty } from "../../helpers";
-import projectPhoto from "../../assets/project-img.svg";
-import user from "../../assets/user-img.svg";
 import {
   Avatar,
   Box,
@@ -18,6 +16,7 @@ import {
 } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { projectPhoto, user } from "../../constants/images";
 import "./Details.scss";
 
 function Details() {

@@ -1,7 +1,7 @@
 import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { Typography } from "@material-ui/core";
-import image from "../../assets/project-img.jpeg";
+import { image } from "../../constants/images";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import "./Card.scss";
