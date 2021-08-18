@@ -1,6 +1,6 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import loadingGift from "../../assets/loading.gif";
+import { loadingGift } from "../../constants";
 
 function Loading() {
   return (

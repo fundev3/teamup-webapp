@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import notFound from "../../assets/not-found.jpg";
+import { notFound } from "../../constants";
 
 function NotFound() {
   return (
