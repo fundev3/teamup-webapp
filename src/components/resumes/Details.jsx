@@ -118,7 +118,10 @@ function Details() {
     <>
       <InvitationsNotifications setModalInvitations={setModalInvitations} />
       {modalInvitations ? (
-        <InvitationsModal setModalInvitations={setModalInvitations} />
+        <InvitationsModal
+          idResume={id}
+          setModalInvitations={setModalInvitations}
+        />
       ) : null}
       <Grid
         className={classes.content}

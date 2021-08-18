@@ -51,7 +51,8 @@ export async function getResume(id) {
   const data = {};
   try {
     const { data } = await axios.get(
-      `${API_HOST}/api/${API_VERSION}/${API_NAME}/${id}`
+      // `${API_HOST}/api/${API_VERSION}/${API_NAME}/${id}`
+      "http://localhost:7071/api/v1/resumes/" + id
     );
     return { data, handlerError };
   } catch (error) {
