@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   notifications: {
     backgroundColor: theme.palette.background.paper,
-    left: "10%",
+    left: "5%",
     maxWidth: 360,
     padding: 10,
     top: 90,
