@@ -26,7 +26,7 @@ function ResumeList() {
           </Button>
         </Link>
       </div>
-      <div className="resumes-list" key={resumes.id}>
+      <div className="resumes-list">
         {resumes.length > 0
           ? resumes.map((resume) => (
               <div className="resume-box" key={resume.id}>
