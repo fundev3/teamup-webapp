@@ -3,6 +3,7 @@ import MemberList from "./MemberList";
 import TextField from "@material-ui/core/TextField";
 import { entry as entryValidations } from "./helpers/validations";
 import { postProject } from "./ProjectsAPI";
+import uploadFileToBlob from "../../storage/blobStorage";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { useState } from "react";
@@ -12,10 +13,21 @@ import "./Entry.scss";
 
 function Entry() {
   const [memberList, setMemberList] = useState([]);
+  const [fileSelected, setFileSelected] = useState(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const search = useLocation().search;
   const idProject = new URLSearchParams(search).get("id");
+
+  const onFileChange = (event) => {
+    setFileSelected(event.target.files[0]);
+  };
+
+  const onFileUpload = async () => {
+    const fileName = await uploadFileToBlob(fileSelected);
+    setFileSelected(null);
+    return fileName;
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -30,13 +42,15 @@ function Entry() {
       textInvitation: "",
     },
     onSubmit: async (values) => {
-      const { contact, description, logo, name, textInvitation } = values;
+      const { contact, description, name, textInvitation } = values;
+      let logo;
       const members = memberList.map((member) => {
         return {
           idResume: member.idResume,
           name: member.name,
         };
       });
+      logo = await onFileUpload();
       const project = {
         /**
          * TODO: (contact: will consume api) It will be the contact of the owner of the project
@@ -64,7 +78,7 @@ function Entry() {
   const hasErrorDescription =
     !!formik.touched.description && !!formik.errors.description;
   const hasErrorName = !!formik.touched.name && !!formik.errors.name;
-  const hasErrorLogo = !!formik.touched.logo && !!formik.errors.logo;
+  // const hasErrorLogo = !!formik.touched.logo && !!formik.errors.logo;
   const hasErrorTextInvitation =
     !!formik.touched.textInvitation && !!formik.errors.textInvitation;
 
@@ -99,14 +113,10 @@ function Entry() {
       <div className="u-mb-1">
         <TextField
           data-testid="input-field"
-          error={hasErrorLogo}
-          helperText={hasErrorLogo ? formik.errors.logo : ""}
           id="logo"
           name="logo"
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
+          onChange={onFileChange}
           type="file"
-          value={formik.values.logo}
           variant="outlined"
         />
       </div>
