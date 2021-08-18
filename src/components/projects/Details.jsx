@@ -1,4 +1,5 @@
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
+import Invitations from ".././invitations/Invitations";
 import { getProject } from "./ProjectsAPI";
 import { isEmpty } from "../../helpers";
 import {
@@ -99,6 +100,8 @@ function Details() {
               </List>
             </Box>
           </Box>
+          <Divider light />
+          <Invitations id={id} />
         </Paper>
       </Container>
     </div>
