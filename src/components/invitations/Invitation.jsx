@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Invitation(props) {
-  const { name, status } = props;
+  const { resumeName, status } = props;
   const classes = useStyles();
   return (
     <Paper className={classes.paper} elevation={3}>
@@ -36,7 +36,7 @@ function Invitation(props) {
         <Grid item xs={6}>
           <div className={classes.nameStatus}>
             <Typography align="left" color="primary" variant="h6">
-              {name}
+              {resumeName}
             </Typography>
             <Typography align="left" color="textSecondary" variant="body1">
               {status}
