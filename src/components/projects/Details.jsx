@@ -69,8 +69,8 @@ function Details() {
             </Button>
           </Box>
           <Divider light />
-          <Box display="flex" pt={5}>
-            <Box width="75%">
+          <Box display="flex">
+            <Box pb={10} pt={4} width="75%">
               <Typography
                 align="justify"
                 className="overview"
@@ -83,7 +83,8 @@ function Details() {
                 {description}
               </Typography>
             </Box>
-            <Box>
+            <Divider flexItem light orientation="vertical" />
+            <Box pl={4} pt={4}>
               <Typography align="justify" color="primary" variant="h6">
                 Teammates working here
               </Typography>
