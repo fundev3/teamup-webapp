@@ -94,11 +94,11 @@ function Details() {
   };
 
   const initialValues = {
-    birthdate: data?.personalInformation?.birthdate || "",
+    birthdate: data?.person?.birthdate || "",
     direction: data?.contact?.direction || "",
     email: data?.contact?.email || "",
-    firstName: data?.personalInformation?.firstName || "",
-    lastName: data?.personalInformation?.lastName || "",
+    firstName: data?.person?.firstName || "",
+    lastName: data?.person?.lastName || "",
     phone: data?.contact?.phone || "",
     skills: data?.skills || [],
     summary: data?.summary || "",
@@ -130,7 +130,7 @@ function Details() {
           </div>
           <div>
             <TextField
-              defaultValue={data.personalInformation.firstName}
+              defaultValue={data.person.firstName}
               disabled={disabled}
               error={
                 formik.touched.firstName && Boolean(formik.errors.firstName)
@@ -149,7 +149,7 @@ function Details() {
               variant="standard"
             />
             <TextField
-              defaultValue={data.personalInformation.lastName}
+              defaultValue={data.person.lastName}
               disabled={disabled}
               error={formik.touched.lastName && Boolean(formik.errors.lastName)}
               helperText={
