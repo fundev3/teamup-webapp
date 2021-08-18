@@ -10,25 +10,28 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   notifications: {
     backgroundColor: theme.palette.background.paper,
-    left: "5%",
+    left: "10%",
     maxWidth: 360,
     padding: 10,
-    width: "100%",
+    top: 90,
   },
 }));
 
-export default function InvitationsNotifications({ handleOpenModal }) {
+export default function InvitationsNotifications({ setModalInvitations }) {
   const classes = useStyles();
 
   return (
-    <List className={classes.notifications}>
-      <ListItem onClick={handleOpenModal}>
+    <List
+      className={classes.notifications}
+      onClick={() => setModalInvitations(true)}
+    >
+      <ListItem>
         <ListItemAvatar>
-          <Badge badgeContent={4} color="error">
+          <Badge badgeContent={2} color="error">
             <MailIcon />
           </Badge>
         </ListItemAvatar>
-        <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+        <ListItemText primary="Invitations" />
       </ListItem>
     </List>
   );

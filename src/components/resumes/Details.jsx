@@ -67,12 +67,7 @@ function Details() {
   const handleClickOpen = () => {
     setOpenModal(true);
   };
-  const handleOpenModal = () => {
-    setModalInvitations(true);
-  };
-  const handleCloseModal = () => {
-    setModalInvitations(false);
-  };
+
   useEffect(() => {
     async function fetchData() {
       const response = await getResume(id);
@@ -118,12 +113,13 @@ function Details() {
     onSubmit: edit,
     validationSchema: entryValidations(),
   });
-
   if (error) return <NotFound />;
   return data ? (
     <>
-      <InvitationsNotifications onClick={handleOpenModal} />
-      <InvitationsModal setModalInvitations={setModalInvitations} />
+      <InvitationsNotifications setModalInvitations={setModalInvitations} />
+      {modalInvitations ? (
+        <InvitationsModal setModalInvitations={setModalInvitations} />
+      ) : null}
       <Grid
         className={classes.content}
         container
