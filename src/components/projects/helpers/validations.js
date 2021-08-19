@@ -10,7 +10,7 @@ export const entry = () =>
       .max(200, "Must be 200 characters or less")
       .required("Upload your logo")
       .matches(
-        /^[a-zñA-ZÑ0-9]*.(jpg|JPG|png|PNG|svg|SVG)$/,
+        /^.*\.(jpg|JPG|png|PNG|svg|SVG)$/,
         "Must be .jpg, .png or .svg format"
       ),
     name: Yup.string()
