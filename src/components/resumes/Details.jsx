@@ -1,6 +1,5 @@
-import InvitationsModal from "../invitations/InvitationsModalResumes";
-import InvitationsNotifications from "./InvitationsNotifications";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import InvitationsModal from "../invitations/InvitationsModalResumes";
 import Loading from "./Loading";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
@@ -134,6 +133,7 @@ function Details() {
       handleClickOpen();
     }
   };
+
   const initialValues = {
     birthdate: data?.person?.birthdate || "",
     direction: data?.contact?.direction || "",
@@ -154,17 +154,12 @@ function Details() {
   if (error) return <NotFound />;
   return data ? (
     <>
-      <InvitationsNotifications
-        idResume={id}
-        setModalInvitations={setModalInvitations}
-      />
       {modalInvitations ? (
         <InvitationsModal
           idResume={id}
           setModalInvitations={setModalInvitations}
         />
       ) : null}
-    <div>
       <Grid
         className={classes.content}
         container
@@ -232,6 +227,7 @@ function Details() {
                 <Button
                   className="buttonEdit"
                   color="primary"
+                  onClick={() => setModalInvitations(true)}
                   startIcon={<MailOutlineIcon />}
                   variant="contained"
                 >
@@ -398,9 +394,10 @@ function Details() {
           </div>
         </Paper>
       </Grid>
-    </div>
+    </>
   ) : (
     <Loading />
   );
 }
+
 export default Details;

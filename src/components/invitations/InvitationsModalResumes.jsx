@@ -85,78 +85,78 @@ function InvitationsModal({ idResume, setModalInvitations }) {
   const [dataInvitations, setDataInvitations] = useState([]);
 
   return (
-    <div className={classes.modalInvitations}>
-      <Dialog
-        aria-describedby="alert-dialog-description"
-        aria-labelledby="alert-dialog-title"
-        onClose={() => setModalInvitations(false)}
-        open={true}
-      >
-        <DialogTitle id="customized-dialog-title">
+    <Dialog
+      aria-describedby="alert-dialog-description"
+      aria-labelledby="alert-dialog-title"
+      onClose={() => setModalInvitations(false)}
+      open={true}
+    >
+      <DialogTitle id="customized-dialog-title">
+        <Typography color="primary" variant="h6">
           Projects Invitations
-        </DialogTitle>
-        <Divider />
-        <DialogContent>
-          {dataInvitations.length !== 0 ? (
-            dataInvitations.map((invitation) => (
-              <>
-                <Accordion>
-                  <AccordionSummary
-                    aria-controls="panel1a-content"
-                    className={classes.summary}
-                    expandIcon={<ExpandMoreIcon />}
-                    id="panel1a-header"
-                  >
-                    <div className={classes.logo}>
-                      <img alt="logo" src={projectImageJpeg} />
-                    </div>
-                    <div className={classes.project}>
-                      <Typography color="primary">
-                        {invitation.projectName}
-                      </Typography>
-                      <Typography>{invitation.textInvitation}</Typography>
-                    </div>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Divider />
-                    <div className={classes.buttons}>
-                      <Button
-                        className={classes.button}
-                        color="primary"
-                        variant="outlined"
-                      >
-                        Accept
-                      </Button>
-                      <Button
-                        className={classes.button}
-                        color="secondary"
-                        variant="outlined"
-                      >
-                        Reject
-                      </Button>
-                    </div>
-                  </AccordionDetails>
-                </Accordion>
-                <Divider />
-              </>
-            ))
-          ) : (
-            <Accordion>
-              <AccordionSummary
-                aria-controls="panel1a-content"
-                className={classes.summary}
-                expandIcon={<ExpandMoreIcon />}
-                id="panel1a-header"
-              >
+        </Typography>
+      </DialogTitle>
+      <Divider />
+      <DialogContent>
+        {dataInvitations.length !== 0 ? (
+          dataInvitations.map((invitation) => (
+            <>
+              <Accordion>
+                <AccordionSummary
+                  aria-controls="panel1a-content"
+                  className={classes.summary}
+                  expandIcon={<ExpandMoreIcon />}
+                  id="panel1a-header"
+                >
+                  <div className={classes.logo}>
+                    <img alt="logo" src={projectImageJpeg} />
+                  </div>
+                  <div className={classes.project}>
+                    <Typography color="primary" variant="h6">
+                      {invitation.projectName}
+                    </Typography>
+                    <Typography>{invitation.textInvitation}</Typography>
+                  </div>
+                </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>You have no pending notifications</Typography>
+                  <Divider />
+                  <div className={classes.buttons}>
+                    <Button
+                      className={classes.button}
+                      color="primary"
+                      variant="outlined"
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      className={classes.button}
+                      color="secondary"
+                      variant="outlined"
+                    >
+                      Reject
+                    </Button>
+                  </div>
                 </AccordionDetails>
-              </AccordionSummary>
-            </Accordion>
-          )}
-        </DialogContent>
-      </Dialog>
-    </div>
+              </Accordion>
+              <Divider />
+            </>
+          ))
+        ) : (
+          <Accordion>
+            <AccordionSummary
+              aria-controls="panel1a-content"
+              className={classes.summary}
+              expandIcon={<ExpandMoreIcon />}
+              id="panel1a-header"
+            >
+              <AccordionDetails>
+                <Typography>You have no pending notifications</Typography>
+              </AccordionDetails>
+            </AccordionSummary>
+          </Accordion>
+        )}
+      </DialogContent>
+    </Dialog>
   );
 }
 
