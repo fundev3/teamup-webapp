@@ -3,8 +3,8 @@ import path from "path";
 import { v1 as uuidv1 } from "uuid";
 
 const sasToken = process.env.REACT_APP_AZURE_STORAGE_SAS_TOKEN;
-const containerName = "images";
-const storageAccountName = process.env.REACT_APP_STORAGE_URL;
+const containerName = "images/webapp";
+const baseUrl = process.env.REACT_APP_STORAGE_URL;
 
 async function createBlobInContainer(containerClient, file) {
   const fileName = uuidv1() + path.extname(file.name);
@@ -15,9 +15,7 @@ async function createBlobInContainer(containerClient, file) {
 }
 
 export default async function uploadFileToBlob(file) {
-  const blobService = new BlobServiceClient(
-    `${storageAccountName}/?${sasToken}`
-  );
+  const blobService = new BlobServiceClient(`${baseUrl}/?${sasToken}`);
   const containerClient = blobService.getContainerClient(containerName);
   return await createBlobInContainer(containerClient, file);
 }
