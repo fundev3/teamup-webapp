@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
-import logoNavbar from "../../assets/logo-teamup1.png";
+import { logoNavbar } from "../../constants";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import "./NavBar.scss";
 

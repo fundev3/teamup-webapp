@@ -1,6 +1,6 @@
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import image from "../../assets/user-img.svg";
 import { makeStyles } from "@material-ui/core/styles";
+import { userImageSvg } from "../../constants/images";
 import { Grid, Paper, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +30,7 @@ function Invitation(props) {
       <Grid container spacing={1}>
         <Grid item>
           <div className={classes.image}>
-            <img alt="logo" src={image} />
+            <img alt="logo" src={userImageSvg} />
           </div>
         </Grid>
         <Grid item xs={6}>
