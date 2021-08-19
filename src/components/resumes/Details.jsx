@@ -1,5 +1,5 @@
-import InvitationsModal from "../invitations/InvitationsModal";
-import InvitationsNotifications from "../invitations/InvitationsNotifications";
+import InvitationsModal from "../invitations/InvitationsModalResumes";
+import InvitationsNotifications from "./InvitationsNotifications";
 import Loading from "./Loading";
 import ModalSkills from "./ModalSkills";
 import NotFound from "./NotFound";
