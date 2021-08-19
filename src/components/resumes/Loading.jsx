@@ -1,6 +1,6 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import { loadingGift } from "../../constants";
+import { loading } from "../../constants";
 
 function Loading() {
   return (
@@ -14,7 +14,7 @@ function Loading() {
       }}
     >
       <Box bgcolor="background.paper">
-        <img alt="" src={loadingGift}></img>
+        <img alt="" src={loading}></img>
       </Box>
     </Grid>
   );
