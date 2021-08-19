@@ -30,7 +30,7 @@ export default function InvitationsNotifications({
       >
         <ListItem>
           <ListItemAvatar>
-            <Badge badgeContent={2} color="error">
+            <Badge badgeContent={1} color="error">
               <MailIcon />
             </Badge>
           </ListItemAvatar>

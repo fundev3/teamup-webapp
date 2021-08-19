@@ -9,8 +9,7 @@ const API_VERSION = "v1";
 export async function getProjects() {
   try {
     const { data } = await axios.get(
-      // `${API_HOST}/api/${API_VERSION}/${API_NAME}`
-      "http://localhost:7071/api/v1/resumes"
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}`
     );
 
     return data;

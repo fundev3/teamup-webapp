@@ -73,16 +73,15 @@ const useStyles = makeStyles((theme) => ({
 
 function InvitationsModal({ idResume, setModalInvitations }) {
   const classes = useStyles();
-  const [dataInvitations, setDataInvitations] = useState();
-
   useEffect(() => {
-    async function fetchData() {
-      const response = await getInvitationsByResume(idResume);
-      setDataInvitations(response.data);
-      console.log(dataInvitations.data);
+    async function data() {
+      const invitations = await getInvitationsByResume(idResume);
+      setDataInvitations(invitations);
     }
-    fetchData();
+    data();
   }, [idResume]);
+
+  const [dataInvitations, setDataInvitations] = useState([]);
 
   return (
     <div className={classes.modalInvitations}>
@@ -94,48 +93,51 @@ function InvitationsModal({ idResume, setModalInvitations }) {
         <DialogTitle id="customized-dialog-title">
           Projects Invitations
         </DialogTitle>
-        <Accordion>
-          <AccordionSummary
-            aria-controls="panel1a-content"
-            className={classes.summary}
-            expandIcon={<ExpandMoreIcon />}
-            id="panel1a-header"
-          >
-            <div className={classes.logo}>
-              <img
-                alt="logo"
-                className="project-logo"
-                src="https://edificioguardiamarina.cl/wp-content/uploads/2020/06/woman.png"
-              ></img>
-            </div>
-            <div className={classes.project}>
-              <Typography color="primary">Accordion 1</Typography>
-              <Typography>
-                Congratulations! You were selected to develop this wonderful
-                project and be part of our fantastic team.
-              </Typography>
-            </div>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Divider />
-            <div className={classes.buttons}>
-              <Button
-                className={classes.button}
-                color="primary"
-                variant="outlined"
-              >
-                Accept
-              </Button>
-              <Button
-                className={classes.button}
-                color="secondary"
-                variant="outlined"
-              >
-                Reject
-              </Button>
-            </div>
-          </AccordionDetails>
-        </Accordion>
+        {dataInvitations.length !== 0
+          ? dataInvitations.map((invitation) => (
+              <Accordion>
+                <AccordionSummary
+                  aria-controls="panel1a-content"
+                  className={classes.summary}
+                  expandIcon={<ExpandMoreIcon />}
+                  id="panel1a-header"
+                >
+                  <div className={classes.logo}>
+                    <img
+                      alt="logo"
+                      className="project-logo"
+                      src="https://edificioguardiamarina.cl/wp-content/uploads/2020/06/woman.png"
+                    ></img>
+                  </div>
+                  <div className={classes.project}>
+                    <Typography color="primary">
+                      {invitation.projectName}
+                    </Typography>
+                    <Typography>{invitation.textInvitation}</Typography>
+                  </div>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Divider />
+                  <div className={classes.buttons}>
+                    <Button
+                      className={classes.button}
+                      color="primary"
+                      variant="outlined"
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      className={classes.button}
+                      color="secondary"
+                      variant="outlined"
+                    >
+                      Reject
+                    </Button>
+                  </div>
+                </AccordionDetails>
+              </Accordion>
+            ))
+          : null}
         <Divider />
       </Dialog>
     </div>
