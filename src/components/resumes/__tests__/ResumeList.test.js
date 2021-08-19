@@ -26,7 +26,7 @@ test("Should render Resumes component", async () => {
     </MemoryRouter>
   );
   expect(
-    await screen.findByText(fakeResumes[0].contact.email)
+    await screen.findByText("paola.quintanilla@fundacion-jala.org")
   ).toBeInTheDocument();
   expect(axios.get).toHaveBeenCalledWith(url);
 });
