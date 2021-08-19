@@ -1,7 +1,6 @@
 import { alertError } from "../../store/actions/alertActions";
 import axios from "axios";
 import store from "../../store";
-
 const API_HOST = process.env.REACT_APP_API_PROJECTS_URL;
 const API_NAME = "projects";
 const API_VERSION = "v1";
