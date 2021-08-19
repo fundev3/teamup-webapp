@@ -1,5 +1,4 @@
-import InvitationsModal from "./InvitationsModal";
-import InvitationsNotifications from "./InvitationsNotifications";
+import InvitationsNotifications from "../invitations/InvitationsNotifications";
 import Loading from "./Loading";
 import ModalSkills from "./ModalSkills";
 import NotFound from "./NotFound";
@@ -89,6 +88,7 @@ function Details() {
       setDisabled(true);
     }
   };
+
   const getSkills = async (event) => {
     event.preventDefault();
     const response = await getSkillsByName(skillInput);
@@ -116,13 +116,10 @@ function Details() {
   if (error) return <NotFound />;
   return data ? (
     <>
-      <InvitationsNotifications setModalInvitations={setModalInvitations} />
-      {modalInvitations ? (
-        <InvitationsModal
-          idResume={id}
-          setModalInvitations={setModalInvitations}
-        />
-      ) : null}
+      <InvitationsNotifications
+        idResume={id}
+        setModalInvitations={setModalInvitations}
+      />
       <Grid
         className={classes.content}
         container

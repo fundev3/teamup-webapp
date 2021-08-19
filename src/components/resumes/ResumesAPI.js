@@ -46,7 +46,7 @@ export async function getResumes() {
   }
 }
 
-export async function getResume(id) {
+/*  export async function getResume(id) {
   let handlerError = false;
   const data = {};
   try {
@@ -67,6 +67,7 @@ export async function getResume(id) {
     return { data, handlerError };
   }
 }
+*/
 
 export async function getSkillsByName(name) {
   let handlerError = false;
@@ -105,5 +106,53 @@ export async function postSkillsById(id, skill) {
     }
     handlerError = true;
     return { data, handlerError };
+  }
+}
+
+export async function getResume(id) {
+  try {
+    const resume = {
+      data: {
+        contact: {
+          address: "Calle Los Bosques",
+          email: "linaRamirez@corp",
+          id: 1,
+          phone: 74589658,
+        },
+        creationDate: "2020-05-11T08:08:08",
+        id: 2,
+        lastUpdate: "2020-12-20T15:30:02",
+        person: {
+          birthdate: "1995-01-09T00:00:00",
+          firstName: "Lina",
+          id: 1,
+          lastName: "Ramirez",
+          picture: null,
+        },
+        skills: [
+          {
+            emsiId: "KS126XS6CQCFGC3NG79X",
+            id: 2,
+            name: "JAVA",
+          },
+          {
+            emsiId: "K946F11A9E1FD1GZ3FG1",
+            id: 5,
+            name: "RUBY",
+          },
+        ],
+        summary: null,
+        title: "Lina Resume",
+      },
+    };
+    return resume;
+  } catch (error) {
+    if (error.response) {
+      alert(error);
+    } else if (error.request) {
+      alert(error);
+    } else {
+      alert("Error: Something is wrong");
+    }
   }
 }
