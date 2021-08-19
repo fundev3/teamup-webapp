@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Box(props) {
-  const { id, contact, personalInformation, summary, skills } = props;
+  const { id, contact, person, summary, skills } = props;
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
@@ -46,9 +46,7 @@ function Box(props) {
           <img alt="" src={userSingleImageSvg}></img>
         </div>
         <div className="resume-information">
-          <div className="name">
-            {`${personalInformation.firstName} ${personalInformation.lastName}`}
-          </div>
+          <div className="name">{`${person.firstName} ${person.lastName}`}</div>
           <div className="date">
             <label>{`${contact.email}`}</label>
           </div>
