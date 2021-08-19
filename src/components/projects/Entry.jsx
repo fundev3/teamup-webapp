@@ -127,19 +127,13 @@ function Entry() {
               align="justify"
               className={classes.subTitle}
               color="primary"
-              font-weight="1900"
               gutterBottom
               variant="h5"
             >
               Project information
             </Typography>
             <div className="u-mb-1">
-              <Typography
-                align="justify"
-                color="black"
-                gutterBottom
-                variant="body1"
-              >
+              <Typography align="justify" gutterBottom variant="body1">
                 Title
               </Typography>
               <TextField
@@ -157,14 +151,8 @@ function Entry() {
                 variant="outlined"
               />
             </div>
-
             <div className="u-mb-1">
-              <Typography
-                align="justify"
-                color="black"
-                gutterBottom
-                variant="body1"
-              >
+              <Typography align="justify" gutterBottom variant="body1">
                 Owner Contact
               </Typography>
               <TextField
@@ -181,14 +169,8 @@ function Entry() {
                 variant="outlined"
               />
             </div>
-
             <div className="u-mb-1">
-              <Typography
-                align="justify"
-                color="black"
-                gutterBottom
-                variant="body1"
-              >
+              <Typography align="justify" gutterBottom variant="body1">
                 Add Description
               </Typography>
               <TextField
@@ -209,27 +191,29 @@ function Entry() {
                 variant="outlined"
               />
             </div>
-
-            {/* work in progress
-           <div className="u-mb-1">
-            <TextField
-              data-testid="input-field"
-              error={hasErrorTextInvitation}
-              helperText={
-                hasErrorTextInvitation ? formik.errors.textInvitation : ""
-              }
-              id="textInvitation"
-              label="Text invitation"
-              multiline
-              name="textInvitation"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              rows={2}
-              value={formik.values.textInvitation}
-              variant="outlined"
-            />
-          </div>
-
+            <div className="u-mb-1">
+              <Typography align="justify" gutterBottom variant="body1">
+                Invitation Text
+              </Typography>
+              <TextField
+                className={classes.textInput}
+                data-testid="input-field"
+                error={hasErrorTextInvitation}
+                helperText={
+                  hasErrorTextInvitation ? formik.errors.textInvitation : ""
+                }
+                id="textInvitation"
+                label="Text invitation"
+                multiline
+                name="textInvitation"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                rows={2}
+                value={formik.values.textInvitation}
+                variant="outlined"
+              />
+            </div>
+            {/* WORK IN PROGRESS
             <MemberList memberList={memberList} setMemberList={setMemberList} /> */}
           </Paper>
 
@@ -238,7 +222,6 @@ function Entry() {
               align="justify"
               className={classes.subTitle}
               color="primary"
-              font-weight="1900"
               gutterBottom
               variant="h5"
             >
@@ -264,7 +247,6 @@ function Entry() {
         <Box display="flex" justifyContent="flex-end">
           <Button
             className={classes.button}
-            color="grey"
             data-testid="btn-form"
             type="submit"
             variant="contained"
