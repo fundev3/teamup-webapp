@@ -2,8 +2,7 @@ import { alertError } from "../../store/actions/alertActions";
 import axios from "axios";
 import store from "../../store";
 
-// const API_HOST = process.env.REACT_APP_API_RESUMES_URL;
-const API_HOST = "https://fa-tuapi-resumes-dev-bra.azurewebsites.net";
+const API_HOST = process.env.REACT_APP_API_RESUMES_URL;
 const API_NAME = "resumes";
 const API_VERSION = "v1";
 const API_NAME_SKILLS = `${API_HOST}/api/${API_VERSION}/skills`;

@@ -23,7 +23,7 @@
 .head-detail-resume {
   margin-bottom: 40px;
   padding: 0px;
-  height: 120px;
+  height: 100px;
   display: flex;
 }
 .head-name-address {
@@ -55,18 +55,18 @@
   border-right-style: solid;
   border-color: #dddd;
   border-width: 0.5px;
-  padding: 20px 10px 20px 10px;
+  padding: 30px 10px 30px 10px;
   width: 40%;
 }
 .body-resume-biography {
   width: 60%;
-  padding: 20px 10px 20px 10px;
+  padding: 30px 30px 30px 30px;
 }
 .projects-side {
   margin: 16px;
 }
 .icons {
-  margin: 10px;
+  margin: 5px 15px 5px 5px;
 }
 .icon-detail-information {
   display: flexbox;
@@ -83,4 +83,10 @@
 }
 .head-detail-button {
   width: 50%;
+}
+.resume-detail-searchbar {
+  width: 300px;
+}
+.detail-resume-information {
+  margin: 10px;
 }

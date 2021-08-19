@@ -21,7 +21,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { getResume, getSkillsByName } from "./ResumesAPI.js";
 import "./Details.css";
 
@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   headName: {
     "& .MuiInputBase-input": {
+      borderColor: "yellow !important",
       color: "#4350af",
       fontSize: 23,
       fontWeight: "800",
@@ -106,7 +107,7 @@ function Details() {
     setOpenModal(true);
   };
 
-  useEffect(() => {
+  fetch(() => {
     async function fetchData() {
       const response = await getResume(id);
       const data = response.data;
@@ -116,30 +117,6 @@ function Details() {
     }
     fetchData();
   }, [id]);
-  // const data = {
-  //   contact: {
-  //     address: "Tarija Av.",
-  //     email: "rodrigo.baldivieso@fundacion-jala.org",
-  //     id: 0,
-  //     phone: 77669911,
-  //   },
-  //   creationDate: "2021-08-08T17:25:57.5541299+00:00",
-  //   id: 1,
-  //   lastUpdate: "2021-08-18T17:25:57.5544718+00:00",
-  //   person: {
-  //     birthdate: "1995-01-01T00:00:00",
-  //     firstName: "Rodrigo",
-  //     id: 0,
-  //     lastName: "Baldivieso",
-  //     picture: "?",
-  //   },
-  //   skills: [
-  //     { emsiId: null, id: 1, name: "C#", resumes: null },
-  //     { emsiId: null, id: 2, name: "API", resumes: null },
-  //   ],
-  //   summary: "Rodrigo!",
-  //   title: "My Custom Title",
-  // };
 
   const edit = (event) => {
     event.preventDefault();
@@ -159,7 +136,6 @@ function Details() {
       handleClickOpen();
     }
   };
-
   const initialValues = {
     birthdate: data.person.birthdate || "",
     direction: data.contact.direction || "",
@@ -199,6 +175,7 @@ function Details() {
             <div className="head-detail">
               <div className="head-detail-name">
                 <TextField
+                  InputProps={{ disableUnderline: disabled }}
                   className={classes.headName}
                   defaultValue={`${data.person.firstName} ${data.person.lastName}`}
                   disabled={disabled}
@@ -214,13 +191,14 @@ function Details() {
                   name="firstName"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  placeholder="asd"
+                  placeholder="Your Name"
                   type="text"
                 />
               </div>
               <div>
                 <LocationOnIcon style={{ color: "ED8749" }} />
                 <TextField
+                  InputProps={{ disableUnderline: disabled }}
                   className={classes.information}
                   defaultValue={data.contact.address}
                   disabled={disabled}
@@ -236,6 +214,7 @@ function Details() {
                   name="address"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
+                  placeholder="Your Address"
                   type="text"
                 />
               </div>
@@ -245,11 +224,10 @@ function Details() {
                 <Button
                   className="buttonEdit"
                   color="primary"
-                  // onClick={}
                   startIcon={<MailOutlineIcon />}
                   variant="contained"
                 >
-                  ProjectInvitations
+                  {"6 Project Invitations"}
                 </Button>
                 <Button
                   className="buttonEdit"
@@ -270,12 +248,13 @@ function Details() {
               <Typography color="primary" gutterBottom variant="h6">
                 Information
               </Typography>
-              <div>
+              <div className="detail-resume-information">
                 <CalendarTodayIcon
                   className="icons"
                   style={{ color: "ED8749" }}
                 />
                 <TextField
+                  InputProps={{ disableUnderline: disabled }}
                   className={classes.information}
                   defaultValue="2017-05-24"
                   disabled={disabled}
@@ -288,9 +267,10 @@ function Details() {
                   onChange={formik.handleChange}
                 />
               </div>
-              <div>
+              <div className="detail-resume-information">
                 <PhoneIcon className="icons" style={{ color: "ED8749" }} />
                 <TextField
+                  InputProps={{ disableUnderline: disabled }}
                   className={classes.information}
                   defaultValue={data.contact.phone}
                   disabled={disabled}
@@ -307,12 +287,13 @@ function Details() {
                   type="number"
                 />
               </div>
-              <div>
+              <div className="detail-resume-information">
                 <MailOutlineIcon
                   className="icons"
                   style={{ color: "ED8749" }}
                 />
                 <TextField
+                  InputProps={{ disableUnderline: disabled }}
                   className={classes.informationEmail}
                   defaultValue={data.contact.email}
                   disabled={disabled}
@@ -326,6 +307,7 @@ function Details() {
                   name="email"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
+                  placeholder="Your Email"
                   type="email"
                 />
               </div>
@@ -335,7 +317,8 @@ function Details() {
                 Sumary
               </Typography>
               <TextField
-                defaultValue={"data.summary"}
+                InputProps={{ disableUnderline: disabled }}
+                defaultValue={data.summary}
                 disabled={disabled}
                 error={formik.touched.summary && Boolean(formik.errors.summary)}
                 fullWidth
@@ -350,8 +333,8 @@ function Details() {
                 name="summary"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
+                placeholder="Your Resume"
                 rows={10}
-                variant="outlined"
               />
             </div>
           </div>
@@ -359,36 +342,38 @@ function Details() {
             <Typography color="primary" gutterBottom variant="h6">
               Skills
             </Typography>
-            {!disabled ? (
-              <Paper className={classes.searchBoxContainer} component="form">
-                <InputBase
-                  className={classes.input}
-                  disabled={disabled}
-                  inputProps={{ "aria-label": "search google maps" }}
-                  onChange={(event) => setSkillInput(event.target.value)}
-                  placeholder="Search Skills"
-                />
-                <IconButton
-                  aria-label="search"
-                  className={classes.iconButton}
-                  disabled={disabled}
-                  onClick={getSkills}
-                  type="submit"
-                >
-                  <SearchIcon />
-                </IconButton>
-                {openModal ? (
-                  <ModalSkills
-                    allInfoData={data}
-                    data={data.skills}
-                    dataSkills={dataSkills}
-                    idUser={id}
-                    setData={setData}
-                    setOpenModal={setOpenModal}
-                  ></ModalSkills>
-                ) : null}
-              </Paper>
-            ) : null}
+            <div className="resume-detail-searchbar">
+              {!disabled ? (
+                <Paper className={classes.searchBoxContainer} component="form">
+                  <InputBase
+                    className={classes.input}
+                    disabled={disabled}
+                    inputProps={{ "aria-label": "search google maps" }}
+                    onChange={(event) => setSkillInput(event.target.value)}
+                    placeholder="Search Skills"
+                  />
+                  <IconButton
+                    aria-label="search"
+                    className={classes.iconButton}
+                    disabled={disabled}
+                    onClick={getSkills}
+                    type="submit"
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                  {openModal ? (
+                    <ModalSkills
+                      allInfoData={data}
+                      data={data.skills}
+                      dataSkills={dataSkills}
+                      idUser={id}
+                      setData={setData}
+                      setOpenModal={setOpenModal}
+                    ></ModalSkills>
+                  ) : null}
+                </Paper>
+              ) : null}
+            </div>
             {data.skills.map((skill) => (
               <Chip
                 className="chip"
