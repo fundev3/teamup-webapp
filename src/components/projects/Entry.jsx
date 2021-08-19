@@ -3,6 +3,7 @@ import MemberList from "./MemberList";
 import { UploadButton } from "../../common";
 import { entry as entryValidations } from "./helpers/validations";
 import { postProject } from "./ProjectsAPI";
+import uploadFileToBlob from "../../storage/blobStorage";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { useState } from "react";
@@ -22,10 +23,26 @@ import "./Entry.scss";
 
 function Entry() {
   const [memberList, setMemberList] = useState([]);
+  const [fileSelected, setFileSelected] = useState(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const search = useLocation().search;
   const idProject = new URLSearchParams(search).get("id");
+
+  const onFileChange = (event) => {
+    setFileSelected(event.target.files[0]);
+  };
+
+  const onFileUpload = async () => {
+    try {
+      const fileName = await uploadFileToBlob(fileSelected);
+      setFileSelected(null);
+      return fileName;
+    } catch (error) {
+      dispatch(alertError(`The project was not saved ${error.message}`));
+      return null;
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -40,13 +57,16 @@ function Entry() {
       textInvitation: "",
     },
     onSubmit: async (values) => {
-      const { contact, description, logo, name, textInvitation } = values;
+      const { contact, description, name, textInvitation } = values;
+      let logo;
       const members = memberList.map((member) => {
         return {
           idResume: member.idResume,
           name: member.name,
         };
       });
+      logo = await onFileUpload();
+      if (!logo) return;
       const project = {
         /**
          * TODO: (contact: will consume api) It will be the contact of the owner of the project
