@@ -15,6 +15,7 @@ function ResumeList() {
     async function data() {
       const response = await getResumes();
       setResumes(response);
+      console.log(response);
     }
     data();
   }, []);
