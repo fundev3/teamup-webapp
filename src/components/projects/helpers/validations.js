@@ -8,11 +8,16 @@ export const entry = () =>
     logo: Yup.string()
       .min(1, "Must be 1 characters or more")
       .max(200, "Must be 200 characters or less")
-      .required("Upload your logo"),
+      .required("Upload your logo")
+      .matches(
+        /^[a-zñA-ZÑ0-9]*.(jpg|JPG|png|PNG|svg|SVG)$/,
+        "Must be .jpg, .png or .svg format"
+      ),
     name: Yup.string()
       .min(3, "Must be 3 characters or more")
       .max(15, "Must be 15 characters or less")
-      .required("Introduce the name off the project"),
+      .required("Introduce the name off the project")
+      .matches(/^[a-zñA-ZÑ]*$/, "Must be valid characteres"),
     textInvitation: Yup.string()
       .max(160, "Must be 160 characters or less")
       .required("Write a text invitation"),

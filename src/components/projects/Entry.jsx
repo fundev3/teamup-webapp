@@ -74,7 +74,7 @@ function Entry() {
   const hasErrorDescription =
     !!formik.touched.description && !!formik.errors.description;
   const hasErrorName = !!formik.touched.name && !!formik.errors.name;
-  const hasErrorLogo = !!formik.touched.logo && !!formik.errors?.logo;
+  const hasErrorLogo = !!formik.touched.logo && !!formik.errors.logo;
   const hasErrorTextInvitation =
     !!formik.touched.textInvitation && !!formik.errors.textInvitation;
 
@@ -253,7 +253,7 @@ function Entry() {
                     Attach photo
                   </Button>
                 </label>
-                <label className="errorLogo">
+                <label className="errorLogo" htmlFor="logo">
                   {hasErrorLogo ? formik.errors.logo : ""}
                 </label>
                 <label>{formik.values.logo}</label>
