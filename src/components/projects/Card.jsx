@@ -1,8 +1,8 @@
 import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { Typography } from "@material-ui/core";
-import image from "../../assets/project-img.jpeg";
 import { makeStyles } from "@material-ui/core/styles";
+import { projectImageJpeg } from "../../constants/images";
 import { useHistory } from "react-router-dom";
 import "./Card.scss";
 
@@ -35,7 +35,7 @@ function Card(props) {
     <div className="card-container" key={id}>
       <div className="card-info">
         <div className="left">
-          <img alt="logo" src={image} />
+          <img alt="logo" src={projectImageJpeg} />
         </div>
         <div className="right">
           <div className="name">{name}</div>

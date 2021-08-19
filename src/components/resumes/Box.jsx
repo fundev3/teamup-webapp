@@ -1,7 +1,7 @@
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import User from "../../assets/user.svg";
 import { makeStyles } from "@material-ui/core/styles";
+import { userSingleImageSvg } from "../../constants/images";
 import { Chip, Paper, Typography } from "@material-ui/core";
 import "./Box.css";
 
@@ -37,18 +37,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Box(props) {
-  const { id, contact, personalInformation, summary, skills } = props;
+  const { id, contact, person, summary, skills } = props;
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
       <div className="head-resume">
         <div className="resume-picture">
-          <img alt="" src={User}></img>
+          <img alt="" src={userSingleImageSvg}></img>
         </div>
         <div className="resume-information">
-          <div className="name">
-            {`${personalInformation.firstName} ${personalInformation.lastName}`}
-          </div>
+          <div className="name">{`${person.firstName} ${person.lastName}`}</div>
           <div className="date">
             <label>{`${contact.email}`}</label>
           </div>
