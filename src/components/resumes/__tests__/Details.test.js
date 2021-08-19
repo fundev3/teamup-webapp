@@ -14,14 +14,14 @@ const url = `${API_HOST}/api/${API_VERSION}/${API_NAME}/${id}`;
 const resume = [
   {
     contact: {
-      direction: "Cochabamba Av.",
+      address: "Cochabamba Av.",
       email: "paola.quintanilla@fundacion-jala.org",
       phone: 77669911,
     },
     creationDate: "2021-07-21T23:49:28.0933608+00:00",
     id: "40b3f7e3-eaba-4b0f-bbef-5f5882af3ced",
     lastUpdate: "2021-07-31T23:49:28.0933634+00:00",
-    personalInformation: {
+    person: {
       birthdate: "1995-01-01T00:00:00",
       firstName: "Paola",
       lastName: "Quintanilla",

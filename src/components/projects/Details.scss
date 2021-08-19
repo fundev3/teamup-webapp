@@ -1,0 +1,24 @@
+.container {
+  margin-top: 50px;
+}
+.paper {
+  padding: 60px 60px 0 60px;
+  margin-top: 30px;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #4350af;
+}
+
+h6.MuiTypography-h6.overview {
+  margin-bottom: 20px;
+}
+
+.MuiAvatar-root.avatar {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}

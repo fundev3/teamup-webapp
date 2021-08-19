@@ -137,14 +137,14 @@ function Details() {
     }
   };
   const initialValues = {
-    birthdate: data.person.birthdate || "",
-    direction: data.contact.direction || "",
-    email: data.contact.email || "",
-    firstName: data.person.firstName || "",
-    lastName: data.person.lastName || "",
-    phone: data.contact.phone || "",
-    skills: data.skills || [],
-    summary: data.summary || "",
+    birthdate: data?.person?.birthdate || "",
+    direction: data?.contact?.direction || "",
+    email: data?.contact?.email || "",
+    firstName: data?.person?.firstName || "",
+    lastName: data?.person?.lastName || "",
+    phone: data?.contact?.phone || "",
+    skills: data?.skills || [],
+    summary: data?.summary || "",
   };
 
   const formik = useFormik({

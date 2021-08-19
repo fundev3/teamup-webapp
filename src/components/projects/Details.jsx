@@ -1,15 +1,24 @@
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
+import Invitations from ".././invitations/Invitations";
 import { getProject } from "./ProjectsAPI";
 import { isEmpty } from "../../helpers";
 import {
+  Avatar,
+  Box,
   Button,
   Container,
   Divider,
-  Grid,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Paper,
   Typography,
 } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { projectImageSvg, userImageSvg } from "../../constants/images";
+import "./Details.scss";
 
 function Details() {
   const { id } = useParams();
@@ -25,59 +34,75 @@ function Details() {
 
   if (isEmpty(project)) return <div>ERROR!!! Project not found</div>;
 
-  const { contact, creationDate, description, logo, name, textInvitation } =
-    project;
-
+  const { contact, creationDate, description, name, memberList } = project;
+  const creationDateFormatted = creationDate
+    .split("T")[0]
+    .split("-")
+    .reverse()
+    .join("/");
   return (
     <div>
-      <Container maxWidth="sm">
-        <Link to="/projects">
-          <Button color="primary" variant="contained">
-            <ArrowBackIcon></ArrowBackIcon>
-          </Button>
+      <Container className="container">
+        <Link className="back-button" to="/projects">
+          <ArrowBackIos></ArrowBackIos>
+          Back
         </Link>
-        <Grid
-          alignContent="center"
-          alignItems="center"
-          container
-          direction="row"
-          justifyContent="center"
-          spacing={1}
-          wrap="nowrap"
-        >
-          <Grid item xs={2}>
-            <img alt="" height="75" src={logo} width="75" />
-          </Grid>
-          <Grid item xs={10}>
-            <Typography align="justify" gutterBottom variant="h4">
-              Project: {name}
-            </Typography>
-          </Grid>
-        </Grid>
-        <Typography
-          align="left"
-          color="primary"
-          display="block"
-          gutterBottom
-          variant="caption"
-        >
-          Publish: {creationDate}
-        </Typography>
-        <Divider variant="middle" />
-        <Typography align="justify" color="textSecondary">
-          Description: {description}
-        </Typography>
-        <Divider variant="middle" />
-        <Typography align="justify" color="textSecondary">
-          Ref.:{textInvitation}
-        </Typography>
-        <Divider variant="middle" />
-        <Typography align="justify" color="primary">
-          Contact Info: {contact.name}
-        </Typography>
-        <Button color="primary" variant="contained">
-          Send CV
-        </Button>
+        <Paper className="paper" elevation={3} mt={4}>
+          <Box alignItems="center" display="flex" mb={6}>
+            <img alt="" src={projectImageSvg} width="140" />
+            <Container>
+              <Typography align="justify" color="primary" variant="h5">
+                {name}
+              </Typography>
+              <Typography color="textSecondary" gutterBottom>
+                Created: {creationDateFormatted}
+              </Typography>
+              <Box alignItems="center" display="flex">
+                <Avatar className="avatar" src={userImageSvg} />
+                <Typography align="justify" color="textSecondary">
+                  {contact.name}
+                </Typography>
+              </Box>
+            </Container>
+            <Button color="primary" variant="contained">
+              Apply
+            </Button>
+          </Box>
+          <Divider light />
+          <Box display="flex">
+            <Box pb={10} pt={4} width="75%">
+              <Typography
+                align="justify"
+                className="overview"
+                color="primary"
+                variant="h6"
+              >
+                Overview
+              </Typography>
+              <Typography color="textSecondary" p={2} variant="body2">
+                {description}
+              </Typography>
+            </Box>
+            <Divider flexItem light orientation="vertical" />
+            <Box pl={4} pt={4}>
+              <Typography align="justify" color="primary" variant="h6">
+                Teammates working here
+              </Typography>
+              <List>
+                {memberList.map((member, key) => (
+                  <ListItem button key={key}>
+                    <ListItemAvatar>
+                      <Avatar src={userImageSvg} />
+                    </ListItemAvatar>
+                    <ListItemText id={key} primary={member.name} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          </Box>
+          <Divider light />
+          <Invitations id={id} />
+        </Paper>
       </Container>
     </div>
   );
