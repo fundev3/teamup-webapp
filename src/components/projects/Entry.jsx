@@ -247,7 +247,7 @@ function Entry() {
         <Box display="flex" justifyContent="flex-end">
           <Button
             className={classes.button}
-            data-testid="btn-form"
+            data-testid="btn-cancel"
             type="submit"
             variant="contained"
           >

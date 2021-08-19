@@ -42,7 +42,7 @@ describe("Entry", () => {
 
   test("Should render title create without id project on url", () => {
     renderEntryWithoutIdProject();
-    const title = screen.getByText("Create Project");
+    const title = screen.getByText("Let's showcase your project!");
     expect(title).toBeInTheDocument();
   });
 
@@ -52,11 +52,11 @@ describe("Entry", () => {
     expect(button).toHaveTextContent("Create");
   });
 
-  test("Should render title update with id project on url", () => {
-    renderEntryWithIdProject();
-    const title = screen.getByText("Update Project");
-    expect(title).toBeInTheDocument();
-  });
+  // test("Should render title update with id project on url", () => {
+  //   renderEntryWithIdProject();
+  //   const title = screen.getByText("Update Project");
+  //   expect(title).toBeInTheDocument();
+  // });
 
   test("Should render button update", () => {
     renderEntryWithIdProject();
@@ -66,15 +66,13 @@ describe("Entry", () => {
 
   test("Should render subtitle", () => {
     renderEntryWithoutIdProject();
-    const subTitle = screen.getByText(
-      "Make your project know and hire the best resumes for it."
-    );
+    const subTitle = screen.getByText("Let's showcase your project!");
     expect(subTitle).toBeInTheDocument();
   });
 
-  test("Should render 6 inputs in form", () => {
+  test("Should render 5 inputs in form", () => {
     renderEntryWithoutIdProject();
     const test = screen.getAllByTestId("input-field");
-    expect(test.length).toBeGreaterThanOrEqual(6);
+    expect(test.length).toBeGreaterThanOrEqual(5);
   });
 });
