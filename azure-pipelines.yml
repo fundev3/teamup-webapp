@@ -36,6 +36,9 @@ stages:
       - script: |
           echo 'REACT_APP_API_PROJECTS_URL = $(API_PROJECTS_HOST)' > .env
           echo 'REACT_APP_API_RESUMES_URL = $(API_RESUMES_HOST)' >> .env
+          echo 'REACT_APP_STORAGE_URL = $(STORAGE_URL)' >> .env
+          echo 'REACT_APP_STORAGE_CONTAINER = $(STORAGE_CONTAINER)' >> .env
+          echo 'REACT_APP_STORAGE_SAS_TOKEN = $(SAS_TOKEN)' >> .env
         displayName: 'Adding environment variables'
 
       - script: npm run build
