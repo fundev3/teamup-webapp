@@ -7,7 +7,7 @@ import NotFound from "./NotFound";
 import PhoneIcon from "@material-ui/icons/Phone";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
-import avatar from "../../assets/user.svg";
+import avatar from "./../../assets/user.svg";
 import { entry as entryValidations } from "./helpers/validations";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
