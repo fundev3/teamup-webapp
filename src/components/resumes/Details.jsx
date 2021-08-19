@@ -21,7 +21,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getResume, getSkillsByName } from "./ResumesAPI.js";
 import "./Details.css";
 
@@ -77,12 +77,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(4),
     width: "1000px",
   },
-  prueba: {
-    "& .MuiOutlinedInput-input": {
-      padding: 5,
-    },
-  },
-
   searchBoxContainer: {
     alignItems: "center",
     display: "flex",
@@ -107,7 +101,7 @@ function Details() {
     setOpenModal(true);
   };
 
-  fetch(() => {
+  useEffect(() => {
     async function fetchData() {
       const response = await getResume(id);
       const data = response.data;
