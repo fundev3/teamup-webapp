@@ -7,7 +7,7 @@ import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import { getInvitationsByResume } from "./InvitationsAPI.js";
 import { Dialog, DialogTitle } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 
 const Accordion = withStyles({
@@ -71,17 +71,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function InvitationsList({ idResume, setModalInvitations }) {
+function InvitationsModal({ idResume, setModalInvitations }) {
   const classes = useStyles();
   const [dataInvitations, setDataInvitations] = useState();
 
-  const getInvitations = async () => {
-    const response = await getInvitationsByResume(idResume);
-    setDataInvitations(response.data);
-    console.log(dataInvitations.id);
-  };
-
-  getInvitations();
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getInvitationsByResume(idResume);
+      setDataInvitations(response.data);
+      console.log(dataInvitations.data);
+    }
+    fetchData();
+  }, [idResume]);
 
   return (
     <div className={classes.modalInvitations}>
@@ -141,4 +142,4 @@ function InvitationsList({ idResume, setModalInvitations }) {
   );
 }
 
-export default InvitationsList;
+export default InvitationsModal;

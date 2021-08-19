@@ -1,3 +1,4 @@
+import InvitationsModal from "../invitations/InvitationsModal";
 import InvitationsNotifications from "../invitations/InvitationsNotifications";
 import Loading from "./Loading";
 import ModalSkills from "./ModalSkills";
@@ -120,6 +121,12 @@ function Details() {
         idResume={id}
         setModalInvitations={setModalInvitations}
       />
+      {modalInvitations ? (
+        <InvitationsModal
+          idResume={id}
+          setModalInvitations={setModalInvitations}
+        />
+      ) : null}
       <Grid
         className={classes.content}
         container
