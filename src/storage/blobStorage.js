@@ -1,9 +1,9 @@
 import { BlobServiceClient } from "@azure/storage-blob";
+import { CONTAINER } from "../constants";
 import path from "path";
 import { v1 as uuidv1 } from "uuid";
 
-const sasToken = process.env.REACT_APP_AZURE_STORAGE_SAS_TOKEN;
-const containerName = "images/webapp";
+const sasToken = process.env.REACT_APP_STORAGE_SAS_TOKEN;
 const baseUrl = process.env.REACT_APP_STORAGE_URL;
 
 async function createBlobInContainer(containerClient, file) {
@@ -16,6 +16,6 @@ async function createBlobInContainer(containerClient, file) {
 
 export default async function uploadFileToBlob(file) {
   const blobService = new BlobServiceClient(`${baseUrl}/?${sasToken}`);
-  const containerClient = blobService.getContainerClient(containerName);
+  const containerClient = blobService.getContainerClient(CONTAINER);
   return await createBlobInContainer(containerClient, file);
 }
