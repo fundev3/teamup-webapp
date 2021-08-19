@@ -80,11 +80,6 @@ function Entry() {
     button: {
       margin: "10px",
     },
-    customGrayFont: {
-      color: "#d2d2d2",
-      fontSize: "1.2rem",
-      fontWeight: "bold",
-    },
     subTitle: {
       fontSize: "1.5rem",
       fontWeight: "bold",
@@ -142,10 +137,10 @@ function Entry() {
                 error={hasErrorName}
                 helperText={hasErrorName ? formik.errors.name : ""}
                 id="name"
-                label="Name"
                 name="name"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
+                placeholder="Your project title"
                 type="text"
                 value={formik.values.name}
                 variant="outlined"
@@ -161,7 +156,6 @@ function Entry() {
                 }}
                 className={classes.textInput}
                 data-testid="input-field"
-                helperText="This is the owner contact"
                 id="contact"
                 name="contact"
                 type="email"
@@ -181,11 +175,13 @@ function Entry() {
                   hasErrorDescription ? formik.errors.description : ""
                 }
                 id="description"
-                label="Description"
                 multiline
                 name="description"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
+                placeholder="Write a brief description of your project.
+                Outline the overarching purpose, as well the key information of it,
+                add the problem statement and your goals."
                 rows={4}
                 value={formik.values.description}
                 variant="outlined"
@@ -203,11 +199,11 @@ function Entry() {
                   hasErrorTextInvitation ? formik.errors.textInvitation : ""
                 }
                 id="textInvitation"
-                label="Text invitation"
                 multiline
                 name="textInvitation"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
+                placeholder="Text invitation"
                 rows={2}
                 value={formik.values.textInvitation}
                 variant="outlined"
