@@ -1,4 +1,5 @@
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import InvitationsModal from "../invitations/InvitationsModalResumes";
 import Loading from "./Loading";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
@@ -96,6 +97,7 @@ function Details() {
   const [disabled, setDisabled] = useState(true);
   const [skillInput, setSkillInput] = useState("");
   const [openModal, setOpenModal] = React.useState(false);
+  const [modalInvitations, setModalInvitations] = React.useState(false);
   const [dataSkills, setDataSkills] = React.useState([]);
   const handleClickOpen = () => {
     setOpenModal(true);
@@ -122,6 +124,7 @@ function Details() {
       setDisabled(true);
     }
   };
+
   const getSkills = async (event) => {
     event.preventDefault();
     if (skillInput !== "") {
@@ -130,6 +133,7 @@ function Details() {
       handleClickOpen();
     }
   };
+
   const initialValues = {
     birthdate: data?.person?.birthdate || "",
     direction: data?.contact?.direction || "",
@@ -147,10 +151,15 @@ function Details() {
     onSubmit: edit,
     validationSchema: entryValidations(),
   });
-
   if (error) return <NotFound />;
   return data ? (
-    <div>
+    <>
+      {modalInvitations ? (
+        <InvitationsModal
+          idResume={id}
+          setModalInvitations={setModalInvitations}
+        />
+      ) : null}
       <Grid
         className={classes.content}
         container
@@ -218,10 +227,11 @@ function Details() {
                 <Button
                   className="buttonEdit"
                   color="primary"
+                  onClick={() => setModalInvitations(true)}
                   startIcon={<MailOutlineIcon />}
                   variant="contained"
                 >
-                  {"6 Project Invitations"}
+                  {"1 Project Invitations"}
                 </Button>
                 <Button
                   className="buttonEdit"
@@ -384,9 +394,10 @@ function Details() {
           </div>
         </Paper>
       </Grid>
-    </div>
+    </>
   ) : (
     <Loading />
   );
 }
+
 export default Details;
