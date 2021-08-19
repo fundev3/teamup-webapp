@@ -7,10 +7,10 @@ import NotFound from "./NotFound";
 import PhoneIcon from "@material-ui/icons/Phone";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
-import avatar from "./../../assets/user.svg";
 import { entry as entryValidations } from "./helpers/validations";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
+import { userSingleImageSvg } from "../../constants/images";
 import {
   Button,
   Chip,
@@ -170,7 +170,7 @@ function Details() {
         <Paper className={classes.paper}>
           <div className="head-detail-resume">
             <div className="head-image">
-              <img alt="" className="avatar-resume" src={avatar} />
+              <img alt="" className="avatar-resume" src={userSingleImageSvg} />
             </div>
             <div className="head-detail">
               <div className="head-detail-name">
