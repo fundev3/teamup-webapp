@@ -24,9 +24,14 @@ function Entry() {
   };
 
   const onFileUpload = async () => {
-    const fileName = await uploadFileToBlob(fileSelected);
-    setFileSelected(null);
-    return fileName;
+    try {
+      const fileName = await uploadFileToBlob(fileSelected);
+      setFileSelected(null);
+      return fileName;
+    } catch (error) {
+      dispatch(alertError(`The project was not saved ${error.message}`));
+      return null;
+    }
   };
 
   const formik = useFormik({
@@ -51,6 +56,7 @@ function Entry() {
         };
       });
       logo = await onFileUpload();
+      if (!logo) return;
       const project = {
         /**
          * TODO: (contact: will consume api) It will be the contact of the owner of the project
