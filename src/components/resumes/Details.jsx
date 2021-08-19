@@ -231,7 +231,7 @@ function Details() {
                   startIcon={<MailOutlineIcon />}
                   variant="contained"
                 >
-                  {"6 Project Invitations"}
+                  {"1 Project Invitations"}
                 </Button>
                 <Button
                   className="buttonEdit"
