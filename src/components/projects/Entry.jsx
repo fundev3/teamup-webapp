@@ -1,5 +1,6 @@
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import MemberList from "./MemberList";
+import { UploadButton } from "../../common";
 import { entry as entryValidations } from "./helpers/validations";
 import { postProject } from "./ProjectsAPI";
 import { useDispatch } from "react-redux";
@@ -9,6 +10,7 @@ import {
   Box,
   Button,
   Container,
+  IconButton,
   Paper,
   TextField,
   Typography,
@@ -72,13 +74,21 @@ function Entry() {
   const hasErrorDescription =
     !!formik.touched.description && !!formik.errors.description;
   const hasErrorName = !!formik.touched.name && !!formik.errors.name;
-  const hasErrorLogo = !!formik.touched.logo && !!formik.errors.logo;
+  const hasErrorLogo = !!formik.touched.logo && !!formik.errors?.logo;
   const hasErrorTextInvitation =
     !!formik.touched.textInvitation && !!formik.errors.textInvitation;
 
-  const useStyles = makeStyles({
+  const useStyles = makeStyles((theme) => ({
     button: {
       margin: "10px",
+    },
+    input: {
+      display: "none",
+    },
+    root: {
+      "& > *": {
+        margin: theme.spacing(1),
+      },
     },
     subTitle: {
       fontSize: "1.5rem",
@@ -93,7 +103,7 @@ function Entry() {
       fontWeight: "bold",
       margin: "30px",
     },
-  });
+  }));
   const classes = useStyles();
 
   return (
@@ -224,19 +234,30 @@ function Entry() {
               Project view
             </Typography>
             <div className="u-mb-1">
-              <TextField
-                className={classes.textInput}
-                data-testid="input-field"
-                error={hasErrorLogo}
-                helperText={hasErrorLogo ? formik.errors.logo : ""}
-                id="logo"
-                name="logo"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                type="file"
-                value={formik.values.logo}
-                variant="outlined"
-              />
+              <div className={classes.root}>
+                <input
+                  accept="image/*"
+                  className={classes.input}
+                  data-testid="input-field"
+                  error={hasErrorLogo}
+                  helperText={hasErrorLogo ? formik.errors.logo : ""}
+                  id="logo"
+                  name="logo"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  type="file"
+                  value={formik.values.logo}
+                />
+                <label htmlFor="logo">
+                  <Button color="primary" component="span" variant="contained">
+                    Attach photo
+                  </Button>
+                </label>
+                <label className="errorLogo">
+                  {hasErrorLogo ? formik.errors.logo : ""}
+                </label>
+                <label>{formik.values.logo}</label>
+              </div>
             </div>
           </Paper>
         </Box>

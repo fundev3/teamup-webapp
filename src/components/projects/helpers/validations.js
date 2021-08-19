@@ -6,6 +6,7 @@ export const entry = () =>
       .max(160, "Must be 20 characters or less")
       .required("Tell a little about your project"),
     logo: Yup.string()
+      .min(1, "Must be 1 characters or more")
       .max(200, "Must be 200 characters or less")
       .required("Upload your logo"),
     name: Yup.string()
