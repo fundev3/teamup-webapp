@@ -90,7 +90,7 @@ function Details() {
   let { id } = useParams();
   const classes = useStyles();
   const handleDelete = () => {};
-  const [data, setData] = useState();
+  // const [data, setData] = useState();
   const [error, setError] = useState();
   const [stateButton, setStateButton] = useState("Edit");
   const [disabled, setDisabled] = useState(true);
@@ -101,16 +101,46 @@ function Details() {
     setOpenModal(true);
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await getResume(id);
-      const data = response.data;
-      const error = response.handlerError;
-      setError(error);
-      setData(data);
-    }
-    fetchData();
-  }, [id]);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await getResume(id);
+  //     const data = response.data;
+  //     const error = response.handlerError;
+  //     setError(error);
+  //     setData(data);
+  //   }
+  //   fetchData();
+  // }, [id]);
+
+  const data = {
+    contact: {
+      address: "Calle Los Bosques",
+      email: "linaRamirez@corp",
+      id: 1,
+      phone: 74589658,
+    },
+    creationDate: "2020-05-11T08:08:08",
+    id: 1,
+    lastUpdate: "2020-12-20T15:30:02",
+    person: {
+      birthdate: "1995-01-09T00:00:00",
+      firstName: "Lina",
+      id: 1,
+      lastName: "Ramirez",
+      picture: null,
+    },
+    skills: [
+      {
+        emsiId: "KS126XS6CQCFGC3NG79X",
+        id: 2,
+        name: "JAVA",
+        resumes: null,
+      },
+      { emsiId: "K946F11A9E1FD1GZ3FG1", id: 5, name: "RUBY", resumes: null },
+    ],
+    summary: "asdasd",
+    title: "Lina Resume",
+  };
 
   const edit = (event) => {
     event.preventDefault();
@@ -361,7 +391,7 @@ function Details() {
                       data={data.skills}
                       dataSkills={dataSkills}
                       idUser={id}
-                      setData={setData}
+                      // setData={setData}
                       setOpenModal={setOpenModal}
                     ></ModalSkills>
                   ) : null}

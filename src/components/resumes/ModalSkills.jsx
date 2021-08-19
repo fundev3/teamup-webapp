@@ -58,6 +58,7 @@ export default function ModalSkills({
       }
     }
     setOpenModal(false);
+    console.log(skillChecked);
   };
 
   return (
