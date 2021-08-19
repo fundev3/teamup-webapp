@@ -2,8 +2,6 @@ import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import Invitations from ".././invitations/Invitations";
 import { getProject } from "./ProjectsAPI";
 import { isEmpty } from "../../helpers";
-import projectPhoto from "../../assets/project-img.svg";
-import user from "../../assets/user-img.svg";
 import {
   Avatar,
   Box,
@@ -19,6 +17,7 @@ import {
 } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { projectImageSvg, userImageSvg } from "../../constants/images";
 import "./Details.scss";
 
 function Details() {
@@ -50,7 +49,7 @@ function Details() {
         </Link>
         <Paper className="paper" elevation={3} mt={4}>
           <Box alignItems="center" display="flex" mb={6}>
-            <img alt="" src={projectPhoto} width="140" />
+            <img alt="" src={projectImageSvg} width="140" />
             <Container>
               <Typography align="justify" color="primary" variant="h5">
                 {name}
@@ -59,7 +58,7 @@ function Details() {
                 Created: {creationDateFormatted}
               </Typography>
               <Box alignItems="center" display="flex">
-                <Avatar className="avatar" src={user} />
+                <Avatar className="avatar" src={userImageSvg} />
                 <Typography align="justify" color="textSecondary">
                   {contact.name}
                 </Typography>
@@ -93,7 +92,7 @@ function Details() {
                 {memberList.map((member, key) => (
                   <ListItem button key={key}>
                     <ListItemAvatar>
-                      <Avatar src={user} />
+                      <Avatar src={userImageSvg} />
                     </ListItemAvatar>
                     <ListItemText id={key} primary={member.name} />
                   </ListItem>

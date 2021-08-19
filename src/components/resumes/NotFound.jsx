@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import notFound from "../../assets/not-found.jpg";
+import { notFoundImage } from "../../constants";
 
 function NotFound() {
   return (
@@ -12,7 +12,7 @@ function NotFound() {
       }}
     >
       <Paper elevation={2}>
-        <img alt="" src={notFound} />
+        <img alt="" src={notFoundImage} />
       </Paper>
     </Grid>
   );

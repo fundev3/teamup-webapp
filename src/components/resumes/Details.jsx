@@ -3,7 +3,7 @@ import ModalSkills from "./ModalSkills";
 import NotFound from "./NotFound";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
-import avatar from "../../assets/img_avatar.jpg";
+import { avatar } from "../../constants";
 import { entry as entryValidations } from "./helpers/validations";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";

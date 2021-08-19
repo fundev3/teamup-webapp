@@ -1,4 +1,4 @@
-import logoHome from "../../assets/logo-teamup2.png";
+import { logoHome } from "../../constants";
 import "./Home.scss";
 
 export function Home() {
