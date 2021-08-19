@@ -264,7 +264,10 @@ function Entry() {
                   id="logo"
                   name="logo"
                   onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    onFileChange(e);
+                  }}
                   type="file"
                   value={formik.values.logo}
                 />
