@@ -5,7 +5,7 @@ import ModalSkills from "./ModalSkills";
 import NotFound from "./NotFound";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
-import avatar from "../../assets/img_avatar.jpg";
+import { avatar } from "../../constants";
 import { entry as entryValidations } from "./helpers/validations";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
@@ -97,11 +97,11 @@ function Details() {
   };
 
   const initialValues = {
-    birthdate: data?.personalInformation?.birthdate || "",
+    birthdate: data?.person?.birthdate || "",
     direction: data?.contact?.direction || "",
     email: data?.contact?.email || "",
-    firstName: data?.personalInformation?.firstName || "",
-    lastName: data?.personalInformation?.lastName || "",
+    firstName: data?.person?.firstName || "",
+    lastName: data?.person?.lastName || "",
     phone: data?.contact?.phone || "",
     skills: data?.skills || [],
     summary: data?.summary || "",
