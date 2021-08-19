@@ -1,6 +1,5 @@
-const CONTAINER = "images";
-const DIR = "webapp";
-const BASE_URL = `${process.env.REACT_APP_STORAGE_URL}/${CONTAINER}/${DIR}`;
+export const CONTAINER = process.env.REACT_APP_STORAGE_CONTAINER;
+export const BASE_URL = `${process.env.REACT_APP_STORAGE_URL}/${CONTAINER}`;
 
 export const logoHome = `${BASE_URL}/logo-teamup2.594bdda4.png`;
 export const logoNavbar = `${BASE_URL}/logo-teamup1.png`;
