@@ -78,7 +78,6 @@ function Entry() {
   const hasErrorDescription =
     !!formik.touched.description && !!formik.errors.description;
   const hasErrorName = !!formik.touched.name && !!formik.errors.name;
-  // const hasErrorLogo = !!formik.touched.logo && !!formik.errors.logo;
   const hasErrorTextInvitation =
     !!formik.touched.textInvitation && !!formik.errors.textInvitation;
 
