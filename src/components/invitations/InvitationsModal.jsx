@@ -90,7 +90,6 @@ export default function InvitationsModal(props) {
     date.setTime(date.getTime() + addDays * 24 * 60 * 60 * 1000);
 
     for (const resume of resumesSelected) {
-      const { resumeId, resumeName } = resume;
       const invitation = {
         expireDate: date,
         id: "5a7939fd-59de-44bd-a092-f5d8434584de",
@@ -98,8 +97,8 @@ export default function InvitationsModal(props) {
           "https://sttubindevbra.blob.core.windows.net/images/webapp/project-img.jpeg",
         projectId: id,
         projectName: project.name,
-        resumeId: resumeId,
-        resumeName: resumeName,
+        resumeId: resume.id,
+        resumeName: resume.title,
         startDate: new Date().toDateString(),
         status: "Invited",
         textInvitation: project.textInvitation,

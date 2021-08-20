@@ -4,7 +4,7 @@ import { Button, Typography } from "@material-ui/core";
 import "./InvitationPersonCard.scss";
 
 export default function InvitationPersonCard(props) {
-  const { resumeId, resumeName, handleInvitationSelected } = props;
+  const { id, title, handleInvitationSelected } = props;
   const [isInvited, setIsInvited] = React.useState(false);
 
   const handleClick = (id, status) => {
@@ -22,7 +22,7 @@ export default function InvitationPersonCard(props) {
         <div className="right-info">
           <div className="user-name">
             <Typography color="primary" variant="h7">
-              {resumeName}
+              {title}
             </Typography>
           </div>
         </div>
@@ -31,7 +31,7 @@ export default function InvitationPersonCard(props) {
         <Button
           className="invite-button"
           color="primary"
-          onClick={() => handleClick(resumeId, true)}
+          onClick={() => handleClick(id, true)}
           variant="outlined"
         >
           Add
@@ -40,7 +40,7 @@ export default function InvitationPersonCard(props) {
         <Button
           className="invite-button"
           color="secondary"
-          onClick={() => handleClick(resumeId, false)}
+          onClick={() => handleClick(id, false)}
           variant="outlined"
         >
           Remove
