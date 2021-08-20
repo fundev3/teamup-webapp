@@ -87,12 +87,13 @@ export async function getSkillsByName(name) {
   }
 }
 
-export async function postSkillsById(id, skill) {
+export async function postSkillsById(idUser, SkillData) {
   let handlerError = false;
   const data = {};
   try {
-    const { data } = await axios.get(
-      `${API_NAME_SKILLS}?id=${id}&skill=${skill}`
+    const { data } = await axios.put(
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}/${idUser}/skills`,
+      SkillData
     );
     return { data, handlerError };
   } catch (error) {
