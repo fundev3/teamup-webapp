@@ -1,0 +1,30 @@
+.person-card-box {
+  display: flex;
+  flex-direction: row;
+  border-bottom: solid 0.8px #e6e5e5;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 6px 10px 0px;
+}
+.person-card-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.left-info {
+  height: 60px;
+  width: 60px;
+}
+.right-info {
+  margin: 0px 10px;
+}
+.user-name {
+  font-weight: 600;
+}
+.user-email {
+  color: #999999;
+  font-size: 0.8em;
+}
+.invite-button {
+  height: 30px;
+}
