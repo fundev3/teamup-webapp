@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100px",
   },
   nameStatus: {
-    margin: "17%",
+    margin: "30px 0px 0px 15px",
   },
   paper: {
     height: "120px",
