@@ -15,9 +15,10 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
+import { BASE_URL, userImageSvg } from "../../constants";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { projectImageSvg, userImageSvg } from "../../constants/images";
+
 import "./Details.scss";
 
 function Details() {
@@ -34,7 +35,8 @@ function Details() {
 
   if (isEmpty(project)) return <div>ERROR!!! Project not found</div>;
 
-  const { contact, creationDate, description, name, memberList } = project;
+  const { contact, creationDate, description, logo, name, memberList } =
+    project;
   const creationDateFormatted = creationDate
     .split("T")[0]
     .split("-")
@@ -49,7 +51,7 @@ function Details() {
         </Link>
         <Paper className="paper" elevation={3} mt={4}>
           <Box alignItems="center" display="flex" mb={6}>
-            <img alt="" src={projectImageSvg} width="140" />
+            <img alt="" src={`${BASE_URL}/${logo}`} width="140" />
             <Container>
               <Typography align="justify" color="primary" variant="h5">
                 {name}

@@ -36,3 +36,21 @@ export async function postInviteResumes(id, resume) {
     return { error: e, ok: false };
   }
 }
+
+export async function getInvitationsByResume(id) {
+  try {
+    const { data } = await axios.get(
+      `${API_HOST}/api/${API_VERSION}/resumes/${id}/invitations`
+    );
+    return data;
+  } catch (error) {
+    if (error.response) {
+      store.dispatch(alertError(error.message));
+    } else if (error.request) {
+      store.dispatch(alertError(error.message));
+    } else {
+      store.dispatch(alertError("Error: Something is wrong"));
+    }
+    return [];
+  }
+}

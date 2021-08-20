@@ -1,14 +1,88 @@
 .avatar-resume {
-  width: 150px;
-  height: 150px;
-  margin-left: 33%;
+  width: 100px;
+  height: 100px;
 }
 .footer button {
-  margin: 20px 50px 10px;
+  margin: 10px;
+  float: right;
 }
 .chip {
   margin: 4px;
 }
 .skills-side {
   margin: 16px;
+}
+.project-logo {
+  width: 100px;
+  height: 100px;
+}
+.head-image {
+  margin: 10px;
+  padding: 0px;
+  width: 10%;
+}
+.head-detail {
+  width: 40%;
+}
+.head-detail-resume {
+  margin-bottom: 40px;
+  padding: 0px;
+  height: 100px;
+  display: flex;
+}
+.head-name-address {
+  margin: 0px;
+  padding: 0px;
+}
+.head-detail-name {
+  padding: 20px 20px 10px 0px;
+}
+.body-detail-resume {
+  height: 300px;
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-color: #dddd;
+  border-width: 0.5px;
+}
+.body-detail-information {
+  border-right-style: solid;
+  border-color: #dddd;
+  border-width: 0.5px;
+  padding: 30px 10px 30px 10px;
+  width: 40%;
+}
+.body-resume-biography {
+  width: 60%;
+  padding: 30px 30px 30px 30px;
+}
+.projects-side {
+  margin: 16px;
+}
+.icons {
+  margin: 5px 15px 5px 5px;
+}
+.icon-detail-information {
+  display: flexbox;
+}
+.email-detail-information {
+  width: 100px;
+  font-size: 5px;
+}
+.skills-side {
+  border-bottom-style: solid;
+  border-color: #dddd;
+  border-width: 0.5px;
+  padding: 20px 0px 50px 0px;
+}
+.head-detail-button {
+  width: 50%;
+}
+.resume-detail-searchbar {
+  width: 300px;
+}
+.detail-resume-information {
+  margin: 10px;
 }

@@ -3,15 +3,22 @@ import * as Yup from "yup";
 export const entry = () =>
   Yup.object({
     description: Yup.string()
-      .max(20, "Must be 20 characters or less")
+      .max(160, "Must be 20 characters or less")
       .required("Tell a little about your project"),
     logo: Yup.string()
-      .max(200, "Must be 20 characters or less")
-      .required("Upload your logo"),
+      .min(1, "Must be 1 characters or more")
+      .max(200, "Must be 200 characters or less")
+      .required("Upload your logo")
+      .matches(
+        /^.*\.(jpg|JPG|png|PNG|svg|SVG)$/,
+        "Must be .jpg, .png or .svg format"
+      ),
     name: Yup.string()
+      .min(3, "Must be 3 characters or more")
       .max(15, "Must be 15 characters or less")
-      .required("Introduce the name off the project"),
+      .required("Introduce the name off the project")
+      .matches(/^[a-zñA-ZÑ]*$/, "Must be valid characteres"),
     textInvitation: Yup.string()
-      .max(150, "Must be 150 characters or less")
+      .max(160, "Must be 160 characters or less")
       .required("Write a text invitation"),
   });

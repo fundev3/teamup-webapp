@@ -1,8 +1,8 @@
 import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import { BASE_URL } from "../../constants";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { projectImageJpeg } from "../../constants/images";
 import { useHistory } from "react-router-dom";
 import "./Card.scss";
 
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 });
 function Card(props) {
   const classes = useStyles();
-  const { id, contact, creationDate, description, name } = props;
+  const { id, contact, creationDate, description, name, logo } = props;
   const creationDateFormatted = creationDate
     .split("T")[0]
     .split("-")
@@ -35,7 +35,7 @@ function Card(props) {
     <div className="card-container" key={id}>
       <div className="card-info">
         <div className="left">
-          <img alt="logo" src={projectImageJpeg} />
+          <img alt="logo" src={`${BASE_URL}/${logo}`} />
         </div>
         <div className="right">
           <div className="name">{name}</div>
