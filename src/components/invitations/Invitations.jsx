@@ -1,5 +1,6 @@
 import DescriptionRoundedIcon from "@material-ui/icons/DescriptionRounded";
 import Invitation from "./Invitation";
+import InvitationsModal from "./InvitationsModal";
 import { getInvitationsByProject } from "./InvitationsAPI";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Button, Typography } from "@material-ui/core";
@@ -12,9 +13,13 @@ const useStyles = makeStyles({
     fontSize: "10rem",
     margin: "30px",
   },
+  invitationButton: {
+    height: "40px",
+    width: "200px",
+  },
 });
 
-function Invitations({ id }) {
+function Invitations({ id, project }) {
   useEffect(() => {
     async function data() {
       const invitations = await getInvitationsByProject(id);
@@ -25,17 +30,43 @@ function Invitations({ id }) {
 
   const classes = useStyles();
   const [invitations, setInvitations] = useState([]);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setOpen(false);
+  };
   return (
     <div>
-      <Box display="flex" mb={5} pt={5}>
-        <Box width="87.8%">
-          <Typography align="justify" color="primary" variant="h6">
-            People Invited
-          </Typography>
-        </Box>
-        <Button color="primary" variant="contained">
+      <Box
+        display="flex"
+        height="100px"
+        justifyContent="space-between"
+        mb={5}
+        pt={5}
+      >
+        <Typography align="justify" color="primary" variant="h6">
+          People Invited
+        </Typography>
+        <Button
+          className={classes.invitationButton}
+          color="primary"
+          onClick={handleClickOpen}
+          variant="contained"
+        >
           Invite People
         </Button>
+      </Box>
+      <Box height="5px">
+        <InvitationsModal
+          id={id}
+          onClose={handleClose}
+          open={open}
+          project={project}
+        />
       </Box>
       <div className="invitations-list">
         {invitations.length === 0 ? (
@@ -44,7 +75,9 @@ function Invitations({ id }) {
             <Typography>There is no invitations yet.</Typography>
           </div>
         ) : (
-          invitations.map((invitation) => <Invitation {...invitation} />)
+          invitations.map((invitation, idx) => (
+            <Invitation {...invitation} key={idx} />
+          ))
         )}
       </div>
     </div>

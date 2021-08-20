@@ -103,7 +103,7 @@ function Details() {
             </Box>
           </Box>
           <Divider light />
-          <Invitations id={id} />
+          <Invitations id={id} project={project} />
         </Paper>
       </Container>
     </div>

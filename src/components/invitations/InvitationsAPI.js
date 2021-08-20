@@ -1,6 +1,7 @@
 import { alertError } from "../../store/actions/alertActions";
 import axios from "axios";
 import store from "../../store";
+
 const API_HOST = process.env.REACT_APP_API_PROJECTS_URL;
 const API_NAME = "projects";
 const API_VERSION = "v1";
@@ -20,6 +21,19 @@ export async function getInvitationsByProject(id) {
       store.dispatch(alertError("Error: Something is wrong"));
     }
     return [];
+  }
+}
+
+export async function postInviteResumes(id, resume) {
+  try {
+    const response = await axios.post(
+      `${API_HOST}/api/${API_VERSION}/invitations`,
+      resume
+    );
+    if (response.status === 201) return { ok: true, response };
+    return { ok: false, response: null };
+  } catch (e) {
+    return { error: e, ok: false };
   }
 }
 
