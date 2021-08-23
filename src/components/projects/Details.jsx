@@ -6,6 +6,7 @@ import {
   Avatar,
   Box,
   Button,
+  Chip,
   Container,
   Divider,
   List,
@@ -37,6 +38,9 @@ function Details() {
 
   const { contact, creationDate, description, logo, name, memberList } =
     project;
+
+  let skills = project.skills ?? [];
+
   const creationDateFormatted = creationDate
     .split("T")[0]
     .split("-")
@@ -101,6 +105,20 @@ function Details() {
                 ))}
               </List>
             </Box>
+          </Box>
+          <Divider light />
+          <Box pb={4} pt={4}>
+            <Typography
+              align="justify"
+              className="overview"
+              color="primary"
+              variant="h6"
+            >
+              Project skills
+            </Typography>
+            {skills.map((skill, key) => (
+              <Chip className="skill" key={key} label={skill.name} />
+            ))}
           </Box>
           <Divider light />
           <Invitations id={id} project={project} />
