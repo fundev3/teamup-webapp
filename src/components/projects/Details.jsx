@@ -36,10 +36,8 @@ function Details() {
 
   if (isEmpty(project)) return <div>ERROR!!! Project not found</div>;
 
-  const { contact, creationDate, description, logo, name, memberList } =
+  const { contact, creationDate, description, logo, name, memberList, skills } =
     project;
-
-  let skills = project.skills ?? [];
 
   const creationDateFormatted = creationDate
     .split("T")[0]
@@ -116,9 +114,15 @@ function Details() {
             >
               Project skills
             </Typography>
-            {skills.map((skill, key) => (
-              <Chip className="skill" key={key} label={skill.name} />
-            ))}
+            {skills ? (
+              skills.map((skill, key) => (
+                <Chip className="skill" key={key} label={skill.name} />
+              ))
+            ) : (
+              <Typography color="textSecondary">
+                This project has no skills defined.
+              </Typography>
+            )}
           </Box>
           <Divider light />
           <Invitations id={id} project={project} />
