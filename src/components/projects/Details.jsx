@@ -6,6 +6,7 @@ import {
   Avatar,
   Box,
   Button,
+  Chip,
   Container,
   Divider,
   List,
@@ -35,8 +36,9 @@ function Details() {
 
   if (isEmpty(project)) return <div>ERROR!!! Project not found</div>;
 
-  const { contact, creationDate, description, logo, name, memberList } =
+  const { contact, creationDate, description, logo, name, memberList, skills } =
     project;
+
   const creationDateFormatted = creationDate
     .split("T")[0]
     .split("-")
@@ -101,6 +103,26 @@ function Details() {
                 ))}
               </List>
             </Box>
+          </Box>
+          <Divider light />
+          <Box pb={4} pt={4}>
+            <Typography
+              align="justify"
+              className="overview"
+              color="primary"
+              variant="h6"
+            >
+              Project skills
+            </Typography>
+            {skills ? (
+              skills.map((skill, key) => (
+                <Chip className="skill" key={key} label={skill.name} />
+              ))
+            ) : (
+              <Typography color="textSecondary">
+                This project has no skills defined.
+              </Typography>
+            )}
           </Box>
           <Divider light />
           <Invitations id={id} project={project} />
