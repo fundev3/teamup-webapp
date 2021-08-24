@@ -172,9 +172,13 @@ export default function InvitationsModal(props) {
               row
               value={radioButtonOption}
             >
-              <FormControlLabel control={<Radio />} label="Name" value="name" />
               <FormControlLabel
-                control={<Radio />}
+                control={<Radio color="primary" />}
+                label="Name"
+                value="name"
+              />
+              <FormControlLabel
+                control={<Radio color="primary" />}
                 label="Skill"
                 value="skill"
               />

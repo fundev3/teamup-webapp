@@ -128,13 +128,12 @@ export async function getResumesByName(name, id) {
   }
 }
 
-// endpoint incorrect, not implemented on backend yet
 export async function getResumesBySkill(skill, id) {
   let handlerError = false;
   const data = {};
   try {
     const { data } = await axios.get(
-      `${API_HOST}/api/${API_VERSION}/${API_NAME}/${skill}`
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}?skill=${skill}`
     );
     return { data, handlerError };
   } catch (error) {
