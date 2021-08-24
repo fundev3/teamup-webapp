@@ -1,5 +1,7 @@
+import ApplicationsModal from "./ApplicationsModal/ApplicationsModal";
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import Invitations from ".././invitations/Invitations";
+import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import { getProject } from "./ProjectsAPI";
 import { isEmpty } from "../../helpers";
 import {
@@ -24,7 +26,12 @@ import "./Details.scss";
 
 function Details() {
   const { id } = useParams();
+  const [open, setOpen] = React.useState(false);
   const [project, setProject] = useState({});
+
+  const handleActionModal = () => {
+    setOpen(!open);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -47,10 +54,23 @@ function Details() {
   return (
     <div>
       <Container className="container">
-        <Link className="back-button" to="/projects">
-          <ArrowBackIos></ArrowBackIos>
-          Back
-        </Link>
+        <div className="header-container">
+          <Link className="back-button" to="/projects">
+            <ArrowBackIos></ArrowBackIos>
+            Back
+          </Link>
+          <Button
+            className="buttonEdit"
+            color="primary"
+            onClick={handleActionModal}
+            startIcon={<MailOutlineIcon />}
+            variant="contained"
+          >
+            {"1 Project postulations"}
+          </Button>
+        </div>
+        <ApplicationsModal onClickModal={handleActionModal} open={open} />
+
         <Paper className="paper" elevation={3} mt={4}>
           <Box alignItems="center" display="flex" mb={6}>
             <img alt="" src={`${BASE_URL}/${logo}`} width="140" />
