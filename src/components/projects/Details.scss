@@ -37,5 +37,20 @@ h6.MuiTypography-h6.overview {
   margin: 0px 30px 0px 0px;
 }
 .skill {
-    margin-right: 5px;
+  margin-right: 5px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dialog-content {
+  padding: 30px;
+}
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
