@@ -127,3 +127,25 @@ export async function getResumesByName(name, id) {
     return { data, handlerError };
   }
 }
+
+// endpoint incorrect, not implemented on backend yet
+export async function getResumesBySkill(skill, id) {
+  let handlerError = false;
+  const data = {};
+  try {
+    const { data } = await axios.get(
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}/${skill}`
+    );
+    return { data, handlerError };
+  } catch (error) {
+    if (error.response) {
+      store.dispatch(alertError(error.message));
+    } else if (error.request) {
+      store.dispatch(alertError(error.message));
+    } else {
+      store.dispatch(alertError("Error: Something is wrong"));
+    }
+    handlerError = true;
+    return { data, handlerError };
+  }
+}
