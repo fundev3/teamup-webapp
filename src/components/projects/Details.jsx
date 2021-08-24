@@ -68,7 +68,7 @@ function Details() {
                 </Typography>
               </Box>
             </Container>
-            <Button color="primary" variant="contained">
+            <Button className="button" color="primary" variant="contained">
               Apply
             </Button>
           </Box>
@@ -83,7 +83,12 @@ function Details() {
               >
                 Overview
               </Typography>
-              <Typography color="textSecondary" p={2} variant="body2">
+              <Typography
+                className="description"
+                color="textSecondary"
+                p={2}
+                variant="body2"
+              >
                 {description}
               </Typography>
             </Box>

@@ -118,10 +118,10 @@ function Entry() {
       width: "90%",
     },
     title: {
-      color: "#DF8930",
-      fontSize: "2.8rem",
+      color: "#ED8749",
+      fontSize: "2.2rem",
       fontWeight: "bold",
-      margin: "30px",
+      margin: "30px 20px 0px",
     },
   }));
   const classes = useStyles();

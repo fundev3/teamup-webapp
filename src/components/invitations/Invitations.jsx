@@ -13,6 +13,10 @@ const useStyles = makeStyles({
     fontSize: "10rem",
     margin: "30px",
   },
+  emptyList: {
+    color: "#d2d2d2",
+    fontWeight: "600",
+  },
   invitationButton: {
     height: "40px",
     width: "200px",
@@ -72,7 +76,9 @@ function Invitations({ id, project }) {
         {invitations.length === 0 ? (
           <div className="empty-file">
             <DescriptionRoundedIcon className={classes.descriptionIcon} />
-            <Typography>There is no invitations yet.</Typography>
+            <Typography className={classes.emptyList}>
+              There is no invitations yet.
+            </Typography>
           </div>
         ) : (
           invitations.map((invitation, idx) => (
