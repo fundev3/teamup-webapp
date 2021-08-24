@@ -1,6 +1,7 @@
 import CloseIcon from "@material-ui/icons/Close";
 import InvitationPersonCard from "./InvitationPersonCard";
 import SearchIcon from "@material-ui/icons/Search";
+import { emptyImageSvg } from "../../constants";
 import { entry as entryValidations } from "../projects/helpers/validations";
 import { makeStyles } from "@material-ui/core/styles";
 import { postInviteResumes } from "./InvitationsAPI";
@@ -23,16 +24,23 @@ import "./InvitationsModal.scss";
 
 const useStyles = makeStyles((theme) => ({
   dialog: {
-    height: "550px",
+    height: "750px",
     width: "450px",
   },
   dialogContent: {
+    display: "flex",
+    flexDirection: "column",
     padding: "0px",
   },
   modalCloseIcon: {
     color: "#4350af",
     cursor: "pointer",
     fontSize: "30px",
+  },
+  notFoundLabel: {
+    color: "#d2d2d2",
+    fontSize: "0.8rem",
+    fontWeight: "bold",
   },
   root: {
     backgroundColor: theme.palette.background.paper,
@@ -185,17 +193,33 @@ export default function InvitationsModal(props) {
             </RadioGroup>
           </div>
           <DialogContent className={classes.dialogContent}>
-            <div className="list-content">
-              <List className={classes.root}>
-                {resumesNameList.map((invitation) => (
-                  <InvitationPersonCard
-                    {...invitation}
-                    handleInvitationSelected={handleInvitationSelected}
-                    key={invitation.id}
-                  />
-                ))}
-              </List>
-            </div>
+            {resumesNameList && resumesNameList[0] ? (
+              <div className="list-content">
+                <List className={classes.root}>
+                  {resumesNameList.map((invitation) => (
+                    <InvitationPersonCard
+                      {...invitation}
+                      handleInvitationSelected={handleInvitationSelected}
+                      key={invitation.id}
+                    />
+                  ))}
+                </List>
+              </div>
+            ) : resumesNameList === null ? null : (
+              <div className="not-found-content">
+                <img
+                  alt="emptyImage"
+                  src={emptyImageSvg}
+                  style={{ width: "120px" }}
+                />
+                <Typography className={classes.notFoundLabel}>
+                  Sorry, we can’t load your request.
+                </Typography>
+                <Typography className={classes.notFoundLabel}>
+                  Please try with other search.
+                </Typography>
+              </div>
+            )}
             <div className="dialog-bottom">
               <Typography className={classes.subtitle} color="primary">
                 Your message
@@ -218,7 +242,7 @@ export default function InvitationsModal(props) {
                 value={formik.values.textInvitation}
                 variant="outlined"
               />
-              {resumesNameList.length === 0 || isAdded ? (
+              {(resumesNameList && resumesNameList[0]) || isAdded ? (
                 <Button disabled variant="contained">
                   Send Invitation
                 </Button>
