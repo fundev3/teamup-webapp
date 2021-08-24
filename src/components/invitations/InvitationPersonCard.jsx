@@ -34,7 +34,7 @@ export default function InvitationPersonCard(props) {
           onClick={() => handleClick(id, true)}
           variant="outlined"
         >
-          Add
+          Invite
         </Button>
       ) : (
         <Button

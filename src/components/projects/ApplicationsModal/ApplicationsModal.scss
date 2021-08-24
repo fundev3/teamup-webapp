@@ -1,0 +1,41 @@
+.application-btn {
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.application-box {
+  display: flex;
+  flex-direction: row;
+  border-bottom: solid 0.8px #e6e5e5;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 6px 10px 0px;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &--left {
+      height: 50px;
+      width: 50px;
+    }
+
+    &--right {
+      margin: 0px 10px;
+    }
+  }
+
+  &__user-name {
+    font-weight: 600;
+    &--container.MuiTypography-body1 {
+      font-size: 1rem;
+      font-weight: bold;
+      min-width: 140px;
+    }
+  }
+}

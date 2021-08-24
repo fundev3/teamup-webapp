@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
-import { logoNavbar } from "../../constants";
+import { logoNavbarSvg } from "../../constants";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import "./NavBar.scss";
 
@@ -9,7 +9,7 @@ function NavBar() {
     <AppBar position="static">
       <Toolbar className="navbar">
         <div className="logo-content">
-          <img alt="logo" src={logoNavbar} style={{ height: "42px" }} />
+          <img alt="logo" src={logoNavbarSvg} style={{ height: "42px" }} />
         </div>
         <div className="navbar-content">
           <NavLink
