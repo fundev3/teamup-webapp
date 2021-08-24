@@ -1,4 +1,5 @@
 import Button from "@material-ui/core/Button";
+import CloseIcon from "@material-ui/icons/Close";
 import DialogContent from "@material-ui/core/DialogContent";
 import Divider from "@material-ui/core/Divider";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -11,6 +12,7 @@ import { projectImageJpeg } from "../../constants/images";
 import { Dialog, DialogTitle } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import "./InvitationsModalResumes.scss";
 
 const Accordion = withStyles({
   expanded: {},
@@ -58,9 +60,6 @@ const useStyles = makeStyles((theme) => ({
   buttons: {
     marginLeft: "25%",
   },
-  logo: {
-    paddingRight: 40,
-  },
   modalInvitations: {
     padding: 50,
   },
@@ -83,7 +82,6 @@ function InvitationsModal({ idResume, setModalInvitations }) {
   }, [idResume]);
 
   const [dataInvitations, setDataInvitations] = useState([]);
-
   return (
     <Dialog
       aria-describedby="alert-dialog-description"
@@ -91,10 +89,16 @@ function InvitationsModal({ idResume, setModalInvitations }) {
       onClose={() => setModalInvitations(false)}
       open={true}
     >
-      <DialogTitle id="customized-dialog-title">
-        <Typography color="primary" variant="h6">
-          Projects Invitations
-        </Typography>
+      <DialogTitle className="alert-dialog-title">
+        <div className="dialog-header">
+          <Typography color="primary" gutterBottom variant="h6">
+            Projects Invitations
+          </Typography>
+          <CloseIcon
+            className={classes.modalCloseIcon}
+            onClick={() => setModalInvitations(false)}
+          />
+        </div>
       </DialogTitle>
       <Divider />
       <DialogContent>
@@ -104,12 +108,16 @@ function InvitationsModal({ idResume, setModalInvitations }) {
               <Accordion>
                 <AccordionSummary
                   aria-controls="panel1a-content"
+                  button
                   className={classes.summary}
                   expandIcon={<ExpandMoreIcon />}
                   id="panel1a-header"
                 >
-                  <div className={classes.logo}>
-                    <img alt="logo" src={projectImageJpeg} />
+                  <div className="logo">
+                    <img
+                      alt="logo"
+                      src="https://pbs.twimg.com/profile_images/1347172434357706758/qQIPsjk1.jpg"
+                    />
                   </div>
                   <div className={classes.project}>
                     <Typography color="primary" variant="h6">
@@ -150,7 +158,7 @@ function InvitationsModal({ idResume, setModalInvitations }) {
               id="panel1a-header"
             >
               <AccordionDetails>
-                <Typography>You have no pending notifications</Typography>
+                `<Typography>You have no pending notifications</Typography>
               </AccordionDetails>
             </AccordionSummary>
           </Accordion>

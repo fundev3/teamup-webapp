@@ -6,6 +6,7 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import ModalSkills from "./ModalSkills";
 import NotFound from "./NotFound";
 import PhoneIcon from "@material-ui/icons/Phone";
+import ProjectsModal from "../projects/ModalProjects";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import { entry as entryValidations } from "./helpers/validations";
@@ -96,8 +97,10 @@ function Details() {
   const [stateButton, setStateButton] = useState("Edit");
   const [disabled, setDisabled] = useState(true);
   const [skillInput, setSkillInput] = useState("");
+  const [searchProject, setSearchProject] = useState("");
   const [openModal, setOpenModal] = React.useState(false);
   const [modalInvitations, setModalInvitations] = React.useState(false);
+  const [modalProjects, setModalProjects] = React.useState(false);
   const [dataSkills, setDataSkills] = React.useState([]);
   const handleClickOpen = () => {
     setOpenModal(true);
@@ -108,6 +111,7 @@ function Details() {
       const response = await getResume(id);
       const data = response.data;
       const error = response.handlerError;
+      console.log(data);
       setError(error);
       setData(data);
     }
@@ -134,6 +138,13 @@ function Details() {
     }
   };
 
+  const ProjectsBySkill = async (event) => {
+    event.preventDefault();
+    if (searchProject !== "") {
+      setModalProjects(true);
+    }
+  };
+
   const initialValues = {
     birthdate: data?.person?.birthdate || "",
     direction: data?.contact?.direction || "",
@@ -154,6 +165,12 @@ function Details() {
   if (error) return <NotFound />;
   return data ? (
     <>
+      {modalProjects ? (
+        <ProjectsModal
+          searchProject={searchProject}
+          setModalProjects={setModalProjects}
+        />
+      ) : null}
       {modalInvitations ? (
         <InvitationsModal
           idResume={id}
@@ -231,7 +248,7 @@ function Details() {
                   startIcon={<MailOutlineIcon />}
                   variant="contained"
                 >
-                  {"1 Project Invitations"}
+                  {"Project Invitations"}
                 </Button>
                 <Button
                   className="buttonEdit"
@@ -318,7 +335,7 @@ function Details() {
             </div>
             <div className="body-resume-biography">
               <Typography color="primary" gutterBottom variant="h6">
-                Sumary
+                Summary
               </Typography>
               <TextField
                 InputProps={{ disableUnderline: disabled }}
@@ -332,7 +349,7 @@ function Details() {
                     : ""
                 }
                 id="summary"
-                maxRows={10}
+                maxRows={1}
                 multiline
                 name="summary"
                 onBlur={formik.handleBlur}
@@ -388,9 +405,29 @@ function Details() {
             ))}
           </div>
           <div className="projects-side">
-            <Typography color="primary" gutterBottom variant="h6">
-              Projects working on
-            </Typography>
+            <div className="project-header">
+              <div className="project-title">
+                <Typography color="primary" gutterBottom variant="h6">
+                  Projects working on
+                </Typography>
+              </div>
+              <div className="project-search">
+                <InputBase
+                  className={classes.input}
+                  onChange={(event) => setSearchProject(event.target.value)}
+                  placeholder="Search Project"
+                  type="search"
+                />
+                <IconButton
+                  aria-label="search"
+                  className={classes.iconButton}
+                  onClick={ProjectsBySkill}
+                  type="submit"
+                >
+                  <SearchIcon />
+                </IconButton>
+              </div>
+            </div>
           </div>
         </Paper>
       </Grid>

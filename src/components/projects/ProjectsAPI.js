@@ -60,3 +60,24 @@ export async function postProject(project) {
     return { error: e, ok: false };
   }
 }
+
+export async function getProjectBySkills(skill) {
+  try {
+    const { data } = await axios.get(
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}/${skill}`
+    );
+
+    return data;
+  } catch (error) {
+    // TODO error handling
+    if (error.response) {
+      store.dispatch(alertError(error.message));
+    } else if (error.request) {
+      store.dispatch(alertError(error.message));
+    } else {
+      store.dispatch(alertError("Error: Something is wrong"));
+    }
+
+    return;
+  }
+}
