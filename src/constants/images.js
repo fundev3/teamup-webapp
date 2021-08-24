@@ -10,3 +10,4 @@ export const projectImageJpeg = `${BASE_URL}/project-img.jpeg`;
 export const projectImageSvg = `${BASE_URL}/project-img.svg`;
 export const userImageSvg = `${BASE_URL}/user-img.svg`;
 export const userSingleImageSvg = `${BASE_URL}/user.svg`;
+export const emptyImageSvg = `${BASE_URL}/empty-image.svg`;
