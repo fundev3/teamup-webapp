@@ -3,7 +3,6 @@ import InvitationPersonCard from "./InvitationPersonCard";
 import SearchIcon from "@material-ui/icons/Search";
 import { emptyImageSvg } from "../../constants";
 import { entry as entryValidations } from "../projects/helpers/validations";
-import { getResumesByName } from "../resumes/ResumesAPI";
 import { makeStyles } from "@material-ui/core/styles";
 import { postInviteResumes } from "./InvitationsAPI";
 import { useFormik } from "formik";
@@ -11,11 +10,15 @@ import {
   Button,
   Dialog,
   DialogContent,
+  FormControlLabel,
   List,
+  Radio,
+  RadioGroup,
   TextField,
   Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
+import { getResumesByName, getResumesBySkill } from "../resumes/ResumesAPI";
 
 import "./InvitationsModal.scss";
 
@@ -69,14 +72,20 @@ export default function InvitationsModal(props) {
     onClose();
   };
 
-  const [resumesNameInput, setResumesNameInput] = useState("");
-  const [resumesNameList, setResumesNameList] = useState(null);
+  const [resumesSearchInput, setResumesSearchInput] = useState("");
+  const [resumesNameList, setResumesNameList] = useState([]);
   const [resumesSelected, setResumesSelected] = useState([]);
   const [isAdded, setIsAdded] = useState(true);
 
   const getResumesName = async (event) => {
     event.preventDefault();
-    const response = await getResumesByName(resumesNameInput);
+    let response;
+    if (radioButtonOption === "name") {
+      response = await getResumesByName(resumesSearchInput);
+    } else if (radioButtonOption === "skill") {
+      response = await getResumesBySkill(resumesSearchInput);
+    }
+
     setResumesNameList(response.data);
   };
   const handleInvitationSelected = (id, status) => {
@@ -128,6 +137,11 @@ export default function InvitationsModal(props) {
   const hasErrorTextInvitation =
     !!formik.touched.textInvitation && !!formik.errors.textInvitation;
 
+  const handleRadioGroupChange = (event) => {
+    setRadioButtonOption(event.target.value);
+  };
+  const [radioButtonOption, setRadioButtonOption] = React.useState("skill");
+
   return (
     <div className={classes.dialog}>
       <Dialog onClose={handleClose} open={open}>
@@ -146,7 +160,7 @@ export default function InvitationsModal(props) {
               <TextField
                 InputProps={{ disableUnderline: "disabled" }}
                 className={classes.searchField}
-                onChange={(event) => setResumesNameInput(event.target.value)}
+                onChange={(event) => setResumesSearchInput(event.target.value)}
                 placeholder="Find people to invite…"
                 type="search"
               />
@@ -157,6 +171,26 @@ export default function InvitationsModal(props) {
                 onClick={getResumesName}
               />
             </div>
+          </div>
+          <div>
+            <RadioGroup
+              aria-label="gender"
+              name="gender1"
+              onChange={handleRadioGroupChange}
+              row
+              value={radioButtonOption}
+            >
+              <FormControlLabel
+                control={<Radio color="primary" />}
+                label="Name"
+                value="name"
+              />
+              <FormControlLabel
+                control={<Radio color="primary" />}
+                label="Skill"
+                value="skill"
+              />
+            </RadioGroup>
           </div>
           <DialogContent className={classes.dialogContent}>
             {resumesNameList && resumesNameList[0] ? (
