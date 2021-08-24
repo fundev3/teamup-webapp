@@ -83,7 +83,12 @@ function Details() {
               >
                 Overview
               </Typography>
-              <Typography color="textSecondary" p={2} variant="body2">
+              <Typography
+                className="description"
+                color="textSecondary"
+                p={2}
+                variant="body2"
+              >
                 {description}
               </Typography>
             </Box>
