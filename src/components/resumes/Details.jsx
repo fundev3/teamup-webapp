@@ -1,3 +1,4 @@
+import ApplicationList from "./ApplicationList";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import InvitationsModal from "../invitations/InvitationsModalResumes";
 import Loading from "./Loading";
@@ -403,6 +404,14 @@ function Details() {
                 onDelete={stateButton === "Save" ? handleDelete : null}
               />
             ))}
+          </div>
+          <div className="applications-side">
+            <Typography color="primary" gutterBottom variant="h6">
+              Your Applications
+            </Typography>
+            <div className="applications-list">
+              <ApplicationList />
+            </div>
           </div>
           <div className="projects-side">
             <div className="project-header">

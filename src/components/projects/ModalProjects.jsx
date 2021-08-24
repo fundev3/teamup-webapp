@@ -1,4 +1,5 @@
 import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 import Divider from "@material-ui/core/Divider";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -72,6 +73,9 @@ export default function ProjectsModal({ searchProject, setModalProjects }) {
                     primary={project.title}
                     secondary={project.contact.email}
                   />
+                  <Button color="primary" variant="outlined">
+                    Apply
+                  </Button>
                 </ListItem>
               ))
             : notFoundImage}

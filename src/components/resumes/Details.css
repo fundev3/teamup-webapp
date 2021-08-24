@@ -71,6 +71,15 @@
 .project-search {
   width: 50%;
 }
+.applications-side {
+  margin: 16px;
+  border-bottom-style: solid;
+  border-color: #dddd;
+  border-width: 0.5px;
+  padding: 20px 0px 50px 0px;
+}
+.applications-list {
+}
 .icons {
   margin: 5px 15px 5px 5px;
 }
