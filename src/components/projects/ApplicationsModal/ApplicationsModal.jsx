@@ -5,14 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Dialog, DialogContent, List, Typography } from "@material-ui/core";
 import "./ApplicationsModal.scss";
 
-const applications = [
-  { id: 1, name: "Pedro" },
-  { id: 2, name: "Paulo" },
-  { id: 3, name: "Rodrigo" },
-  { id: 4, name: "Lilian" },
-  { id: 5, name: "Alejandro" },
-  { id: 6, name: "Freddy" },
-];
 const useStyles = makeStyles((theme) => ({
   dialogContent: {
     padding: "0px",
@@ -28,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ApplicationsModal({ onClickModal, open }) {
+function ApplicationsModal({ onClickModal, open, postulations }) {
   const classes = useStyles();
   return (
     <div className={classes.dialog}>
@@ -45,11 +37,11 @@ function ApplicationsModal({ onClickModal, open }) {
           </div>
           <DialogContent className={classes.dialogContent}>
             <List className={classes.root}>
-              {applications.length > 0 ? (
-                applications.map((application) => (
+              {postulations.length > 0 ? (
+                postulations.map((postulation) => (
                   <ApplicationBox
-                    application={application}
-                    key={application.id}
+                    key={postulation.id}
+                    postulation={postulation}
                   />
                 ))
               ) : (

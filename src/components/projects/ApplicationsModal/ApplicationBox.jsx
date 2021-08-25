@@ -2,8 +2,9 @@ import { useHistory } from "react-router-dom";
 import { userImageSvg } from "../../../constants";
 import { Button, Typography } from "@material-ui/core";
 
-function ApplicationBox({ application }) {
+function ApplicationBox({ postulation }) {
   const history = useHistory();
+  const { resumeId, resumeName } = postulation;
 
   function redirectToResume(id) {
     history.push(`/resumes/${id}`);
@@ -21,14 +22,14 @@ function ApplicationBox({ application }) {
               className="application-box__user-name--container"
               color="primary"
             >
-              {application.name}
+              {resumeName}
             </Typography>
           </div>
         </div>
       </div>
       <Button
         color="primary"
-        onClick={() => redirectToResume(application.id)}
+        onClick={() => redirectToResume(resumeId)}
         variant="outlined"
       >
         <span className="application-btn">See profile</span>
