@@ -2,7 +2,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { BASE_URL } from "../../constants";
 import Empty from "../../common/EmptyComponent/Empty";
 import { Typography } from "@material-ui/core";
-import { getApplicationsByResumeId } from "../projects/ResumesAPI.js";
+import { getApplicationsByResumeId } from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 import "./ApplicationsSide.scss";
