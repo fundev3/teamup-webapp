@@ -1,6 +1,6 @@
-import DescriptionRoundedIcon from "@material-ui/icons/DescriptionRounded";
 import Invitation from "./Invitation";
 import InvitationsModal from "./InvitationsModal";
+import { emptyImageSvg } from "../../constants";
 import { getInvitationsByProject } from "./InvitationsAPI";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Button, Typography } from "@material-ui/core";
@@ -8,11 +8,6 @@ import React, { useEffect, useState } from "react";
 import "./Invitations.scss";
 
 const useStyles = makeStyles({
-  descriptionIcon: {
-    color: "#e2e2e2",
-    fontSize: "10rem",
-    margin: "30px",
-  },
   emptyList: {
     color: "#d2d2d2",
     fontWeight: "600",
@@ -74,8 +69,12 @@ function Invitations({ id, project }) {
       </Box>
       <div className="invitations-list">
         {invitations.length === 0 ? (
-          <div className="empty-file">
-            <DescriptionRoundedIcon className={classes.descriptionIcon} />
+          <div className="empty-file-invitations">
+            <img
+              alt="emptyImage"
+              src={emptyImageSvg}
+              style={{ width: "250px" }}
+            />
             <Typography className={classes.emptyList}>
               There is no invitations yet.
             </Typography>

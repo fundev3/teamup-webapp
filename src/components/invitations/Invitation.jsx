@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     height: "120px",
-    margin: "20px",
+    margin: "0px 40px 30px 0px",
     width: "330px",
   },
 }));
@@ -26,7 +26,7 @@ function Invitation(props) {
   const { resumeName, status } = props;
   const classes = useStyles();
   return (
-    <Paper className={classes.paper} elevation={3}>
+    <Paper className={classes.paper} elevation={1}>
       <Grid container spacing={1}>
         <Grid item>
           <div className={classes.image}>
