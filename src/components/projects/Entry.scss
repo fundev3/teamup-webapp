@@ -1,5 +1,6 @@
 .container-form {
   padding: 15px;
+  margin-top: 20px;
 
   &__title {
     color: #606579;
@@ -20,12 +21,11 @@
   margin-bottom: 1.5rem;
 }
 
-.paper {
-  padding: 30px;
-  padding-top: 40px;
+.paper-entry {
   width: 47%;
   height: 80%;
   margin: 0px 20px;
+  padding: 40px;
 }
 
 .back-button {
@@ -38,4 +38,10 @@
 .errorLogo{
   color: red;
   font-size: 0.8rem;
+}
+
+.image-label{
+  display: flex;
+  flex-direction: column;
+  color: #999999;
 }
