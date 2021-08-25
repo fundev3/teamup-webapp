@@ -1,8 +1,8 @@
 import CloseIcon from "@material-ui/icons/Close";
 import InvitationPersonCard from "./InvitationPersonCard";
 import SearchIcon from "@material-ui/icons/Search";
+import { emptyImageSvg } from "../../constants";
 import { entry as entryValidations } from "../projects/helpers/validations";
-import { getResumesByName } from "../resumes/ResumesAPI";
 import { makeStyles } from "@material-ui/core/styles";
 import { postInviteResumes } from "./InvitationsAPI";
 import { useFormik } from "formik";
@@ -10,26 +10,37 @@ import {
   Button,
   Dialog,
   DialogContent,
+  FormControlLabel,
   List,
+  Radio,
+  RadioGroup,
   TextField,
   Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
+import { getResumesByName, getResumesBySkill } from "../resumes/ResumesAPI";
 
 import "./InvitationsModal.scss";
 
 const useStyles = makeStyles((theme) => ({
   dialog: {
-    height: "550px",
+    height: "750px",
     width: "450px",
   },
   dialogContent: {
+    display: "flex",
+    flexDirection: "column",
     padding: "0px",
   },
   modalCloseIcon: {
     color: "#4350af",
     cursor: "pointer",
     fontSize: "30px",
+  },
+  notFoundLabel: {
+    color: "#d2d2d2",
+    fontSize: "0.8rem",
+    fontWeight: "bold",
   },
   root: {
     backgroundColor: theme.palette.background.paper,
@@ -61,14 +72,20 @@ export default function InvitationsModal(props) {
     onClose();
   };
 
-  const [resumesNameInput, setResumesNameInput] = useState("");
+  const [resumesSearchInput, setResumesSearchInput] = useState("");
   const [resumesNameList, setResumesNameList] = useState([]);
   const [resumesSelected, setResumesSelected] = useState([]);
   const [isAdded, setIsAdded] = useState(true);
 
   const getResumesName = async (event) => {
     event.preventDefault();
-    const response = await getResumesByName(resumesNameInput);
+    let response;
+    if (radioButtonOption === "name") {
+      response = await getResumesByName(resumesSearchInput);
+    } else if (radioButtonOption === "skill") {
+      response = await getResumesBySkill(resumesSearchInput);
+    }
+
     setResumesNameList(response.data);
   };
   const handleInvitationSelected = (id, status) => {
@@ -120,6 +137,11 @@ export default function InvitationsModal(props) {
   const hasErrorTextInvitation =
     !!formik.touched.textInvitation && !!formik.errors.textInvitation;
 
+  const handleRadioGroupChange = (event) => {
+    setRadioButtonOption(event.target.value);
+  };
+  const [radioButtonOption, setRadioButtonOption] = React.useState("skill");
+
   return (
     <div className={classes.dialog}>
       <Dialog onClose={handleClose} open={open}>
@@ -138,7 +160,7 @@ export default function InvitationsModal(props) {
               <TextField
                 InputProps={{ disableUnderline: "disabled" }}
                 className={classes.searchField}
-                onChange={(event) => setResumesNameInput(event.target.value)}
+                onChange={(event) => setResumesSearchInput(event.target.value)}
                 placeholder="Find people to invite…"
                 type="search"
               />
@@ -150,18 +172,54 @@ export default function InvitationsModal(props) {
               />
             </div>
           </div>
+          <div>
+            <RadioGroup
+              aria-label="gender"
+              name="gender1"
+              onChange={handleRadioGroupChange}
+              row
+              value={radioButtonOption}
+            >
+              <FormControlLabel
+                control={<Radio color="primary" />}
+                label="Name"
+                value="name"
+              />
+              <FormControlLabel
+                control={<Radio color="primary" />}
+                label="Skill"
+                value="skill"
+              />
+            </RadioGroup>
+          </div>
           <DialogContent className={classes.dialogContent}>
-            <div className="list-content">
-              <List className={classes.root}>
-                {resumesNameList.map((invitation) => (
-                  <InvitationPersonCard
-                    {...invitation}
-                    handleInvitationSelected={handleInvitationSelected}
-                    key={invitation.id}
-                  />
-                ))}
-              </List>
-            </div>
+            {resumesNameList && resumesNameList[0] ? (
+              <div className="list-content">
+                <List className={classes.root}>
+                  {resumesNameList.map((invitation) => (
+                    <InvitationPersonCard
+                      {...invitation}
+                      handleInvitationSelected={handleInvitationSelected}
+                      key={invitation.id}
+                    />
+                  ))}
+                </List>
+              </div>
+            ) : resumesNameList === null ? null : (
+              <div className="not-found-content">
+                <img
+                  alt="emptyImage"
+                  src={emptyImageSvg}
+                  style={{ width: "120px" }}
+                />
+                <Typography className={classes.notFoundLabel}>
+                  Sorry, we can’t load your request.
+                </Typography>
+                <Typography className={classes.notFoundLabel}>
+                  Please try with other search.
+                </Typography>
+              </div>
+            )}
             <div className="dialog-bottom">
               <Typography className={classes.subtitle} color="primary">
                 Your message
@@ -184,7 +242,7 @@ export default function InvitationsModal(props) {
                 value={formik.values.textInvitation}
                 variant="outlined"
               />
-              {resumesNameList.length === 0 || isAdded ? (
+              {(resumesNameList && resumesNameList[0]) || isAdded ? (
                 <Button disabled variant="contained">
                   Send Invitation
                 </Button>

@@ -1,11 +1,14 @@
+import ApplicationsModal from "./ApplicationsModal/ApplicationsModal";
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import Invitations from ".././invitations/Invitations";
+import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import { getProject } from "./ProjectsAPI";
 import { isEmpty } from "../../helpers";
 import {
   Avatar,
   Box,
   Button,
+  Chip,
   Container,
   Divider,
   List,
@@ -23,7 +26,12 @@ import "./Details.scss";
 
 function Details() {
   const { id } = useParams();
+  const [open, setOpen] = React.useState(false);
   const [project, setProject] = useState({});
+
+  const handleActionModal = () => {
+    setOpen(!open);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -35,8 +43,9 @@ function Details() {
 
   if (isEmpty(project)) return <div>ERROR!!! Project not found</div>;
 
-  const { contact, creationDate, description, logo, name, memberList } =
+  const { contact, creationDate, description, logo, name, memberList, skills } =
     project;
+
   const creationDateFormatted = creationDate
     .split("T")[0]
     .split("-")
@@ -45,10 +54,23 @@ function Details() {
   return (
     <div>
       <Container className="container">
-        <Link className="back-button" to="/projects">
-          <ArrowBackIos></ArrowBackIos>
-          Back
-        </Link>
+        <div className="header-container">
+          <Link className="back-button" to="/projects">
+            <ArrowBackIos></ArrowBackIos>
+            Back
+          </Link>
+          <Button
+            className="buttonEdit"
+            color="primary"
+            onClick={handleActionModal}
+            startIcon={<MailOutlineIcon />}
+            variant="contained"
+          >
+            {"1 Project postulations"}
+          </Button>
+        </div>
+        <ApplicationsModal onClickModal={handleActionModal} open={open} />
+
         <Paper className="paper" elevation={3} mt={4}>
           <Box alignItems="center" display="flex" mb={6}>
             <img alt="" src={`${BASE_URL}/${logo}`} width="140" />
@@ -66,7 +88,7 @@ function Details() {
                 </Typography>
               </Box>
             </Container>
-            <Button color="primary" variant="contained">
+            <Button className="button" color="primary" variant="contained">
               Apply
             </Button>
           </Box>
@@ -81,7 +103,12 @@ function Details() {
               >
                 Overview
               </Typography>
-              <Typography color="textSecondary" p={2} variant="body2">
+              <Typography
+                className="description"
+                color="textSecondary"
+                p={2}
+                variant="body2"
+              >
                 {description}
               </Typography>
             </Box>
@@ -101,6 +128,26 @@ function Details() {
                 ))}
               </List>
             </Box>
+          </Box>
+          <Divider light />
+          <Box pb={4} pt={4}>
+            <Typography
+              align="justify"
+              className="overview"
+              color="primary"
+              variant="h6"
+            >
+              Project skills
+            </Typography>
+            {skills ? (
+              skills.map((skill, key) => (
+                <Chip className="skill" key={key} label={skill.name} />
+              ))
+            ) : (
+              <Typography color="textSecondary">
+                This project has no skills defined.
+              </Typography>
+            )}
           </Box>
           <Divider light />
           <Invitations id={id} project={project} />
