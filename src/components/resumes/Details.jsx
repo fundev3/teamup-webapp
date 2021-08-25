@@ -1,4 +1,4 @@
-import ApplicationList from "./ApplicationList";
+import ApplicationsSide from "./ApplicationsSide";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import InvitationsModal from "../invitations/InvitationsModalResumes";
 import Loading from "./Loading";
@@ -393,6 +393,7 @@ function Details() {
               />
             ))}
           </div>
+          <ApplicationsSide idResume={data.id} />
           <ProjectsSide idResume={data.id} />
         </Paper>
       </Grid>
