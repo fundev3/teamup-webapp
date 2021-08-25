@@ -69,7 +69,6 @@ export async function getProjectBySkills(skill) {
 
     return data;
   } catch (error) {
-    // TODO error handling
     if (error.response) {
       store.dispatch(alertError(error.message));
     } else if (error.request) {

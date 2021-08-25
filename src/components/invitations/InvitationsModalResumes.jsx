@@ -1,14 +1,15 @@
+import { BASE_URL } from "../../constants";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 import DialogContent from "@material-ui/core/DialogContent";
 import Divider from "@material-ui/core/Divider";
+import Empty from "../../common/EmptyComponent/Empty";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MuiAccordion from "@material-ui/core/Accordion";
 import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import { getInvitationsByResume } from "./InvitationsAPI.js";
-import { projectImageJpeg } from "../../constants/images";
 import { Dialog, DialogTitle } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -63,9 +64,6 @@ const useStyles = makeStyles((theme) => ({
   modalInvitations: {
     padding: 50,
   },
-  project: {
-    left: 100,
-  },
   summary: {
     left: 10,
   },
@@ -90,7 +88,7 @@ function InvitationsModal({ idResume, setModalInvitations }) {
       open={true}
     >
       <DialogTitle className="alert-dialog-title">
-        <div className="dialog-header">
+        <div className="modal-invitations-header">
           <Typography color="primary" gutterBottom variant="h6">
             Projects Invitations
           </Typography>
@@ -116,7 +114,7 @@ function InvitationsModal({ idResume, setModalInvitations }) {
                   <div className="logo">
                     <img
                       alt="logo"
-                      src="https://pbs.twimg.com/profile_images/1347172434357706758/qQIPsjk1.jpg"
+                      src={`${BASE_URL}/${invitation.pictureResume}`}
                     />
                   </div>
                   <div className={classes.project}>
@@ -154,11 +152,13 @@ function InvitationsModal({ idResume, setModalInvitations }) {
             <AccordionSummary
               aria-controls="panel1a-content"
               className={classes.summary}
-              expandIcon={<ExpandMoreIcon />}
               id="panel1a-header"
             >
               <AccordionDetails>
-                `<Typography>You have no pending notifications</Typography>
+                <Empty
+                  message={"You have no pending notifications"}
+                  size={50}
+                />
               </AccordionDetails>
             </AccordionSummary>
           </Accordion>
