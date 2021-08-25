@@ -14,7 +14,6 @@ export async function getProjects() {
 
     return data;
   } catch (error) {
-    // TODO error handling
     if (error.response) {
       store.dispatch(alertError(error.message));
     } else if (error.request) {
@@ -35,7 +34,6 @@ export async function getProject(id) {
 
     return data;
   } catch (error) {
-    // TODO error handling
     if (error.response) {
       store.dispatch(alertError(error.message));
     } else if (error.request) {
@@ -66,10 +64,8 @@ export async function getProjectBySkills(skill) {
     const { data } = await axios.get(
       `${API_HOST}/api/${API_VERSION}/${API_NAME}/${skill}`
     );
-
     return data;
   } catch (error) {
-    // TODO error handling
     if (error.response) {
       store.dispatch(alertError(error.message));
     } else if (error.request) {

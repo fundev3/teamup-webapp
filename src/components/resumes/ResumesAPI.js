@@ -56,11 +56,11 @@ export async function getResume(id) {
     return { data, handlerError };
   } catch (error) {
     if (error.response) {
-      alert(error);
+      store.dispatch(alertError(error.message));
     } else if (error.request) {
-      alert(error);
+      store.dispatch(alertError(error.message));
     } else {
-      alert("Error: Something is wrong");
+      store.dispatch(alertError("Error: Something is wrong"));
     }
     handlerError = true;
     return { data, handlerError };

@@ -1,3 +1,4 @@
+import { BASE_URL } from "../../constants";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -8,7 +9,6 @@ import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import { getInvitationsByResume } from "./InvitationsAPI.js";
-import { projectImageJpeg } from "../../constants/images";
 import { Dialog, DialogTitle } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -76,6 +76,7 @@ function InvitationsModal({ idResume, setModalInvitations }) {
   useEffect(() => {
     async function data() {
       const invitations = await getInvitationsByResume(idResume);
+      console.log(invitations);
       setDataInvitations(invitations);
     }
     data();
@@ -116,7 +117,7 @@ function InvitationsModal({ idResume, setModalInvitations }) {
                   <div className="logo">
                     <img
                       alt="logo"
-                      src="https://pbs.twimg.com/profile_images/1347172434357706758/qQIPsjk1.jpg"
+                      src={`${BASE_URL}/${invitation.pictureResume}`}
                     />
                   </div>
                   <div className={classes.project}>
