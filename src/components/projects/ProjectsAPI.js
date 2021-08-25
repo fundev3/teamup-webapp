@@ -73,7 +73,6 @@ export async function getProjectBySkill(skill) {
     } else {
       store.dispatch(alertError("Error: Something is wrong"));
     }
-
     return;
   }
 }
