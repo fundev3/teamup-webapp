@@ -1,6 +1,6 @@
 import Card from "./Card";
-import DescriptionRoundedIcon from "@material-ui/icons/DescriptionRounded";
 import SearchIcon from "@material-ui/icons/Search";
+import { emptyImageSvg } from "../../constants";
 import { getProjects } from "./ProjectsAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
@@ -25,11 +25,6 @@ const useStyles = makeStyles({
     color: "#d2d2d2",
     fontSize: "1.2rem",
     fontWeight: "bold",
-  },
-  descriptionIcon: {
-    color: "#e2e2e2",
-    fontSize: "10rem",
-    margin: "30px",
   },
   paperBackground: {
     margin: "20px 0px",
@@ -77,7 +72,11 @@ function ProjectList() {
       <div className="projects-list">
         {projects.length === 0 ? (
           <div className="empty-file">
-            <DescriptionRoundedIcon className={classes.descriptionIcon} />
+            <img
+              alt="emptyImage"
+              src={emptyImageSvg}
+              style={{ width: "250px" }}
+            />
             <Typography className={classes.customGrayFont}>
               Sorry, we couldn't load projects list.
             </Typography>

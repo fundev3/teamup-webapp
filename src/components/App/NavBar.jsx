@@ -14,7 +14,7 @@ function NavBar() {
         <div className="navbar-content">
           <NavLink
             activeStyle={{
-              color: "#64ffda",
+              color: "#FCA53F",
               fontWeight: "bold",
             }}
             className="navbar-label"
@@ -26,7 +26,7 @@ function NavBar() {
           </NavLink>
           <NavLink
             activeStyle={{
-              color: "#64ffda",
+              color: "#FCA53F",
               fontWeight: "bold",
             }}
             className="navbar-label"
@@ -38,7 +38,7 @@ function NavBar() {
           </NavLink>
           <NavLink
             activeStyle={{
-              color: "#64ffda",
+              color: "#FCA53F",
               fontWeight: "bold",
             }}
             className="navbar-label"
