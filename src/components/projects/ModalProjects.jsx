@@ -2,6 +2,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { BASE_URL } from "../../constants";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
+import Empty from "../../common/EmptyComponent/Empty";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import NotFound from "../resumes/NotFound";
 import SearchIcon from "@material-ui/icons/Search";
@@ -20,6 +21,10 @@ import React, { useState } from "react";
 import "./ModalProjects.scss";
 
 const useStyles = makeStyles((theme) => ({
+  modalCloseIcon: {
+    color: "#4350af",
+    display: "flex",
+  },
   modalContent: {
     display: "flex",
     flexDirection: "column",
@@ -91,8 +96,8 @@ export default function ModalProjects({ idResume, setModalProjects }) {
                   size={170}
                 />
               ) : dataProjects.length !== 0 ? (
-                dataProjects.map((project) => (
-                  <ListItem button>
+                dataProjects.map((project, idx) => (
+                  <ListItem button key={idx}>
                     <ListItemAvatar>
                       <Avatar alt="" src={`${BASE_URL}/${project.logo}`} />
                     </ListItemAvatar>
@@ -106,7 +111,7 @@ export default function ModalProjects({ idResume, setModalProjects }) {
                   </ListItem>
                 ))
               ) : (
-                <NotFound message={""} size={150} />
+                <Empty message={""} size={50} />
               )}
             </List>
           </DialogContent>
