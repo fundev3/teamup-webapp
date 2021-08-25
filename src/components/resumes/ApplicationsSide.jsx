@@ -48,36 +48,7 @@ function ApplicationsSide(props) {
             Your Applications
           </Typography>
         </div>
-        <div className="applications-list">
-          {applications.length !== 0 ? (
-            applications.map((application) => (
-              <div className="card">
-                <div className="card-image">
-                  <img alt="logo" src={`${BASE_URL}/${application.logo}`} />
-                </div>
-                <div className="card-description">
-                  <div className="card-description-title">
-                    <Typography align="left" color="primary" variant="h6">
-                      {application.name}
-                    </Typography>
-                  </div>
-                  <div className="card-description-detail">
-                    <Typography
-                      align="left"
-                      color="textSecondary"
-                      variant="body1"
-                    >
-                      <AccountCircleIcon className="card-icon" />
-                      {application.contact.name}
-                    </Typography>
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <Empty message={"No projects yet"} size={70} />
-          )}
-        </div>
+        <div className="applications-list"></div>
       </div>
     </div>
   );
