@@ -7,7 +7,7 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import ModalSkills from "./ModalSkills";
 import NotFound from "./NotFound";
 import PhoneIcon from "@material-ui/icons/Phone";
-import ProjectsModal from "../projects/ModalProjects";
+import ProjectsSide from "../projects/ProjectsSide";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import { entry as entryValidations } from "./helpers/validations";
@@ -98,10 +98,8 @@ function Details() {
   const [stateButton, setStateButton] = useState("Edit");
   const [disabled, setDisabled] = useState(true);
   const [skillInput, setSkillInput] = useState("");
-  const [searchProject, setSearchProject] = useState("");
   const [openModal, setOpenModal] = React.useState(false);
   const [modalInvitations, setModalInvitations] = React.useState(false);
-  const [modalProjects, setModalProjects] = React.useState(false);
   const [dataSkills, setDataSkills] = React.useState([]);
   const handleClickOpen = () => {
     setOpenModal(true);
@@ -112,9 +110,9 @@ function Details() {
       const response = await getResume(id);
       const data = response.data;
       const error = response.handlerError;
-      console.log(data);
       setError(error);
       setData(data);
+      console.log(data);
     }
     fetchData();
   }, [id]);
@@ -139,13 +137,6 @@ function Details() {
     }
   };
 
-  const ProjectsBySkill = async (event) => {
-    event.preventDefault();
-    if (searchProject !== "") {
-      setModalProjects(true);
-    }
-  };
-
   const initialValues = {
     birthdate: data?.person?.birthdate || "",
     direction: data?.contact?.direction || "",
@@ -163,15 +154,12 @@ function Details() {
     onSubmit: edit,
     validationSchema: entryValidations(),
   });
-  if (error) return <NotFound />;
+  if (error)
+    return (
+      <NotFound message={"Sorry, we couldn't find this resume"} size={200} />
+    );
   return data ? (
     <>
-      {modalProjects ? (
-        <ProjectsModal
-          searchProject={searchProject}
-          setModalProjects={setModalProjects}
-        />
-      ) : null}
       {modalInvitations ? (
         <InvitationsModal
           idResume={id}
@@ -405,39 +393,7 @@ function Details() {
               />
             ))}
           </div>
-          <div className="applications-side">
-            <Typography color="primary" gutterBottom variant="h6">
-              Your Applications
-            </Typography>
-            <div className="applications-list">
-              <ApplicationList />
-            </div>
-          </div>
-          <div className="projects-side">
-            <div className="project-header">
-              <div className="project-title">
-                <Typography color="primary" gutterBottom variant="h6">
-                  Projects working on
-                </Typography>
-              </div>
-              <div className="project-search">
-                <InputBase
-                  className={classes.input}
-                  onChange={(event) => setSearchProject(event.target.value)}
-                  placeholder="Search Project"
-                  type="search"
-                />
-                <IconButton
-                  aria-label="search"
-                  className={classes.iconButton}
-                  onClick={ProjectsBySkill}
-                  type="submit"
-                >
-                  <SearchIcon />
-                </IconButton>
-              </div>
-            </div>
-          </div>
+          <ProjectsSide idResume={data.id} />
         </Paper>
       </Grid>
     </>

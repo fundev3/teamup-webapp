@@ -55,29 +55,6 @@
 .body-resume-biography {
   padding: 30px 30px 30px 30px;
 }
-.projects-side {
-  margin: 16px;
-  width: 100%;
-}
-.project-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-.project-title {
-  width: 50%;
-  margin: 20px 100px 20px 10px;
-}
-.project-search {
-  width: 50%;
-}
-.applications-side {
-  margin: 16px;
-  border-bottom-style: solid;
-  border-color: #dddd;
-  border-width: 0.5px;
-  padding: 20px 0px 50px 0px;
-}
 .icons {
   margin: 5px 15px 5px 5px;
 }

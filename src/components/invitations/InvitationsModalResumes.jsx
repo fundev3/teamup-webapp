@@ -3,6 +3,7 @@ import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 import DialogContent from "@material-ui/core/DialogContent";
 import Divider from "@material-ui/core/Divider";
+import Empty from "../../common/EmptyComponent/Empty";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MuiAccordion from "@material-ui/core/Accordion";
 import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
@@ -63,9 +64,6 @@ const useStyles = makeStyles((theme) => ({
   modalInvitations: {
     padding: 50,
   },
-  project: {
-    left: 100,
-  },
   summary: {
     left: 10,
   },
@@ -91,7 +89,7 @@ function InvitationsModal({ idResume, setModalInvitations }) {
       open={true}
     >
       <DialogTitle className="alert-dialog-title">
-        <div className="dialog-header">
+        <div className="modal-invitations-header">
           <Typography color="primary" gutterBottom variant="h6">
             Projects Invitations
           </Typography>
@@ -155,11 +153,13 @@ function InvitationsModal({ idResume, setModalInvitations }) {
             <AccordionSummary
               aria-controls="panel1a-content"
               className={classes.summary}
-              expandIcon={<ExpandMoreIcon />}
               id="panel1a-header"
             >
               <AccordionDetails>
-                `<Typography>You have no pending notifications</Typography>
+                <Empty
+                  message={"You have no pending notifications"}
+                  size={50}
+                />
               </AccordionDetails>
             </AccordionSummary>
           </Accordion>
