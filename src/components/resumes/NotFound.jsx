@@ -1,20 +1,35 @@
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { notFoundImage } from "../../constants";
+import Typography from "@material-ui/core/Typography";
+import { emptyImageSvg } from "../../constants";
+import { makeStyles } from "@material-ui/core/styles";
+import "./NotFound.scss";
 
-function NotFound() {
-  return (
-    <Grid
-      style={{
-        left: "40%",
-        position: "absolute",
-        top: "20%",
-      }}
-    >
-      <Paper elevation={2}>
-        <img alt="" src={notFoundImage} />
-      </Paper>
-    </Grid>
-  );
+const useStyles = makeStyles((theme) => ({
+  notFoundLabel: {
+    color: "#d2d2d2",
+    fontWeight: "bold",
+  },
+}));
+
+function NotFound(props) {
+  const { message, size } = props;
+  const classes = useStyles();
+  if (size > 199)
+    return (
+      <div className="not-found-large">
+        <img alt="emptyImage" src={emptyImageSvg} style={{ width: size }} />
+        <Typography className={classes.notFoundLabel} style={{ fontSize: 20 }}>
+          {message}
+        </Typography>
+      </div>
+    );
+  else
+    return (
+      <div className="not-found-little">
+        <img alt="emptyImage" src={emptyImageSvg} style={{ width: size }} />
+        <Typography className={classes.notFoundLabel} style={{ fontSize: 14 }}>
+          {message}
+        </Typography>
+      </div>
+    );
 }
 export default NotFound;

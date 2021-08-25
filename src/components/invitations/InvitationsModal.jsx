@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function InvitationsModal(props) {
   const classes = useStyles();
-  const { id, project, onClose, open } = props;
+  const { allInvitations, id, project, onClose, open, setInvitations } = props;
 
   const handleClose = () => {
     onClose();
@@ -102,6 +102,7 @@ export default function InvitationsModal(props) {
   };
 
   const onSubmitInvitations = async (props) => {
+    const successfulInvitations = [];
     var date = new Date();
     var addDays = 4;
     date.setTime(date.getTime() + addDays * 24 * 60 * 60 * 1000);
@@ -120,9 +121,11 @@ export default function InvitationsModal(props) {
         status: "Invited",
         textInvitation: project.textInvitation,
       };
-      const response = await postInviteResumes(id, invitation);
-      console.log(invitation, response);
+      const res = await postInviteResumes(id, invitation);
+      const { response } = res;
+      if (response?.data) successfulInvitations.push(response.data);
     }
+    setInvitations([...allInvitations, ...successfulInvitations]);
 
     onClose();
   };

@@ -1,3 +1,5 @@
+import CloseIcon from "@material-ui/icons/Close";
+import Divider from "@material-ui/core/Divider";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { postSkillsById } from "./ResumesAPI.js";
@@ -12,6 +14,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Typography,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -65,15 +68,24 @@ export default function ModalSkills({
       <Dialog
         aria-describedby="alert-dialog-description"
         aria-labelledby="alert-dialog-title"
-        onClose={() => setOpenModal(false)}
         open={true}
       >
-        <DialogTitle id="alert-dialog-title">{"Add Skills"}</DialogTitle>
+        <DialogTitle className="alert-dialog-title">
+          <div className="dialog-header">
+            <Typography color="primary" gutterBottom variant="h6">
+              Skills
+            </Typography>
+            <CloseIcon
+              className={classes.modalCloseIcon}
+              onClick={() => setOpenModal(false)}
+            />
+          </div>
+        </DialogTitle>
+        <Divider />
         <DialogContent>
           <List className={classes.root}>
             {dataSkills.map((value) => {
               const labelId = `checkbox-list-label-${value}`;
-
               return (
                 <ListItem
                   button

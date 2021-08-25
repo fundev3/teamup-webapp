@@ -1,3 +1,4 @@
+import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import InvitationsModal from "../invitations/InvitationsModalResumes";
 import Loading from "./Loading";
@@ -6,6 +7,7 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import ModalSkills from "./ModalSkills";
 import NotFound from "./NotFound";
 import PhoneIcon from "@material-ui/icons/Phone";
+import ProjectsSide from "../projects/ProjectsSide";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import { entry as entryValidations } from "./helpers/validations";
@@ -151,7 +153,10 @@ function Details() {
     onSubmit: edit,
     validationSchema: entryValidations(),
   });
-  if (error) return <NotFound />;
+  if (error)
+    return (
+      <NotFound message={"Sorry, we couldn't find this resume"} size={200} />
+    );
   return data ? (
     <>
       {modalInvitations ? (
@@ -160,6 +165,12 @@ function Details() {
           setModalInvitations={setModalInvitations}
         />
       ) : null}
+      <div className="grid-header">
+        <Link className="back-button" to="/resumes">
+          <ArrowBackIos></ArrowBackIos>
+          Back
+        </Link>
+      </div>
       <Grid
         className={classes.content}
         container
@@ -167,7 +178,7 @@ function Details() {
         justifyContent="center"
         style={{
           position: "absolute",
-          top: "100px",
+          top: "15%",
         }}
       >
         <Paper className={classes.paper}>
@@ -231,7 +242,7 @@ function Details() {
                   startIcon={<MailOutlineIcon />}
                   variant="contained"
                 >
-                  {"1 Project Invitations"}
+                  {"Project Invitations"}
                 </Button>
                 <Button
                   className="buttonEdit"
@@ -241,9 +252,6 @@ function Details() {
                 >
                   {stateButton}
                 </Button>
-                <Link to="/resumes">
-                  <Button variant="contained">Cancel</Button>
-                </Link>
               </Grid>
             </div>
           </div>
@@ -318,7 +326,7 @@ function Details() {
             </div>
             <div className="body-resume-biography">
               <Typography color="primary" gutterBottom variant="h6">
-                Sumary
+                Summary
               </Typography>
               <TextField
                 InputProps={{ disableUnderline: disabled }}
@@ -332,7 +340,7 @@ function Details() {
                     : ""
                 }
                 id="summary"
-                maxRows={10}
+                maxRows={1}
                 multiline
                 name="summary"
                 onBlur={formik.handleBlur}
@@ -387,11 +395,7 @@ function Details() {
               />
             ))}
           </div>
-          <div className="projects-side">
-            <Typography color="primary" gutterBottom variant="h6">
-              Projects working on
-            </Typography>
-          </div>
+          <ProjectsSide idResume={data.id} />
         </Paper>
       </Grid>
     </>
