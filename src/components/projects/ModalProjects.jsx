@@ -85,7 +85,12 @@ export default function ModalProjects({ idResume, setModalProjects }) {
           </div>
           <DialogContent className={classes.modalContent}>
             <List>
-              {dataProjects.length !== 0 ? (
+              {dataProjects == null ? (
+                <NotFound
+                  message={"Sorrry!, We couldn't find your item"}
+                  size={170}
+                />
+              ) : dataProjects.length !== 0 ? (
                 dataProjects.map((project) => (
                   <ListItem button>
                     <ListItemAvatar>
