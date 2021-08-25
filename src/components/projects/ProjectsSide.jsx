@@ -9,15 +9,6 @@ function ProjectsSide(props) {
   const { idResume } = props;
   const [modalProjects, setModalProjects] = useState(false);
 
-  /* const [searchProject, setSearchProject] = useState("");
-
-  const ProjectsBySkill = async (event) => {
-    event.preventDefault();
-    if (searchProject !== "") {
-      setModalProjects(true);
-    }
-  }; */
-
   return (
     <div className="projects-side">
       <div className="projects-modal">
