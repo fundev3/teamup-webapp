@@ -33,6 +33,11 @@ export async function postInviteResumes(id, resume) {
     if (response.status === 201) return { ok: true, response };
     return { ok: false, response: null };
   } catch (e) {
+    if (e.response) {
+      if (e.response.status === 400) {
+        store.dispatch(alertError(e.response.data.message));
+      }
+    }
     return { error: e, ok: false };
   }
 }

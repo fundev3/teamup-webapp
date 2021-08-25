@@ -66,10 +66,12 @@ function Invitations({ id, project }) {
       </Box>
       <Box height="5px">
         <InvitationsModal
+          allInvitations={invitations}
           id={id}
           onClose={handleClose}
           open={open}
           project={project}
+          setInvitations={setInvitations}
         />
       </Box>
       <div className="invitations-list">
