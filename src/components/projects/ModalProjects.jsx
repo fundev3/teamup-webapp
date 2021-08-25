@@ -1,15 +1,12 @@
 import Avatar from "@material-ui/core/Avatar";
+import { BASE_URL } from "../../constants";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import NotFound from "../resumes/NotFound";
 import SearchIcon from "@material-ui/icons/Search";
-// use it
-import { getProjectBySkills } from "./ProjectsAPI.js";
-// delete it
-import { getResumesBySkill } from "../resumes/ResumesAPI";
+import { getProjectBySkill } from "./ProjectsAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
-import { BASE_URL, projectImageSvg } from "../../constants";
 import {
   Dialog,
   DialogContent,
@@ -28,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     padding: 0,
   },
+  modalProject: {
+    width: 500,
+  },
   searchField: {
     "&.MuiFormControl-root": {
       width: "100%",
@@ -43,16 +43,19 @@ export default function ModalProjects({ idResume, setModalProjects }) {
   const [dataProjects, setDataProjects] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
-  const getProjectsBySkill = async (event) => {
+  const getProjects = async (event) => {
     event.preventDefault();
-    // let projects = await getProjectsBySkill(inputValue);
-    let projects = await getResumesBySkill(inputValue);
-    setDataProjects(projects.data);
+    let projects = await getProjectBySkill(inputValue);
+    setDataProjects(projects);
   };
 
   return (
-    <div className="modal-project">
-      <Dialog onClose={() => setModalProjects(false)} open={true}>
+    <div>
+      <Dialog
+        aria-labelledby="form-dialog-title"
+        onClose={() => setModalProjects(false)}
+        open={true}
+      >
         <div className="dialog-content">
           <div className="dialog-header">
             <Typography color="primary" variant="h6">
@@ -76,7 +79,7 @@ export default function ModalProjects({ idResume, setModalProjects }) {
             <div className="search-project-icon">
               <SearchIcon
                 className={classes.searchIcon}
-                onClick={getProjectsBySkill}
+                onClick={getProjects}
               />
             </div>
           </div>
@@ -86,12 +89,15 @@ export default function ModalProjects({ idResume, setModalProjects }) {
                 dataProjects.map((project) => (
                   <ListItem button>
                     <ListItemAvatar>
-                      <Avatar alt="" src={projectImageSvg} />
+                      <Avatar alt="" src={`${BASE_URL}/${project.logo}`} />
                     </ListItemAvatar>
                     <ListItemText
-                      primary={project.title}
-                      secondary={project.summary}
+                      primary={project.name}
+                      secondary={project.description}
                     />
+                    <Button color="primary" variant="outlined">
+                      Apply
+                    </Button>
                   </ListItem>
                 ))
               ) : (

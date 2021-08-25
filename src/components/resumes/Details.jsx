@@ -1,4 +1,5 @@
 import ApplicationsSide from "./ApplicationsSide";
+import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import InvitationsModal from "../invitations/InvitationsModalResumes";
 import Loading from "./Loading";
@@ -166,6 +167,12 @@ function Details() {
           setModalInvitations={setModalInvitations}
         />
       ) : null}
+      <div className="grid-header">
+        <Link className="back-button" to="/resumes">
+          <ArrowBackIos></ArrowBackIos>
+          Back
+        </Link>
+      </div>
       <Grid
         className={classes.content}
         container
@@ -173,7 +180,7 @@ function Details() {
         justifyContent="center"
         style={{
           position: "absolute",
-          top: "100px",
+          top: "15%",
         }}
       >
         <Paper className={classes.paper}>
@@ -247,9 +254,6 @@ function Details() {
                 >
                   {stateButton}
                 </Button>
-                <Link to="/resumes">
-                  <Button variant="contained">Cancel</Button>
-                </Link>
               </Grid>
             </div>
           </div>
