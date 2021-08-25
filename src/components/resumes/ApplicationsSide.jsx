@@ -1,14 +1,13 @@
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { BASE_URL } from "../../constants";
 import Empty from "../../common/EmptyComponent/Empty";
-import { getProjects } from "../projects/ProjectsAPI.js";
+import { Typography } from "@material-ui/core";
+import { getApplicationsByResumeId } from "../projects/ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Paper, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import "./ApplicationsSide.scss";
 
 const useStyles = makeStyles((theme) => ({
-  card: {
-    flexGrow: 1,
-  },
   description: {
     margin: "5px",
   },
@@ -30,56 +29,55 @@ const useStyles = makeStyles((theme) => ({
 function ApplicationsSide(props) {
   const classes = useStyles();
   const { idResume } = props;
+
+  const [applications, setApplications] = useState([]);
+
   useEffect(() => {
     async function data() {
-      // const applicationsData = await getApplicationsByResumeId(idResume);
-      const applicationsData = await getProjects();
+      const applicationsData = await getApplicationsByResumeId(idResume);
       setApplications(applicationsData);
     }
     data();
   }, []);
 
-  const [applications, setApplications] = useState([]);
-
   return (
-    <div className="Applications-Side">
-      <div className="Applications-header">
-        <div className="Applications-title">
+    <div className="applications-side">
+      <div className="applications-header">
+        <div className="applications-title">
           <Typography color="primary" gutterBottom variant="h6">
             Your Applications
           </Typography>
         </div>
-      </div>
-      <div className="Applications-list">
-        {applications.length !== 0 ? (
-          applications.map((application) => (
-            <div className={classes.cards}>
-              <Grid container spacing={3}>
-                <Grid item xs={6}>
-                  <Paper className={classes.paper}>
-                    <div className={classes.image}>
-                      <img alt="logo" />
-                    </div>
-                    <div className={classes.description}>
-                      <Typography align="left" color="primary" variant="h6">
-                        {application.name}
-                      </Typography>
-                      <Typography
-                        align="left"
-                        color="textSecondary"
-                        variant="body1"
-                      >
-                        {"Owner: " + application.contact.name}
-                      </Typography>
-                    </div>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </div>
-          ))
-        ) : (
-          <Empty message={"No projects yet"} size={80} />
-        )}
+        <div className="applications-list">
+          {applications.length !== 0 ? (
+            applications.map((application) => (
+              <div className="card">
+                <div className="card-image">
+                  <img alt="logo" src={`${BASE_URL}/${application.logo}`} />
+                </div>
+                <div className="card-description">
+                  <div className="card-description-title">
+                    <Typography align="left" color="primary" variant="h6">
+                      {application.name}
+                    </Typography>
+                  </div>
+                  <div className="card-description-detail">
+                    <Typography
+                      align="left"
+                      color="textSecondary"
+                      variant="body1"
+                    >
+                      <AccountCircleIcon className="card-icon" />
+                      {application.contact.name}
+                    </Typography>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <Empty message={"No projects yet"} size={70} />
+          )}
+        </div>
       </div>
     </div>
   );

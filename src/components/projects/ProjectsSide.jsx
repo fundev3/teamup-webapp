@@ -36,7 +36,7 @@ function ProjectsSide(props) {
         </div>
       </div>
       <div className="projects-list">
-        <Empty message={"No projects yet"} size={80} />
+        <Empty message={"No projects yet"} size={70} />
       </div>
     </div>
   );
