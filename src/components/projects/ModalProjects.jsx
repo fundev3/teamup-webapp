@@ -6,7 +6,6 @@ import Empty from "../../common/EmptyComponent/Empty";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import NotFound from "../resumes/NotFound";
 import SearchIcon from "@material-ui/icons/Search";
-import { getProjectBySkill } from "./ProjectsAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Dialog,
@@ -18,6 +17,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
+import { getProjectBySkill, postPostulation } from "./ProjectsAPI.js";
 import "./ModalProjects.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -47,11 +47,68 @@ export default function ModalProjects({ idResume, setModalProjects }) {
   const classes = useStyles();
   const [dataProjects, setDataProjects] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [postulations, setPostulations] = useState([]);
+  const [postulationsSelected, setPostulationsSelected] = React.useState([]);
 
   const getProjects = async (event) => {
     event.preventDefault();
     let projects = await getProjectBySkill(inputValue);
     setDataProjects(projects);
+  };
+
+  const onSubmitPostulations = async (project, postulations, idResume) => {
+    var date = new Date();
+    var addDays = 4;
+    date.setTime(date.getTime() + addDays * 24 * 60 * 60 * 1000);
+
+    for (const resume of postulations) {
+      const postulation = {
+        creationDate: new Date().toDateString(),
+        lastDate: date,
+        picture: project.logo,
+        projectId: project.id,
+        projectName: project.name,
+        resumeId: idResume,
+        resumeName: project.resumeName,
+        state: "Applied",
+      };
+      const response = await postPostulation(postulation);
+    }
+  };
+
+  const addPostulation = (postulation) => {
+    let found = [];
+    const exist = postulationsSelected.includes(postulation);
+    if (exist) {
+      found = postulationsSelected.filter(
+        (value) => value.id !== postulation.id
+      );
+    } else {
+      postulationsSelected.push(postulation);
+      found = postulationsSelected;
+    }
+    setPostulationsSelected(found);
+  };
+
+  const handleSend = async () => {
+    var date = new Date();
+    var addDays = 4;
+    date.setTime(date.getTime() + addDays * 24 * 60 * 60 * 1000);
+
+    for (const project of postulationsSelected) {
+      const postulation = {
+        creationDate: new Date().toDateString(),
+        lastDate: date,
+        picture: project.logo,
+        projectId: project.id,
+        projectName: project.name,
+        resumeId: idResume,
+        resumeName: project.resumeName,
+        state: "Applied",
+      };
+      const response = await postPostulation(postulation);
+      console.log(postulation, response);
+    }
   };
 
   return (
@@ -105,7 +162,11 @@ export default function ModalProjects({ idResume, setModalProjects }) {
                       primary={project.name}
                       secondary={project.description}
                     />
-                    <Button color="primary" variant="outlined">
+                    <Button
+                      color="primary"
+                      onClick={() => addPostulation(project)}
+                      variant="outlined"
+                    >
                       Apply
                     </Button>
                   </ListItem>
@@ -114,6 +175,9 @@ export default function ModalProjects({ idResume, setModalProjects }) {
                 <Empty message={""} size={50} />
               )}
             </List>
+            <Button color="primary" onClick={handleSend} variant="outlined">
+              Save
+            </Button>
           </DialogContent>
         </div>
       </Dialog>
