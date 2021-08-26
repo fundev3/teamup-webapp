@@ -403,7 +403,7 @@ function Details() {
             ))}
           </div>
           <ApplicationsSide idResume={data.id} />
-          <ProjectsSide idResume={data.id} />
+          <ProjectsSide idResume={data.id} title={data.title} />
         </Paper>
       </Grid>
     </>

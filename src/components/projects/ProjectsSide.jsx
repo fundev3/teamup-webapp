@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import "./ProjectsSide.scss";
 
 function ProjectsSide(props) {
-  const { idResume } = props;
+  const { idResume, title } = props;
   const [modalProjects, setModalProjects] = useState(false);
 
   return (
@@ -16,6 +16,7 @@ function ProjectsSide(props) {
           <ModalProjects
             idResume={idResume}
             setModalProjects={setModalProjects}
+            title={title}
           />
         ) : null}
       </div>

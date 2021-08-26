@@ -69,12 +69,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function InvitationsModal({ idResume, setModalInvitations }) {
+function InvitationsModal({ idResume, setModalInvitations, title }) {
   const classes = useStyles();
   useEffect(() => {
     async function data() {
       const invitations = await getInvitationsByResume(idResume);
-      console.log(invitations);
       setDataInvitations(invitations);
     }
     data();

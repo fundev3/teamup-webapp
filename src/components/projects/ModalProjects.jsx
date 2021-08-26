@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalProjects({ idResume, setModalProjects }) {
+export default function ModalProjects({ idResume, setModalProjects, title }) {
   const classes = useStyles();
   const [dataProjects, setDataProjects] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -65,7 +65,7 @@ export default function ModalProjects({ idResume, setModalProjects }) {
       projectId: project.id,
       projectName: project.name,
       resumeId: idResume,
-      resumeName: "Juan Gonzales",
+      resumeName: title,
       state: "Applied",
     };
     let response = await postPostulation(postulation);
@@ -130,7 +130,7 @@ export default function ModalProjects({ idResume, setModalProjects }) {
                     <Button
                       color="primary"
                       disabled={send}
-                      onClick={() => sendProject(idResume, project)}
+                      onClick={() => sendProject(idResume, project, title)}
                       variant="outlined"
                     >
                       Apply
