@@ -70,12 +70,15 @@ export default function InvitationsModal(props) {
 
   const handleClose = () => {
     onClose();
+    setShowSearch(false);
+    setResumesNameList([]);
   };
 
   const [resumesSearchInput, setResumesSearchInput] = useState("");
   const [resumesNameList, setResumesNameList] = useState([]);
   const [resumesSelected, setResumesSelected] = useState([]);
   const [isAdded, setIsAdded] = useState(true);
+  const [showSearch, setShowSearch] = useState(false);
 
   const getResumesName = async (event) => {
     event.preventDefault();
@@ -126,7 +129,9 @@ export default function InvitationsModal(props) {
       if (response?.data) successfulInvitations.push(response.data);
     }
     setInvitations([...allInvitations, ...successfulInvitations]);
-
+    setShowSearch(false);
+    setResumesNameList([]);
+    formik.values.textInvitation = "";
     onClose();
   };
 
@@ -142,8 +147,20 @@ export default function InvitationsModal(props) {
 
   const handleRadioGroupChange = (event) => {
     setRadioButtonOption(event.target.value);
+    setShowSearch(false);
+    setResumesNameList([]);
   };
   const [radioButtonOption, setRadioButtonOption] = React.useState("skill");
+
+  const handleSearchInputChange = (e) => {
+    setResumesSearchInput(e.target.value);
+    if (e.target.value === "") {
+      setShowSearch(false);
+      setResumesNameList([]);
+    } else {
+      setShowSearch(true);
+    }
+  };
 
   return (
     <div className={classes.dialog}>
@@ -163,7 +180,7 @@ export default function InvitationsModal(props) {
               <TextField
                 InputProps={{ disableUnderline: "disabled" }}
                 className={classes.searchField}
-                onChange={(event) => setResumesSearchInput(event.target.value)}
+                onChange={handleSearchInputChange}
                 placeholder="Find people to invite…"
                 type="search"
               />
@@ -196,7 +213,7 @@ export default function InvitationsModal(props) {
             </RadioGroup>
           </div>
           <DialogContent className={classes.dialogContent}>
-            {resumesNameList && resumesNameList[0] ? (
+            {resumesNameList && resumesNameList[0] && showSearch ? (
               <div className="list-content">
                 <List className={classes.root}>
                   {resumesNameList.map((invitation) => (
@@ -208,7 +225,8 @@ export default function InvitationsModal(props) {
                   ))}
                 </List>
               </div>
-            ) : resumesNameList === null ? null : (
+            ) : resumesSearchInput === "" ||
+              resumesNameList.length <= 0 ? null : (
               <div className="not-found-content">
                 <img
                   alt="emptyImage"
@@ -245,7 +263,8 @@ export default function InvitationsModal(props) {
                 value={formik.values.textInvitation}
                 variant="outlined"
               />
-              {(resumesNameList && resumesNameList[0]) || isAdded ? (
+              {(resumesNameList && resumesNameList[0] && !showSearch) ||
+              isAdded ? (
                 <Button disabled variant="contained">
                   Send Invitation
                 </Button>

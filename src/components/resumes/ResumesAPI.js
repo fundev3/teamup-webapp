@@ -112,7 +112,7 @@ export async function getResumesByName(name, id) {
   const data = {};
   try {
     const { data } = await axios.get(
-      `${API_HOST}/api/${API_VERSION}/${API_NAME}/${name}`
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}?name=${name}`
     );
     return { data, handlerError };
   } catch (error) {
