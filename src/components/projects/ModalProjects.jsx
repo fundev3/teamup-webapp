@@ -69,7 +69,7 @@ export default function ModalProjects({ idResume, setModalProjects }) {
         projectId: project.id,
         projectName: project.name,
         resumeId: idResume,
-        resumeName: "prueba",
+        resumeName: project.resumeName,
         state: "Applied",
       };
       const response = await postPostulation(postulation);
@@ -103,7 +103,7 @@ export default function ModalProjects({ idResume, setModalProjects }) {
         projectId: project.id,
         projectName: project.name,
         resumeId: idResume,
-        resumeName: "prueba",
+        resumeName: project.resumeName,
         state: "Applied",
       };
       const response = await postPostulation(postulation);
