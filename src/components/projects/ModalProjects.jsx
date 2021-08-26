@@ -6,7 +6,6 @@ import Empty from "../../common/EmptyComponent/Empty";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import NotFound from "../resumes/NotFound";
 import SearchIcon from "@material-ui/icons/Search";
-import { getProjectBySkill } from "./ProjectsAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Dialog,
@@ -18,6 +17,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
+import { getProjectBySkill, postPostulation } from "./ProjectsAPI.js";
 import "./ModalProjects.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -52,6 +52,32 @@ export default function ModalProjects({ idResume, setModalProjects }) {
     event.preventDefault();
     let projects = await getProjectBySkill(inputValue);
     setDataProjects(projects);
+  };
+
+  const onSubmitPostulations = async (project, idResume) => {
+    console.log(project);
+    var date = new Date();
+    var addDays = 4;
+    date.setTime(date.getTime() + addDays * 24 * 60 * 60 * 1000);
+
+    for (const resume of resumesSelected) {
+      const postulation = {
+        id: 1,
+        projectId: project.id,
+        projectName: project.name,
+        resumeId: resume.id,
+        resumeName: resume.title,
+        picture:
+          "https://sttubindevbra.blob.core.windows.net/images/webapp/project-img.jpeg",
+        creationDate: new Date().toDateString(),
+        lastDate: date,
+        state: "Applied",
+      };
+      const response = await postPostulation(id, postulation);
+      console.log(postulation, response);
+    }
+
+    // onClose();
   };
 
   return (
@@ -105,8 +131,12 @@ export default function ModalProjects({ idResume, setModalProjects }) {
                       primary={project.name}
                       secondary={project.description}
                     />
-                    <Button color="primary" variant="outlined">
-                      Apply
+                    <Button
+                      color="primary"
+                      onClick={() => onSubmitPostulations(project)}
+                      variant="outlined"
+                    >
+                      Apply_
                     </Button>
                   </ListItem>
                 ))
