@@ -1,4 +1,5 @@
 import Card from "./Card";
+import ProgressComponent from "../../common/ProgressComponent/ProgressComponent";
 import SearchIcon from "@material-ui/icons/Search";
 import { emptyImageSvg } from "../../constants";
 import { getProjects } from "./ProjectsAPI.js";
@@ -71,16 +72,7 @@ function ProjectList() {
       </div>
       <div className="projects-list">
         {projects.length === 0 ? (
-          <div className="empty-file">
-            <img
-              alt="emptyImage"
-              src={emptyImageSvg}
-              style={{ width: "250px" }}
-            />
-            <Typography className={classes.customGrayFont}>
-              Sorry, we couldn't load projects list.
-            </Typography>
-          </div>
+          <ProgressComponent />
         ) : (
           projects.map((project) => (
             <div className="box-paper">
