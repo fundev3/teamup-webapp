@@ -54,12 +54,10 @@ export default function ModalSkills({
       const skillCheck = skillChecked[i];
       const result = data.find((skill) => skill.name === skillCheck.name);
       if (result == null) {
-        const response = await postSkillsById(idUser, skillCheck.name);
-        if (!response.handlerError) {
-          setData(allInfoData, allInfoData.skills.push(skillCheck));
-        }
+        setData(allInfoData, allInfoData.skills.push(skillCheck));
       }
     }
+    await postSkillsById(idUser, allInfoData.skills);
     setOpenModal(false);
   };
 

@@ -1,9 +1,10 @@
+import { Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { userImageSvg } from "../../../constants";
-import { Button, Typography } from "@material-ui/core";
 
-function ApplicationBox({ application }) {
+function ApplicationBox({ postulation }) {
   const history = useHistory();
+  const { resumeId, resumeName, skills } = postulation;
 
   function redirectToResume(id) {
     history.push(`/resumes/${id}`);
@@ -13,26 +14,28 @@ function ApplicationBox({ application }) {
     <div className="application-box">
       <div className="application-box__info">
         <div className="application-box__info--left">
-          <img alt="user" src={userImageSvg} />
+          <img alt="user" src={userImageSvg} width="50px" />
         </div>
         <div className="application-box__info--right">
           <div className="application-box__user-name">
             <Typography
               className="application-box__user-name--container"
               color="primary"
+              onClick={() => redirectToResume(resumeId)}
             >
-              {application.name}
+              {resumeName}
+            </Typography>
+          </div>
+          <div className="application-box__user-skills">
+            <Typography
+              className="application-box__user-skills--container"
+              style={{ color: "#999999", fontSize: "0.9rem" }}
+            >
+              {skills}
             </Typography>
           </div>
         </div>
       </div>
-      <Button
-        color="primary"
-        onClick={() => redirectToResume(application.id)}
-        variant="outlined"
-      >
-        <span className="application-btn">See profile</span>
-      </Button>
     </div>
   );
 }

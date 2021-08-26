@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import { Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import NotFound from "./NotFound";
+import ProgressComponent from "../../common/ProgressComponent/ProgressComponent";
 import SearchComponent from "./../../common/SearchComponent/SearchComponent";
 import { getResumes } from "./ResumesAPI.js";
 import React, { useEffect, useState } from "react";
@@ -33,17 +33,14 @@ function ResumeList() {
         </div>
       </div>
       <Grid container justifyContent="center" spacing={4}>
-        {resumes.length !== 0 ? (
+        {resumes.length > 0 ? (
           resumes.map((resume) => (
             <Grid className="resume-box" item key={resume.id} lg={4} xs={6}>
               <Box {...resume} />
             </Grid>
           ))
         ) : (
-          <NotFound
-            message={"Sorry, we couldn't load resumes list."}
-            size={250}
-          />
+          <ProgressComponent />
         )}
       </Grid>
     </Container>
