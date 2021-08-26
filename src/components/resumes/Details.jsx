@@ -138,7 +138,9 @@ function Details() {
   };
 
   const initialValues = {
-    birthdate: data?.person?.birthdate || "",
+    birthdate:
+      data?.person?.birthdate.split("T")[0].split("-").reverse().join("/") ||
+      "",
     direction: data?.contact?.direction || "",
     email: data?.contact?.email || "",
     firstName: data?.person?.firstName || "",
@@ -166,8 +168,8 @@ function Details() {
           setModalInvitations={setModalInvitations}
         />
       ) : null}
-      <div className="grid-header">
-        <Link className="back-button" to="/resumes">
+      <div className="back-button">
+        <Link to="/resumes">
           <ArrowBackIos></ArrowBackIos>
           Back
         </Link>
@@ -269,7 +271,11 @@ function Details() {
                 <TextField
                   InputProps={{ disableUnderline: disabled }}
                   className={classes.information}
-                  defaultValue="2017-05-24"
+                  defaultValue={data.person.birthdate
+                    .split("T")[0]
+                    .split("-")
+                    .reverse()
+                    .join("/")}
                   disabled={disabled}
                   error={
                     formik.touched.birthdate && Boolean(formik.errors.birthdate)
@@ -341,7 +347,7 @@ function Details() {
                     : ""
                 }
                 id="summary"
-                maxRows={1}
+                maxrows={10}
                 multiline
                 name="summary"
                 onBlur={formik.handleBlur}

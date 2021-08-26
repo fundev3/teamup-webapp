@@ -17,7 +17,7 @@ function NotFound(props) {
     return (
       <div className="not-found-large">
         <img alt="emptyImage" src={emptyImageSvg} style={{ width: size }} />
-        <Typography className={classes.notFoundLabel} style={{ fontSize: 20 }}>
+        <Typography className={classes.notFoundLabel} style={{ fontSize: 18 }}>
           {message}
         </Typography>
       </div>

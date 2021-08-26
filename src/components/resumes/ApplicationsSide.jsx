@@ -1,8 +1,9 @@
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { BASE_URL } from "../../constants";
-import Empty from "../../common/EmptyComponent/Empty";
+import NotFound from "./NotFound";
 import { Typography } from "@material-ui/core";
-import { getApplicationsByResumeId } from "../projects/ResumesAPI.js";
+import { getProjects } from "../projects/ProjectsAPI.js";
+// import { getApplicationsByResumeId } from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 import "./ApplicationsSide.scss";
@@ -34,7 +35,8 @@ function ApplicationsSide(props) {
 
   useEffect(() => {
     async function data() {
-      const applicationsData = await getApplicationsByResumeId(idResume);
+      // const applicationsData = await getApplicationsByResumeId(idResume);
+      const applicationsData = await getProjects();
       setApplications(applicationsData);
     }
     data();
@@ -75,7 +77,7 @@ function ApplicationsSide(props) {
               </div>
             ))
           ) : (
-            <Empty message={"No projects yet"} size={70} />
+            <NotFound message={"There is no applications yet."} size={150} />
           )}
         </div>
       </div>
