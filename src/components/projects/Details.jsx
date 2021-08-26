@@ -2,6 +2,7 @@ import ApplicationsModal from "./ApplicationsModal/ApplicationsModal";
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import Invitations from ".././invitations/Invitations";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
+import ProgressComponent from "../../common/ProgressComponent/ProgressComponent";
 import { getPostulationsByProjectId } from "../postulations/PostulationsAPI";
 import { getProject } from "./ProjectsAPI";
 import { isEmpty } from "../../helpers";
@@ -20,7 +21,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import { BASE_URL, emptyImageSvg, userImageSvg } from "../../constants";
+import { BASE_URL, userImageSvg } from "../../constants";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
@@ -71,15 +72,7 @@ function Details() {
     fetchData();
   }, [id]);
 
-  if (isEmpty(project))
-    return (
-      <div className="empty-file">
-        <img alt="emptyImage" src={emptyImageSvg} style={{ width: "250px" }} />
-        <Typography className={classes.customGrayFont}>
-          Sorry, we couldn't load this project.
-        </Typography>
-      </div>
-    );
+  if (isEmpty(project)) return <ProgressComponent />;
 
   const { contact, creationDate, description, logo, name, memberList, skills } =
     project;

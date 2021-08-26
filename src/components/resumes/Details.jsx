@@ -1,12 +1,12 @@
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import InvitationsModal from "../invitations/InvitationsModalResumes";
-import Loading from "./Loading";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import ModalSkills from "./ModalSkills";
 import NotFound from "./NotFound";
 import PhoneIcon from "@material-ui/icons/Phone";
+import ProgressComponent from "../../common/ProgressComponent/ProgressComponent";
 import ProjectsSide from "../projects/ProjectsSide";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
@@ -400,7 +400,7 @@ function Details() {
       </Grid>
     </>
   ) : (
-    <Loading />
+    <ProgressComponent />
   );
 }
 

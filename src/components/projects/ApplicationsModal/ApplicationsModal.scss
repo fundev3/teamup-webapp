@@ -6,14 +6,9 @@
 .application-box {
   display: flex;
   flex-direction: row;
-  border-bottom: solid 0.8px #e6e5e5;
   justify-content: space-between;
   align-items: center;
   padding: 10px 6px 10px 0px;
-
-  &:last-of-type {
-    border-bottom: none;
-  }
 
   &__info {
     display: flex;
@@ -35,7 +30,6 @@
     &--container.MuiTypography-body1 {
       font-size: 1rem;
       font-weight: bold;
-      min-width: 140px;
     }
   }
 }

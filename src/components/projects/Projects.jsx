@@ -1,16 +1,10 @@
 import Card from "./Card";
+import ProgressComponent from "../../common/ProgressComponent/ProgressComponent";
 import SearchIcon from "@material-ui/icons/Search";
-import { emptyImageSvg } from "../../constants";
 import { getProjects } from "./ProjectsAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-import {
-  Button,
-  CardContent,
-  InputBase,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import { Button, CardContent, InputBase, Paper } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import "./Projects.scss";
 
@@ -20,11 +14,6 @@ const useStyles = makeStyles({
     display: "flex",
     height: "270px",
     width: "500px",
-  },
-  customGrayFont: {
-    color: "#d2d2d2",
-    fontSize: "1.2rem",
-    fontWeight: "bold",
   },
   paperBackground: {
     margin: "20px 0px",
@@ -71,16 +60,7 @@ function ProjectList() {
       </div>
       <div className="projects-list">
         {projects.length === 0 ? (
-          <div className="empty-file">
-            <img
-              alt="emptyImage"
-              src={emptyImageSvg}
-              style={{ width: "250px" }}
-            />
-            <Typography className={classes.customGrayFont}>
-              Sorry, we couldn't load projects list.
-            </Typography>
-          </div>
+          <ProgressComponent />
         ) : (
           projects.map((project) => (
             <div className="box-paper">
