@@ -1,6 +1,5 @@
 import ApplicationBox from "./ApplicationBox";
 import ApplicationBoxEmpty from "./ApplicationBoxEmpty";
-import { BASE_URL } from "../../../constants";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 import Divider from "@material-ui/core/Divider";
@@ -53,19 +52,6 @@ const AccordionSummary = withStyles({
   },
 })(MuiAccordionSummary);
 
-const applications = [
-  {
-    id: 1,
-    name: "Pedro",
-    skills:
-      "Java, C#, Javascript, .NET, SQL, MongoDB, React, Java, C#, Javascript, .NET",
-  },
-  { id: 2, name: "Paulo", skills: "Java, C#, Javascript, .NET, SQL" },
-  { id: 3, name: "Rodrigo", skills: "Java, C#, Javascript, .NET, SQL" },
-  { id: 4, name: "Lilian", skills: "Java, C#, Javascript, .NET, SQL" },
-  { id: 5, name: "Alejandro", skills: "Java, C#, Javascript, .NET, SQL" },
-  { id: 6, name: "Freddy", skills: "Java, C#, Javascript, .NET, SQL" },
-];
 const useStyles = makeStyles((theme) => ({
   dialog: {
     width: "450px",
@@ -86,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ApplicationsModal({ onClickModal, open }) {
+function ApplicationsModal({ onClickModal, open, postulations }) {
   const classes = useStyles();
   return (
     <div>
@@ -106,8 +92,8 @@ function ApplicationsModal({ onClickModal, open }) {
             style={{ width: "400px" }}
           >
             <List className={classes.root} style={{ paddingRight: "15px" }}>
-              {applications.length > 0 ? (
-                applications.map((application) => (
+              {postulations.length > 0 ? (
+                postulations.map((application) => (
                   <>
                     <Accordion>
                       <AccordionSummary
