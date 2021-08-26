@@ -90,8 +90,7 @@ export default function ModalProjects({ idResume, setModalProjects }) {
     setPostulationsSelected(found);
   };
 
-  const hadleSend = async () => {
-    console.log(postulationsSelected);
+  const handleSend = async () => {
     var date = new Date();
     var addDays = 4;
     date.setTime(date.getTime() + addDays * 24 * 60 * 60 * 1000);
@@ -176,7 +175,7 @@ export default function ModalProjects({ idResume, setModalProjects }) {
                 <Empty message={""} size={50} />
               )}
             </List>
-            <Button color="primary" onClick={hadleSend} variant="outlined">
+            <Button color="primary" onClick={handleSend} variant="outlined">
               Save
             </Button>
           </DialogContent>
