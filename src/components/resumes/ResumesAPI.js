@@ -169,3 +169,22 @@ export async function getApplicationsByResumeId(id) {
     return { data, handlerError };
   }
 }
+
+export async function postPostulation(postulation) {
+  try {
+    const result = await axios.post(
+      `${API_HOST}/api/${API_VERSION}/postulations`,
+      postulation
+    );
+    if (result.status === 200) {
+      return { ok: true };
+    } else {
+      result.ok = false;
+      result.statusText = "Data not saved";
+    }
+    return result;
+  } catch (err) {
+    store.dispatch(alertError("Couldn't save your profile, please try again"));
+    return { ok: false };
+  }
+}

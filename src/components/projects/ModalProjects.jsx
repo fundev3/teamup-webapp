@@ -8,6 +8,8 @@ import NotFound from "../resumes/NotFound";
 import SearchIcon from "@material-ui/icons/Search";
 import { getProjectBySkill } from "./ProjectsAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
+import { postPostulation } from "../resumes/ResumesAPI.js";
+
 import {
   Dialog,
   DialogContent,
@@ -47,11 +49,31 @@ export default function ModalProjects({ idResume, setModalProjects }) {
   const classes = useStyles();
   const [dataProjects, setDataProjects] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [send, setSend] = useState(false);
 
   const getProjects = async (event) => {
     event.preventDefault();
     let projects = await getProjectBySkill(inputValue);
     setDataProjects(projects);
+  };
+
+  const sendProject = async (idResume, project) => {
+    var postulation = {
+      creationDate: new Date().toDateString(),
+      lastUpdate: new Date().toDateString(),
+      picture: project.logo,
+      projectId: project.id,
+      projectName: project.name,
+      resumeId: idResume,
+      resumeName: "Juan Gonzales",
+      state: "Applied",
+    };
+    let response = await postPostulation(postulation);
+    if (response) {
+      setSend(true);
+    } else {
+      setSend(false);
+    }
   };
 
   return (
@@ -92,7 +114,7 @@ export default function ModalProjects({ idResume, setModalProjects }) {
             <List>
               {dataProjects == null ? (
                 <NotFound
-                  message={"Sorrry!, We couldn't find your item"}
+                  message={"Sorry!, We couldn't find your item"}
                   size={170}
                 />
               ) : dataProjects.length !== 0 ? (
@@ -105,7 +127,12 @@ export default function ModalProjects({ idResume, setModalProjects }) {
                       primary={project.name}
                       secondary={project.description}
                     />
-                    <Button color="primary" variant="outlined">
+                    <Button
+                      color="primary"
+                      disabled={send}
+                      onClick={() => sendProject(idResume, project)}
+                      variant="outlined"
+                    >
                       Apply
                     </Button>
                   </ListItem>

@@ -1,12 +1,15 @@
-applications-list {
-  display: flex;
-  flex-direction: row;
-}
 .applications-side {
   border-bottom-style: solid;
   border-color: #dddd;
   border-width: 0.5px;
-  padding: 15px 0px 50px 20px;
+  padding-left: 20px;
+}
+.applications-header {
+  margin-bottom: 10px;
+}
+.applications-list {
+  display: flex;
+  flex-wrap: wrap;
 }
 .card {
   display: flex;
@@ -19,11 +22,13 @@ applications-list {
   border-radius: 7px;
   padding: 30px 35px;
 }
-card-description-detail {
-  display: flex;
-  flex-direction: row;
+.card-description-detail {
   align-items: center;
-  padding: 5px;
+  text-align: center;
+}
+.description {
+  text-align: center;
+  font-size: 10px;
 }
 .card-icon {
   color: rgba(233, 103, 16, 0.867);
