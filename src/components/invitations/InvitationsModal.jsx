@@ -129,7 +129,9 @@ export default function InvitationsModal(props) {
       if (response?.data) successfulInvitations.push(response.data);
     }
     setInvitations([...allInvitations, ...successfulInvitations]);
-
+    setShowSearch(false);
+    setResumesNameList([]);
+    formik.values.textInvitation = "";
     onClose();
   };
 
@@ -261,7 +263,8 @@ export default function InvitationsModal(props) {
                 value={formik.values.textInvitation}
                 variant="outlined"
               />
-              {(resumesNameList && resumesNameList[0]) || isAdded ? (
+              {(resumesNameList && resumesNameList[0] && !showSearch) ||
+              isAdded ? (
                 <Button disabled variant="contained">
                   Send Invitation
                 </Button>

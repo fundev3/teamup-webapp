@@ -10,7 +10,6 @@ export default function InvitationPersonCard(props) {
   const handleClick = (id, status) => {
     setIsInvited(status);
     handleInvitationSelected(id, status);
-    console.log(status);
   };
 
   return (
