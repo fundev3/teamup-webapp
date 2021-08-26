@@ -3,6 +3,7 @@ import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import Invitations from ".././invitations/Invitations";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import ProgressComponent from "../../common/ProgressComponent/ProgressComponent";
+import { getPostulationsByProjectId } from "../postulations/PostulationsAPI";
 import { getProject } from "./ProjectsAPI";
 import { isEmpty } from "../../helpers";
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,7 +21,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import { BASE_URL, emptyImageSvg, userImageSvg } from "../../constants";
+import { BASE_URL, userImageSvg } from "../../constants";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
@@ -54,6 +55,7 @@ function Details() {
   const classes = useStyles();
   const { id } = useParams();
   const [open, setOpen] = React.useState(false);
+  const [postulations, setPostulations] = useState([]);
   const [project, setProject] = useState({});
 
   const handleActionModal = () => {
@@ -63,6 +65,8 @@ function Details() {
   useEffect(() => {
     async function fetchData() {
       const response = await getProject(id);
+      const resPostulations = await getPostulationsByProjectId(id);
+      setPostulations(resPostulations);
       setProject(response);
     }
     fetchData();
@@ -93,10 +97,14 @@ function Details() {
             startIcon={<MailOutlineIcon />}
             variant="contained"
           >
-            {"1 Project postulations"}
+            {`${postulations.length} Project postulations`}
           </Button>
         </div>
-        <ApplicationsModal onClickModal={handleActionModal} open={open} />
+        <ApplicationsModal
+          onClickModal={handleActionModal}
+          open={open}
+          postulations={postulations}
+        />
 
         <div className="box-details">
           <Paper className="paper-details" elevation={1} mt={4}>
