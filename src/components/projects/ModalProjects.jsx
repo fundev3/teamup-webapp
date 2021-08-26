@@ -53,17 +53,6 @@ export default function ModalProjects({ idResume, setModalProjects }) {
   const getProjects = async (event) => {
     event.preventDefault();
     let projects = await getProjectBySkill(inputValue);
-    projects.push({
-      creationDate: "2021-02-05",
-      id: 1,
-      lastUpdate: "2021-11-03",
-      picture: "photo.png",
-      projectId: "724d912-59de-44bd-a092-f5d8434584de",
-      projectName: "Team Up",
-      resumeId: "12",
-      resumeName: "Jose Ecos",
-      state: "Applied",
-    });
     setDataProjects(projects);
   };
 
@@ -85,8 +74,6 @@ export default function ModalProjects({ idResume, setModalProjects }) {
       };
       const response = await postPostulation(postulation);
     }
-
-    // onClose();
   };
 
   const addPostulation = (postulation) => {
