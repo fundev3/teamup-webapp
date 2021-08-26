@@ -9,7 +9,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import { getProjectBySkill } from "./ProjectsAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import { postPostulation } from "../resumes/ResumesAPI.js";
-
 import {
   Dialog,
   DialogContent,

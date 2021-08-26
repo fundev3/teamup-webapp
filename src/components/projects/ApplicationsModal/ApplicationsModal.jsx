@@ -93,7 +93,7 @@ function ApplicationsModal({ onClickModal, open, postulations }) {
           >
             <List className={classes.root} style={{ paddingRight: "15px" }}>
               {postulations.length > 0 ? (
-                postulations.map((application) => (
+                postulations.map((postulation) => (
                   <>
                     <Accordion>
                       <AccordionSummary
@@ -105,19 +105,13 @@ function ApplicationsModal({ onClickModal, open, postulations }) {
                         style={{ margin: "0px", padding: "0px" }}
                       >
                         <ApplicationBox
-                          application={application}
-                          key={application.id}
+                          key={postulation.id}
+                          postulation={postulation}
                         />
-                        <div className={classes.project}>
-                          <Typography color="primary" variant="h6">
-                            {application.resumeName}
-                          </Typography>
-                        </div>
                       </AccordionSummary>
                       <AccordionDetails>
                         <div style={{ display: "flex", marginBottom: "3%" }}>
                           <Button
-                            className={classes.button}
                             color="primary"
                             style={{ fontSize: "10px", marginLeft: "40%" }}
                             variant="outlined"
@@ -125,7 +119,6 @@ function ApplicationsModal({ onClickModal, open, postulations }) {
                             Accept
                           </Button>
                           <Button
-                            className={classes.button}
                             color="secondary"
                             style={{ fontSize: "10px", marginLeft: "10%" }}
                             variant="outlined"
