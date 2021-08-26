@@ -113,7 +113,6 @@ function Details() {
       const error = response.handlerError;
       setError(error);
       setData(data);
-      console.log(data);
     }
     fetchData();
   }, [id]);

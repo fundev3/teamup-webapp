@@ -105,9 +105,13 @@ function Entry() {
     input: {
       display: "none",
     },
+    inputTitle: {
+      color: "#605E5E",
+      fontSize: "1.1rem",
+    },
     root: {
       "& > *": {
-        margin: theme.spacing(1),
+        margin: "10px 0px 20px",
       },
     },
     subTitle: {
@@ -115,13 +119,16 @@ function Entry() {
       fontWeight: "bold",
     },
     textInput: {
-      width: "90%",
+      "& .MuiFormHelperText-contained": {
+        margin: "0px",
+      },
+      width: "100%",
     },
     title: {
       color: "#ED8749",
       fontSize: "2.2rem",
       fontWeight: "bold",
-      margin: "30px 20px 0px",
+      margin: "45px 35px 0px",
     },
   }));
   const classes = useStyles();
@@ -146,104 +153,122 @@ function Entry() {
         noValidate
         onSubmit={formik.handleSubmit}
       >
-        <Box display="flex" justifyContent="space-between" mb={6}>
-          <Paper className="paper" elevation={3}>
-            <Typography
-              align="justify"
-              className={classes.subTitle}
-              color="primary"
-              gutterBottom
-              variant="h5"
-            >
-              Project information
-            </Typography>
-            <div className="u-mb-1">
-              <Typography align="justify" gutterBottom variant="body1">
-                Title
+        <Box display="flex" justifyContent="space-between" mb={1}>
+          <Paper className="paper-entry" elevation={1}>
+            <div className="entry-content">
+              <Typography
+                align="justify"
+                className={classes.subTitle}
+                color="primary"
+                gutterBottom
+                variant="h5"
+              >
+                Project information
               </Typography>
-              <TextField
-                className={classes.textInput}
-                data-testid="input-field"
-                error={hasErrorName}
-                helperText={hasErrorName ? formik.errors.name : ""}
-                id="name"
-                name="name"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                placeholder="Your project title"
-                type="text"
-                value={formik.values.name}
-                variant="outlined"
-              />
-            </div>
-            <div className="u-mb-1">
-              <Typography align="justify" gutterBottom variant="body1">
-                Owner Contact
-              </Typography>
-              <TextField
-                InputProps={{
-                  readOnly: true,
-                }}
-                className={classes.textInput}
-                data-testid="input-field"
-                id="contact"
-                name="contact"
-                type="email"
-                value={formik.values.contact}
-                variant="outlined"
-              />
-            </div>
-            <div className="u-mb-1">
-              <Typography align="justify" gutterBottom variant="body1">
-                Add Description
-              </Typography>
-              <TextField
-                className={classes.textInput}
-                data-testid="input-field"
-                error={hasErrorDescription}
-                helperText={
-                  hasErrorDescription ? formik.errors.description : ""
-                }
-                id="description"
-                multiline
-                name="description"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                placeholder="Write a brief description of your project.
-                Outline the overarching purpose, as well the key information of it,
-                add the problem statement and your goals."
-                rows={4}
-                value={formik.values.description}
-                variant="outlined"
-              />
-            </div>
-            <div className="u-mb-1">
-              <Typography align="justify" gutterBottom variant="body1">
-                Invitation Text
-              </Typography>
-              <TextField
-                className={classes.textInput}
-                data-testid="input-field"
-                error={hasErrorTextInvitation}
-                helperText={
-                  hasErrorTextInvitation ? formik.errors.textInvitation : ""
-                }
-                id="textInvitation"
-                multiline
-                name="textInvitation"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                placeholder="Text invitation"
-                rows={2}
-                value={formik.values.textInvitation}
-                variant="outlined"
-              />
-            </div>
-            {/* WORK IN PROGRESS
+              <div className="u-mb-1">
+                <Typography
+                  align="justify"
+                  className={classes.inputTitle}
+                  gutterBottom
+                >
+                  Title
+                </Typography>
+                <TextField
+                  className={classes.textInput}
+                  data-testid="input-field"
+                  error={hasErrorName}
+                  helperText={hasErrorName ? formik.errors.name : ""}
+                  id="name"
+                  name="name"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  placeholder="Your project title"
+                  type="text"
+                  value={formik.values.name}
+                  variant="outlined"
+                />
+              </div>
+              <div className="u-mb-1">
+                <Typography
+                  align="justify"
+                  className={classes.inputTitle}
+                  gutterBottom
+                >
+                  Owner Contact
+                </Typography>
+                <TextField
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  className={classes.textInput}
+                  data-testid="input-field"
+                  id="contact"
+                  name="contact"
+                  type="email"
+                  value={formik.values.contact}
+                  variant="outlined"
+                />
+              </div>
+              <div className="u-mb-1">
+                <Typography
+                  align="justify"
+                  className={classes.inputTitle}
+                  gutterBottom
+                >
+                  Add Description
+                </Typography>
+                <TextField
+                  className={classes.textInput}
+                  data-testid="input-field"
+                  error={hasErrorDescription}
+                  helperText={
+                    hasErrorDescription ? formik.errors.description : ""
+                  }
+                  id="description"
+                  multiline
+                  name="description"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  placeholder="Write a brief description of your project.
+                  Outline the overarching purpose, as well the key information of it,
+                  add the problem statement and your goals."
+                  rows={4}
+                  value={formik.values.description}
+                  variant="outlined"
+                />
+              </div>
+              <div className="u-mb-1">
+                <Typography
+                  align="justify"
+                  className={classes.inputTitle}
+                  gutterBottom
+                >
+                  Invitation Text
+                </Typography>
+                <TextField
+                  className={classes.textInput}
+                  data-testid="input-field"
+                  error={hasErrorTextInvitation}
+                  helperText={
+                    hasErrorTextInvitation ? formik.errors.textInvitation : ""
+                  }
+                  id="textInvitation"
+                  multiline
+                  name="textInvitation"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  placeholder="Text invitation"
+                  rows={2}
+                  value={formik.values.textInvitation}
+                  variant="outlined"
+                />
+              </div>
+              {/* WORK IN PROGRESS
             <MemberList memberList={memberList} setMemberList={setMemberList} /> */}
+            </div>
           </Paper>
 
-          <Paper className="paper" elevation={3}>
+          <Paper className="paper-entry" elevation={1}>
             <Typography
               align="justify"
               className={classes.subTitle}
@@ -276,10 +301,12 @@ function Entry() {
                     Attach photo
                   </Button>
                 </label>
-                <label className="errorLogo" htmlFor="logo">
-                  {hasErrorLogo ? formik.errors.logo : ""}
-                </label>
-                <label>{formik.values.logo}</label>
+                <div className="image-label">
+                  <label className="errorLogo" htmlFor="logo">
+                    {hasErrorLogo ? formik.errors.logo : ""}
+                  </label>
+                  <label>{formik.values.logo}</label>
+                </div>
               </div>
             </div>
           </Paper>
@@ -288,6 +315,7 @@ function Entry() {
           <Button
             className={classes.button}
             data-testid="btn-cancel"
+            size="large"
             type="submit"
             variant="contained"
           >
@@ -297,6 +325,7 @@ function Entry() {
             className={classes.button}
             color="primary"
             data-testid="btn-form"
+            size="large"
             type="submit"
             variant="contained"
           >
