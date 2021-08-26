@@ -1,20 +1,12 @@
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { BASE_URL } from "../../constants";
 import NotFound from "./NotFound";
 import { getApplicationsByResumeId } from "./ResumesAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
+import { BASE_URL, projectImageSvg } from "../../constants";
 import { Box, Grid, Paper, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import "./ApplicationsSide.scss";
 
 const useStyles = makeStyles((theme) => ({
-  description: {
-    alignContent: "center",
-    alignItems: "center",
-    display: "flex",
-    fontSize: "14px",
-    margin: "10px",
-  },
   image: {
     height: "70px",
     margin: "10px 20px",
@@ -32,7 +24,9 @@ const useStyles = makeStyles((theme) => ({
     width: "150px",
   },
   status: {
+    alignContent: "center",
     fontSize: "14px",
+    textAlign: "center",
   },
 }));
 
@@ -45,10 +39,10 @@ function ApplicationsSide(props) {
   useEffect(() => {
     async function data() {
       const applicationsData = await getApplicationsByResumeId(idResume);
-      setApplications(applicationsData);
+      setApplications(applicationsData.data);
     }
     data();
-  }, []);
+  }, [idResume]);
 
   return (
     <>
@@ -60,45 +54,36 @@ function ApplicationsSide(props) {
         </div>
         <Box display="flex" justifyContent="space-between" mb={5} pt={5}>
           <div className="applications-list">
-            {applications.length !== 0 ? (
+            {applications.length === 0 ? (
+              <NotFound message={"There is no applications yet."} size={150} />
+            ) : (
               applications.map((application) => (
                 <Paper className={classes.paper} elevation={1}>
-                  <Grid container spacing={1}>
-                    <Grid item>
+                  <Grid container>
+                    {application.picture == null ? (
                       <img
-                        alt="logo"
+                        alt={""}
                         className={classes.image}
-                        src={`${BASE_URL}/${application.logo}`}
+                        src={projectImageSvg}
                       />
-                    </Grid>
+                    ) : (
+                      <img
+                        alt={""}
+                        className={classes.image}
+                        src={`${BASE_URL}/${application.picture}`}
+                      />
+                    )}
                     <div className="card-description-detail">
                       <Typography className={classes.name} color="primary">
-                        {application.name}
+                        {application.projectName}
                       </Typography>
-                      <Typography
-                        className={classes.description}
-                        color="textSecondary"
-                      >
-                        <AccountCircleIcon
-                          style={{ color: "rgb(239 136 74)" }}
-                        />
-                        {application.contact.name}
-                      </Typography>
-                      <Typography
-                        className={classes.status}
-                        color="textSecondary"
-                      >
+                      <Typography className={classes.status}>
                         {application.state}
                       </Typography>
                     </div>
-                    <Grid item>
-                      <div className={classes.arrow}></div>
-                    </Grid>
                   </Grid>
                 </Paper>
               ))
-            ) : (
-              <NotFound message={"There is no applications yet."} size={150} />
             )}
           </div>
         </Box>

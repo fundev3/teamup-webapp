@@ -154,7 +154,7 @@ export async function getApplicationsByResumeId(id) {
   const data = {};
   try {
     const { data } = await axios.get(
-      `${API_HOST}/api/${API_VERSION}/${API_NAME}?skill=${id}`
+      `${API_HOST}/api/${API_VERSION}/postulations?resumeId=${id}`
     );
     return { data, handlerError };
   } catch (error) {

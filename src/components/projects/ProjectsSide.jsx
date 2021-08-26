@@ -1,7 +1,7 @@
 import Button from "@material-ui/core/Button";
 import ModalProjects from "./ModalProjects";
 import NotFound from "../resumes/NotFound";
-import Typography from "@material-ui/core/Typography";
+import { Box, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import "./ProjectsSide.scss";
 
@@ -35,9 +35,11 @@ function ProjectsSide(props) {
           </Button>
         </div>
       </div>
-      <div className="projects-list">
-        <NotFound message={"There is no projects yet."} size={150} />
-      </div>
+      <Box display="flex" justifyContent="space-between" mb={5} pt={5}>
+        <div className="projects-list">
+          <NotFound message={"There is no projects yet."} size={150} />
+        </div>
+      </Box>
     </div>
   );
 }

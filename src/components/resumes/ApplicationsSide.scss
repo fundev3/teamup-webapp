@@ -10,33 +10,5 @@
 .applications-list {
   display: flex;
   flex-wrap: wrap;
-}
-.card {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 400px;
-  height: 150px;
-  box-shadow: 0px 10px 10px -6px rgb(228, 228, 228);
-  border: 1px solid #e7e7e7;
-  border-radius: 7px;
-  padding: 30px 35px;
-}
-.card-description-detail {
-  align-items: center;
-  text-align: center;
-}
-.description {
-  text-align: center;
-  font-size: 10px;
-}
-.card-icon {
-  color: rgba(233, 103, 16, 0.867);
-}
-.card-image {
-  width: 150px;
-}
-.card-image img {
-  width: 80px;
-  height: 80px;
+  justify-content: center;
 }
