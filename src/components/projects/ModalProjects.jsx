@@ -48,6 +48,7 @@ export default function ModalProjects({ idResume, setModalProjects }) {
   const [dataProjects, setDataProjects] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [postulations, setPostulations] = useState([]);
+  const [postulationsSelected, setPostulationsSelected] = React.useState([]);
 
   const getProjects = async (event) => {
     event.preventDefault();
@@ -64,11 +65,9 @@ export default function ModalProjects({ idResume, setModalProjects }) {
       state: "Applied",
     });
     setDataProjects(projects);
-    console.log(projects);
   };
 
   const onSubmitPostulations = async (project, postulations, idResume) => {
-    console.log(project);
     var date = new Date();
     var addDays = 4;
     date.setTime(date.getTime() + addDays * 24 * 60 * 60 * 1000);
@@ -85,10 +84,45 @@ export default function ModalProjects({ idResume, setModalProjects }) {
         state: "Applied",
       };
       const response = await postPostulation(postulation);
-      console.log(postulation, response);
     }
 
     // onClose();
+  };
+
+  const addPostulation = (postulation) => {
+    let found = [];
+    const exist = postulationsSelected.includes(postulation);
+    if (exist) {
+      found = postulationsSelected.filter(
+        (value) => value.id !== postulation.id
+      );
+    } else {
+      postulationsSelected.push(postulation);
+      found = postulationsSelected;
+    }
+    setPostulationsSelected(found);
+  };
+
+  const hadleSend = async () => {
+    console.log(postulationsSelected);
+    var date = new Date();
+    var addDays = 4;
+    date.setTime(date.getTime() + addDays * 24 * 60 * 60 * 1000);
+
+    for (const project of postulationsSelected) {
+      const postulation = {
+        creationDate: new Date().toDateString(),
+        lastDate: date,
+        picture: project.logo,
+        projectId: project.id,
+        projectName: project.name,
+        resumeId: idResume,
+        resumeName: "prueba",
+        state: "Applied",
+      };
+      const response = await postPostulation(postulation);
+      console.log(postulation, response);
+    }
   };
 
   return (
@@ -135,6 +169,13 @@ export default function ModalProjects({ idResume, setModalProjects }) {
               ) : dataProjects.length !== 0 ? (
                 dataProjects.map((project, idx) => (
                   <ListItem button key={idx}>
+                    <Button
+                      color="primary"
+                      onClick={() => addPostulation(project)}
+                      variant="outlined"
+                    >
+                      Apply
+                    </Button>
                     <ListItemAvatar>
                       <Avatar alt="" src={`${BASE_URL}/${project.logo}`} />
                     </ListItemAvatar>
@@ -142,19 +183,15 @@ export default function ModalProjects({ idResume, setModalProjects }) {
                       primary={project.name}
                       secondary={project.description}
                     />
-                    <Button
-                      color="primary"
-                      onClick={() => setPostulations(project)}
-                      variant="outlined"
-                    >
-                      Apply
-                    </Button>
                   </ListItem>
                 ))
               ) : (
                 <Empty message={""} size={50} />
               )}
             </List>
+            <Button color="primary" onClick={hadleSend} variant="outlined">
+              Save
+            </Button>
           </DialogContent>
         </div>
       </Dialog>
