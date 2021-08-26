@@ -126,7 +126,6 @@ function ApplicationsModal({ onClickModal, open }) {
                           <Typography color="primary" variant="h6">
                             {application.resumeName}
                           </Typography>
-                          {/* <Typography>{skill}</Typography> */}
                         </div>
                       </AccordionSummary>
                       <AccordionDetails>
