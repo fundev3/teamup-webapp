@@ -169,13 +169,6 @@ export default function ModalProjects({ idResume, setModalProjects }) {
               ) : dataProjects.length !== 0 ? (
                 dataProjects.map((project, idx) => (
                   <ListItem button key={idx}>
-                    <Button
-                      color="primary"
-                      onClick={() => addPostulation(project)}
-                      variant="outlined"
-                    >
-                      Apply
-                    </Button>
                     <ListItemAvatar>
                       <Avatar alt="" src={`${BASE_URL}/${project.logo}`} />
                     </ListItemAvatar>
@@ -183,6 +176,13 @@ export default function ModalProjects({ idResume, setModalProjects }) {
                       primary={project.name}
                       secondary={project.description}
                     />
+                    <Button
+                      color="primary"
+                      onClick={() => addPostulation(project)}
+                      variant="outlined"
+                    >
+                      Apply
+                    </Button>
                   </ListItem>
                 ))
               ) : (
