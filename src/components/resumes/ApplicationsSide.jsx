@@ -32,8 +32,11 @@ const useStyles = makeStyles((theme) => ({
 
 function ApplicationsSide(props) {
   const classes = useStyles();
-  const { idResume } = props;
-
+  const {
+    idResume,
+    refreshProjectsAndInvitations,
+    setRefreshProjectsAndInvitations,
+  } = props;
   const [applications, setApplications] = useState([]);
 
   useEffect(() => {
@@ -41,8 +44,13 @@ function ApplicationsSide(props) {
       const applicationsData = await getApplicationsByResumeId(idResume);
       setApplications(applicationsData.data);
     }
-    data();
-  }, [idResume]);
+    if (refreshProjectsAndInvitations === true || idResume !== null) {
+      data();
+    }
+    if (refreshProjectsAndInvitations === true) {
+      setRefreshProjectsAndInvitations(false);
+    }
+  }, [idResume, refreshProjectsAndInvitations]);
 
   return (
     <>

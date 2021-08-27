@@ -18,7 +18,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ModalProjects.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +44,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalProjects({ idResume, setModalProjects, title }) {
+export default function ModalProjects({
+  idResume,
+  setModalProjects,
+  setRefreshProjectsAndInvitations,
+  title,
+}) {
   const classes = useStyles();
   const [dataProjects, setDataProjects] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -55,6 +60,12 @@ export default function ModalProjects({ idResume, setModalProjects, title }) {
     let projects = await getProjectBySkill(inputValue);
     setDataProjects(projects);
   };
+
+  useEffect(() => {
+    if (send) {
+      setRefreshProjectsAndInvitations(true);
+    }
+  }, [send]);
 
   const sendProject = async (idResume, project) => {
     var postulation = {

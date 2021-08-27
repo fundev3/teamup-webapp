@@ -102,6 +102,8 @@ function Details() {
   const [openModal, setOpenModal] = React.useState(false);
   const [modalInvitations, setModalInvitations] = React.useState(false);
   const [dataSkills, setDataSkills] = React.useState([]);
+  const [refreshProjectsAndInvitations, setRefreshProjectsAndInvitations] =
+    useState(false);
   const handleClickOpen = () => {
     setOpenModal(true);
   };
@@ -402,8 +404,16 @@ function Details() {
               />
             ))}
           </div>
-          <ApplicationsSide idResume={data.id} />
-          <ProjectsSide idResume={data.id} title={data.title} />
+          <ApplicationsSide
+            idResume={data.id}
+            refreshProjectsAndInvitations={refreshProjectsAndInvitations}
+            setRefreshProjectsAndInvitations={setRefreshProjectsAndInvitations}
+          />
+          <ProjectsSide
+            idResume={data.id}
+            setRefreshProjectsAndInvitations={setRefreshProjectsAndInvitations}
+            title={data.title}
+          />
         </Paper>
       </Grid>
     </>
