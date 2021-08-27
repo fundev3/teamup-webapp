@@ -84,7 +84,7 @@ export async function getProjectBySkill(skill) {
 export async function postPostulation(postulation) {
   try {
     const { data } = await axios.post(
-      `${API_HOST}api/${API_VERSION}/postulation`,
+      "https://fa-tuapi-resumes-dev-bra.azurewebsites.net/api/v1/postulations",
       postulation
     );
 

@@ -64,12 +64,12 @@ export default function ModalProjects({ idResume, setModalProjects }) {
     for (const resume of postulations) {
       const postulation = {
         creationDate: new Date().toDateString(),
-        lastDate: date,
+        lastUpdate: date,
         picture: project.logo,
         projectId: project.id,
         projectName: project.name,
         resumeId: idResume,
-        resumeName: project.resumeName,
+        resumeName: "Jose Ecos",
         state: "Applied",
       };
       const response = await postPostulation(postulation);
@@ -98,12 +98,12 @@ export default function ModalProjects({ idResume, setModalProjects }) {
     for (const project of postulationsSelected) {
       const postulation = {
         creationDate: new Date().toDateString(),
-        lastDate: date,
+        lastUpdate: date,
         picture: project.logo,
         projectId: project.id,
         projectName: project.name,
         resumeId: idResume,
-        resumeName: project.resumeName,
+        resumeName: "Jose Ecos",
         state: "Applied",
       };
       const response = await postPostulation(postulation);
