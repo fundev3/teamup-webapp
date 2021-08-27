@@ -25,21 +25,6 @@ test("Should render Resumes component", async () => {
       </Route>
     </MemoryRouter>
   );
-  expect(
-    await screen.findByText("paola.quintanilla@fundacion-jala.org")
-  ).toBeInTheDocument();
+  expect(await screen.findByText("raulGamarra@corp")).toBeInTheDocument();
   expect(axios.get).toHaveBeenCalledWith(url);
-});
-
-test("Should render a button to create a resume", async () => {
-  render(
-    <MemoryRouter initialEntries={[`/resumes`]}>
-      <Route path="/resumes">
-        <Resumes />
-      </Route>
-    </MemoryRouter>
-  );
-
-  const resumesScreen = await screen.findByText("New Resume");
-  expect(resumesScreen).toBeInTheDocument();
 });

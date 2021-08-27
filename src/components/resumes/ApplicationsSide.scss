@@ -1,0 +1,14 @@
+.applications-side {
+  border-bottom-style: solid;
+  border-color: #dddd;
+  border-width: 0.5px;
+  padding-left: 20px;
+}
+.applications-header {
+  margin-bottom: 10px;
+}
+.applications-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

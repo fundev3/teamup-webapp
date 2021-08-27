@@ -56,11 +56,11 @@ export async function getResume(id) {
     return { data, handlerError };
   } catch (error) {
     if (error.response) {
-      alert(error);
+      store.dispatch(alertError(error.message));
     } else if (error.request) {
-      alert(error);
+      store.dispatch(alertError(error.message));
     } else {
-      alert("Error: Something is wrong");
+      store.dispatch(alertError("Error: Something is wrong"));
     }
     handlerError = true;
     return { data, handlerError };
@@ -147,5 +147,45 @@ export async function getResumesBySkill(skill, id) {
     }
     handlerError = true;
     return { data, handlerError };
+  }
+}
+
+export async function getApplicationsByResumeId(id) {
+  let handlerError = false;
+  const data = {};
+  try {
+    const { data } = await axios.get(
+      `${API_HOST}/api/${API_VERSION}/postulations?resumeId=${id}`
+    );
+    return { data, handlerError };
+  } catch (error) {
+    if (error.response) {
+      store.dispatch(alertError(error.message));
+    } else if (error.request) {
+      store.dispatch(alertError(error.message));
+    } else {
+      store.dispatch(alertError("Error: Something is wrong"));
+    }
+    handlerError = true;
+    return { data, handlerError };
+  }
+}
+
+export async function postPostulation(postulation) {
+  try {
+    const result = await axios.post(
+      `${API_HOST}/api/${API_VERSION}/postulations`,
+      postulation
+    );
+    if (result.status === 200) {
+      return { ok: true };
+    } else {
+      result.ok = false;
+      result.statusText = "Data not saved";
+    }
+    return result;
+  } catch (err) {
+    store.dispatch(alertError("Couldn't save your profile, please try again"));
+    return { ok: false };
   }
 }

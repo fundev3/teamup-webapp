@@ -1,4 +1,5 @@
 import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { userSingleImageSvg } from "../../constants/images";
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     color: theme.palette.text.secondary,
     margin: theme.spacing(2),
-    padding: theme.spacing(2),
+    padding: 20,
   },
   root: {
     "& .MuiTextField-root": {
@@ -57,6 +58,7 @@ function Box(props) {
           {`${summary}`}
         </Typography>
       </div>
+      <Divider />
       <div className="chip-skills">
         {skills.map((skill) => (
           <Chip className="chip" key={skill.id} label={skill.name} />

@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function InvitationsModal({ idResume, setModalInvitations }) {
+function InvitationsModal({ idResume, setModalInvitations, title }) {
   const classes = useStyles();
   useEffect(() => {
     async function data() {
@@ -98,7 +98,6 @@ function InvitationsModal({ idResume, setModalInvitations }) {
           />
         </div>
       </DialogTitle>
-      <Divider />
       <DialogContent>
         {dataInvitations.length !== 0 ? (
           dataInvitations.map((invitation) => (
