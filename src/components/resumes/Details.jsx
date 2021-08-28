@@ -96,6 +96,7 @@ function Details() {
   const [data, setData] = useState();
   const [error, setError] = useState();
   // const [stateButton, setStateButton] = useState("Edit");
+  const [searchSkills, setSearchSkills] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [skillInput, setSkillInput] = useState("");
   const [openModal, setOpenModal] = React.useState(false);
@@ -242,18 +243,19 @@ function Details() {
                 <Button
                   className="buttonEdit"
                   color="primary"
-                  variant="contained"
-                >
-                  {"Add Skills"}
-                </Button>
-                <Button
-                  className="buttonEdit"
-                  color="primary"
                   onClick={() => setModalInvitations(true)}
                   startIcon={<MailOutlineIcon />}
                   variant="contained"
                 >
                   {"Project Invitations"}
+                </Button>
+                <Button
+                  className="buttonEdit"
+                  color="primary"
+                  onClick={() => setSearchSkills(true)}
+                  variant="contained"
+                >
+                  {"Add Skills"}
                 </Button>
               </Grid>
             </div>
@@ -362,34 +364,36 @@ function Details() {
               Skills
             </Typography>
             <div className="resume-detail-searchbar">
-              <Paper className={classes.searchBoxContainer} component="form">
-                <InputBase
-                  className={classes.input}
-                  disabled={false}
-                  inputProps={{ "aria-label": "search google maps" }}
-                  onChange={(event) => setSkillInput(event.target.value)}
-                  placeholder="Search Skills"
-                />
-                <IconButton
-                  aria-label="search"
-                  className={classes.iconButton}
-                  disabled={false}
-                  onClick={getSkills}
-                  type="submit"
-                >
-                  <SearchIcon />
-                </IconButton>
-                {openModal ? (
-                  <ModalSkills
-                    allInfoData={data}
-                    data={data.skills}
-                    dataSkills={dataSkills}
-                    idUser={id}
-                    setData={setData}
-                    setOpenModal={setOpenModal}
-                  ></ModalSkills>
-                ) : null}
-              </Paper>
+              {searchSkills ? (
+                <Paper className={classes.searchBoxContainer} component="form">
+                  <InputBase
+                    className={classes.input}
+                    disabled={false}
+                    inputProps={{ "aria-label": "search google maps" }}
+                    onChange={(event) => setSkillInput(event.target.value)}
+                    placeholder="Search Skills"
+                  />
+                  <IconButton
+                    aria-label="search"
+                    className={classes.iconButton}
+                    disabled={false}
+                    onClick={getSkills}
+                    type="submit"
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                  {openModal ? (
+                    <ModalSkills
+                      allInfoData={data}
+                      data={data.skills}
+                      dataSkills={dataSkills}
+                      idUser={id}
+                      setData={setData}
+                      setOpenModal={setOpenModal}
+                    ></ModalSkills>
+                  ) : null}
+                </Paper>
+              ) : null}
             </div>
             {data.skills.map((skill) => (
               <Chip className="chip" key={skill.id} label={skill.name} />
