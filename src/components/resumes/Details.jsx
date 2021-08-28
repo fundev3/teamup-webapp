@@ -242,6 +242,13 @@ function Details() {
                 <Button
                   className="buttonEdit"
                   color="primary"
+                  variant="contained"
+                >
+                  {"Add Skills"}
+                </Button>
+                <Button
+                  className="buttonEdit"
+                  color="primary"
                   onClick={() => setModalInvitations(true)}
                   startIcon={<MailOutlineIcon />}
                   variant="contained"
