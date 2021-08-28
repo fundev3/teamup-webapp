@@ -135,7 +135,7 @@ function Entry() {
 
   return (
     <Container className="container">
-      <Link className="back-button" to="/projects">
+      <Link className="back-button-project" to="/projects">
         <ArrowBackIos></ArrowBackIos>
         Back
       </Link>
