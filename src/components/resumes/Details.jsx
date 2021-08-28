@@ -183,7 +183,7 @@ function Details() {
         justifyContent="center"
         style={{
           position: "absolute",
-          top: "15%",
+          top: "20%",
         }}
       >
         <Paper className={classes.paper}>

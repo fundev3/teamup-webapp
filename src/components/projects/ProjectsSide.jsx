@@ -33,7 +33,7 @@ function ProjectsSide(props) {
             onClick={() => setModalProjects(true)}
             variant="contained"
           >
-            Choose your project
+            Suggest me projects
           </Button>
         </div>
       </div>

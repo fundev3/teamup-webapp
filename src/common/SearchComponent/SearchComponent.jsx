@@ -23,7 +23,7 @@ function SearchComponent() {
   return (
     <div className="search-box">
       <div className="search-box-input">
-        <InputBase placeholder="Search project…" />
+        <InputBase placeholder="Search Resume..." />
       </div>
       <div className="search-box-icon">
         <SearchIcon className={classes.searchIcon} />
