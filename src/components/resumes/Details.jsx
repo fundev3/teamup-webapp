@@ -11,8 +11,10 @@ import ProgressComponent from "../../common/ProgressComponent/ProgressComponent"
 import ProjectsSide from "../projects/ProjectsSide";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
+import { alertWarning } from "../../store/actions/alertActions";
 import { entry as entryValidations } from "./helpers/validations";
 import { makeStyles } from "@material-ui/core/styles";
+import store from "../../store";
 import { useFormik } from "formik";
 import { userSingleImageSvg } from "../../constants/images";
 import {
@@ -119,16 +121,17 @@ function Details() {
     fetchData();
   }, [id]);
 
-  /* const edit = (event) => {
-    event.preventDefault();
+  const edit = (event) => {
+    /* event.preventDefault();
     if (disabled) {
       setStateButton("Save");
       setDisabled(false);
     } else {
       setStateButton("Edit");
       setDisabled(true);
-    }
-  }; */
+    } */
+    store.dispatch(alertWarning("This feature isn't yet fully implemented"));
+  };
 
   const getSkills = async (event) => {
     event.preventDefault();
