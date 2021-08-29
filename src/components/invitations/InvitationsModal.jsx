@@ -131,6 +131,7 @@ export default function InvitationsModal(props) {
     setInvitations([...allInvitations, ...successfulInvitations]);
     setShowSearch(false);
     setResumesNameList([]);
+    setResumesSelected([]);
     formik.values.textInvitation = "";
     onClose();
   };

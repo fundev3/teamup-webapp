@@ -1,12 +1,12 @@
 import Button from "@material-ui/core/Button";
-import Empty from "../../common/EmptyComponent/Empty";
 import ModalProjects from "./ModalProjects";
-import Typography from "@material-ui/core/Typography";
+import NotFound from "../resumes/NotFound";
+import { Box, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import "./ProjectsSide.scss";
 
 function ProjectsSide(props) {
-  const { idResume } = props;
+  const { idResume, setRefreshProjectsAndInvitations, skills, title } = props;
   const [modalProjects, setModalProjects] = useState(false);
 
   return (
@@ -16,6 +16,9 @@ function ProjectsSide(props) {
           <ModalProjects
             idResume={idResume}
             setModalProjects={setModalProjects}
+            setRefreshProjectsAndInvitations={setRefreshProjectsAndInvitations}
+            skills={skills}
+            title={title}
           />
         ) : null}
       </div>
@@ -31,13 +34,15 @@ function ProjectsSide(props) {
             onClick={() => setModalProjects(true)}
             variant="contained"
           >
-            Choose your project
+            Featured for you
           </Button>
         </div>
       </div>
-      <div className="projects-list">
-        <Empty message={"No projects yet"} size={100} />
-      </div>
+      <Box display="flex" justifyContent="space-between" mb={5} pt={5}>
+        <div className="projects-list">
+          <NotFound message={"There is no projects yet."} size={150} />
+        </div>
+      </Box>
     </div>
   );
 }

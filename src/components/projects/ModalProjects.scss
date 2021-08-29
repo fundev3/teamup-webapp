@@ -29,3 +29,13 @@
   align-items: center;
   cursor: pointer;
 }
+.dialog-content {
+  &__text {
+    font-size: 0.9rem;
+    color: #999999;
+    margin-bottom: 10px;
+  }
+}
+.size-dialog {
+  width: 450px;
+}
