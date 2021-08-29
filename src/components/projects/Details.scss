@@ -1,5 +1,10 @@
 .container-details {
   margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.MuiContainer-root.container-details{
+  display: flex;
 }
 .button {
   width: 250px;
@@ -13,7 +18,7 @@
   width: 100%;
 }
 
-.back-button {
+.back-button-project {
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -48,7 +53,8 @@ h6.MuiTypography-h6.overview {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0px 60px;
+  width: 65vw;
+  align-self: center;
 }
 .dialog-content {
   padding: 30px;

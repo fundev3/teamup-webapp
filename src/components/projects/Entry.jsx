@@ -1,4 +1,5 @@
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
+import CheckCircleRoundedIcon from "@material-ui/icons/CheckCircleRounded";
 import MemberList from "./MemberList";
 import { UploadButton } from "../../common";
 import { entry as entryValidations } from "./helpers/validations";
@@ -135,7 +136,7 @@ function Entry() {
 
   return (
     <Container className="container">
-      <Link className="back-button" to="/projects">
+      <Link className="back-button-project" to="/projects">
         <ArrowBackIos></ArrowBackIos>
         Back
       </Link>
@@ -305,7 +306,18 @@ function Entry() {
                   <label className="errorLogo" htmlFor="logo">
                     {hasErrorLogo ? formik.errors.logo : ""}
                   </label>
-                  <label>{formik.values.logo}</label>
+                  <Box display="Flex">
+                    {formik.values.logo && !hasErrorLogo ? (
+                      <>
+                        <CheckCircleRoundedIcon style={{ color: "#80B416" }} />
+                        <Typography style={{ color: "#80B416" }}>
+                          File was uploaded successfully
+                        </Typography>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </Box>
                 </div>
               </div>
             </div>

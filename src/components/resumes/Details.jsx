@@ -412,6 +412,7 @@ function Details() {
           <ProjectsSide
             idResume={data.id}
             setRefreshProjectsAndInvitations={setRefreshProjectsAndInvitations}
+            skills={data.skills}
             title={data.title}
           />
         </Paper>
