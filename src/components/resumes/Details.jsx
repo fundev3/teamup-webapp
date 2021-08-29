@@ -28,7 +28,7 @@ import {
 } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { getResume, getSkillsByName } from "./ResumesAPI.js";
+import { getResume, getSkillsByName, postSkillsById } from "./ResumesAPI.js";
 import "./Details.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -124,8 +124,17 @@ function Details() {
     fetchData();
   }, [id]);
 
-  const handleDelete = () => {};
+  const handleDelete = (chipToDelete) => () => {
+    let { skills, ...information } = data;
+    skills = data.skills.filter((chip) => chip.name !== chipToDelete);
+    setData({ ...information, skills });
+  };
 
+  const saveSkills = async (event) => {
+    event.preventDefault();
+    await postSkillsById(data.id, data.skills);
+    setStateSearchSkills(false);
+  };
   function changeStateSearchSkills() {
     if (stateSearchSkills) {
       setStateSearchSkills(false);
@@ -134,14 +143,6 @@ function Details() {
     }
   }
   const edit = (event) => {
-    /* event.preventDefault();
-    if (disabled) {
-      setStateButton("Save");
-      setDisabled(false);
-    } else {
-      setStateButton("Edit");
-      setDisabled(true);
-    } */
     store.dispatch(alertWarning("This feature isn't yet fully implemented"));
   };
 
@@ -173,6 +174,7 @@ function Details() {
     // onSubmit: edit,
     validationSchema: entryValidations(),
   });
+
   if (error)
     return (
       <NotFound message={"Sorry, we couldn't find this resume"} size={200} />
@@ -394,6 +396,7 @@ function Details() {
                   <Button
                     className={classes.button}
                     color="primary"
+                    onClick={saveSkills}
                     variant="contained"
                   >
                     SAVE
@@ -443,7 +446,7 @@ function Details() {
                 className="chip"
                 key={skill.id}
                 label={skill.name}
-                onDelete={stateSearchSkills === true ? handleDelete : null}
+                onDelete={handleDelete(skill.name)}
               />
             ))}
           </div>
