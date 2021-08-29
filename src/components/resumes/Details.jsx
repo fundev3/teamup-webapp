@@ -100,7 +100,6 @@ function Details() {
   const classes = useStyles();
   const [data, setData] = useState();
   const [error, setError] = useState();
-  // const [stateButton, setStateButton] = useState("Edit");
   const [stateSearchSkills, setStateSearchSkills] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [skillInput, setSkillInput] = useState("");
@@ -142,9 +141,6 @@ function Details() {
       setStateSearchSkills(true);
     }
   }
-  const edit = (event) => {
-    store.dispatch(alertWarning("This feature isn't yet fully implemented"));
-  };
 
   const getSkills = async (event) => {
     event.preventDefault();
@@ -446,7 +442,7 @@ function Details() {
                 className="chip"
                 key={skill.id}
                 label={skill.name}
-                onDelete={handleDelete(skill.name)}
+                onDelete={stateSearchSkills ? handleDelete(skill.name) : null}
               />
             ))}
           </div>
