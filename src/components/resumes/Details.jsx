@@ -376,9 +376,31 @@ function Details() {
             </div>
           </div>
           <div className="skills-side">
-            <Typography color="primary" gutterBottom variant="h6">
-              Skills
-            </Typography>
+            <div className="skill-title-button">
+              <div>
+                <Typography color="primary" gutterBottom variant="h6">
+                  Skills
+                </Typography>
+              </div>
+              {stateSearchSkills ? (
+                <div className="skills-edit">
+                  <Button
+                    className={classes.button}
+                    onClick={changeStateSearchSkills}
+                    variant="contained"
+                  >
+                    CANCEL
+                  </Button>
+                  <Button
+                    className={classes.button}
+                    color="primary"
+                    variant="contained"
+                  >
+                    SAVE
+                  </Button>
+                </div>
+              ) : null}
+            </div>
             {stateSearchSkills ? (
               <div className="skills-buttons">
                 <div className="skills-search">
@@ -413,22 +435,6 @@ function Details() {
                       ></ModalSkills>
                     ) : null}
                   </Paper>
-                </div>
-                <div className="skills-edit">
-                  <Button
-                    className={classes.button}
-                    onClick={changeStateSearchSkills}
-                    variant="contained"
-                  >
-                    CANCEL
-                  </Button>
-                  <Button
-                    className={classes.button}
-                    color="primary"
-                    variant="contained"
-                  >
-                    SAVE
-                  </Button>
                 </div>
               </div>
             ) : null}

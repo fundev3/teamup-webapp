@@ -103,3 +103,7 @@
   float: right;
   width: 20%;
 }
+.skill-title-button {
+  display: flex;
+  justify-content: space-between;
+}
