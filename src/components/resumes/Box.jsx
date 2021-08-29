@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Box(props) {
   const { id, contact, person, summary, skills } = props;
-  console.log(skills);
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
