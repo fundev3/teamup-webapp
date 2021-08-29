@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Box(props) {
   const { id, contact, person, summary, skills } = props;
+  console.log(skills);
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
@@ -60,9 +61,11 @@ function Box(props) {
       </div>
       <Divider />
       <div className="chip-skills">
-        {skills.map((skill) => (
-          <Chip className="chip" key={skill.id} label={skill.name} />
-        ))}
+        {skills.map((skill) =>
+          skill !== null ? (
+            <Chip className="chip" key={skill.id} label={skill.name} />
+          ) : null
+        )}
       </div>
       <div className="resume-button">
         <Link style={{ textDecoration: "none" }} to={`/resumes/${id}`}>

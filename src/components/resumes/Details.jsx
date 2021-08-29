@@ -437,14 +437,16 @@ function Details() {
                 </div>
               </div>
             ) : null}
-            {data.skills.map((skill) => (
-              <Chip
-                className="chip"
-                key={skill.id}
-                label={skill.name}
-                onDelete={stateSearchSkills ? handleDelete(skill.name) : null}
-              />
-            ))}
+            {data.skills.map((skill) =>
+              skill !== null ? (
+                <Chip
+                  className="chip"
+                  key={skill.id}
+                  label={skill.name}
+                  onDelete={stateSearchSkills ? handleDelete(skill.name) : null}
+                />
+              ) : null
+            )}
           </div>
           <ApplicationsSide
             idResume={data.id}
