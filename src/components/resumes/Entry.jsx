@@ -66,11 +66,10 @@ function Entry() {
           lastName: values.lastName,
           picture: null,
         },
-        skills: {},
+        skills: [],
         summary: values.summary,
         title: values.firstName + " " + values.lastName,
       };
-      console.log(resume);
       await postResume(resume);
       history.push("/");
     },
