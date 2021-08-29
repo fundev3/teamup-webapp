@@ -32,6 +32,9 @@ import { getResume, getSkillsByName } from "./ResumesAPI.js";
 import "./Details.css";
 
 const useStyles = makeStyles((theme) => ({
+  button: {
+    marginLeft: 10,
+  },
   divider: {
     height: 28,
     margin: 4,
@@ -86,9 +89,9 @@ const useStyles = makeStyles((theme) => ({
   searchBoxContainer: {
     alignItems: "center",
     display: "flex",
-    marginBottom: "15px",
+    margin: "15px",
     padding: "2px 4px",
-    width: "100%",
+    width: "300px",
   },
 }));
 
@@ -98,7 +101,7 @@ function Details() {
   const [data, setData] = useState();
   const [error, setError] = useState();
   // const [stateButton, setStateButton] = useState("Edit");
-  const [searchSkills, setSearchSkills] = useState(false);
+  const [stateSearchSkills, setStateSearchSkills] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [skillInput, setSkillInput] = useState("");
   const [openModal, setOpenModal] = React.useState(false);
@@ -121,6 +124,15 @@ function Details() {
     fetchData();
   }, [id]);
 
+  const handleDelete = () => {};
+
+  function changeStateSearchSkills() {
+    if (stateSearchSkills) {
+      setStateSearchSkills(false);
+    } else {
+      setStateSearchSkills(true);
+    }
+  }
   const edit = (event) => {
     /* event.preventDefault();
     if (disabled) {
@@ -255,7 +267,8 @@ function Details() {
                 <Button
                   className="buttonEdit"
                   color="primary"
-                  onClick={() => setSearchSkills(true)}
+                  disabled={stateSearchSkills}
+                  onClick={changeStateSearchSkills}
                   variant="contained"
                 >
                   {"Add Skills"}
@@ -366,40 +379,66 @@ function Details() {
             <Typography color="primary" gutterBottom variant="h6">
               Skills
             </Typography>
-            <div className="resume-detail-searchbar">
-              {searchSkills ? (
-                <Paper className={classes.searchBoxContainer} component="form">
-                  <InputBase
-                    className={classes.input}
-                    disabled={false}
-                    inputProps={{ "aria-label": "search google maps" }}
-                    onChange={(event) => setSkillInput(event.target.value)}
-                    placeholder="Search Skills"
-                  />
-                  <IconButton
-                    aria-label="search"
-                    className={classes.iconButton}
-                    disabled={false}
-                    onClick={getSkills}
-                    type="submit"
+            {stateSearchSkills ? (
+              <div className="skills-buttons">
+                <div className="skills-search">
+                  <Paper
+                    className={classes.searchBoxContainer}
+                    component="form"
                   >
-                    <SearchIcon />
-                  </IconButton>
-                  {openModal ? (
-                    <ModalSkills
-                      allInfoData={data}
-                      data={data.skills}
-                      dataSkills={dataSkills}
-                      idUser={id}
-                      setData={setData}
-                      setOpenModal={setOpenModal}
-                    ></ModalSkills>
-                  ) : null}
-                </Paper>
-              ) : null}
-            </div>
+                    <InputBase
+                      className={classes.input}
+                      disabled={false}
+                      inputProps={{ "aria-label": "search google maps" }}
+                      onChange={(event) => setSkillInput(event.target.value)}
+                      placeholder="Search Skills"
+                    />
+                    <IconButton
+                      aria-label="search"
+                      className={classes.iconButton}
+                      disabled={false}
+                      onClick={getSkills}
+                      type="submit"
+                    >
+                      <SearchIcon />
+                    </IconButton>
+                    {openModal ? (
+                      <ModalSkills
+                        allInfoData={data}
+                        data={data.skills}
+                        dataSkills={dataSkills}
+                        idUser={id}
+                        setData={setData}
+                        setOpenModal={setOpenModal}
+                      ></ModalSkills>
+                    ) : null}
+                  </Paper>
+                </div>
+                <div className="skills-edit">
+                  <Button
+                    className={classes.button}
+                    onClick={changeStateSearchSkills}
+                    variant="contained"
+                  >
+                    CANCEL
+                  </Button>
+                  <Button
+                    className={classes.button}
+                    color="primary"
+                    variant="contained"
+                  >
+                    SAVE
+                  </Button>
+                </div>
+              </div>
+            ) : null}
             {data.skills.map((skill) => (
-              <Chip className="chip" key={skill.id} label={skill.name} />
+              <Chip
+                className="chip"
+                key={skill.id}
+                label={skill.name}
+                onDelete={stateSearchSkills === true ? handleDelete : null}
+              />
             ))}
           </div>
           <ApplicationsSide
