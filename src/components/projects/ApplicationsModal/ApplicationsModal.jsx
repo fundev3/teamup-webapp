@@ -7,6 +7,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MuiAccordion from "@material-ui/core/Accordion";
 import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
+import { updateProject } from "./ApplicationAPI";
 import { Dialog, DialogContent, List, Typography } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import "./ApplicationsModal.scss";
@@ -72,8 +73,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ApplicationsModal({ onClickModal, open, postulations }) {
+function ApplicationsModal({ onClickModal, open, postulations, projectId }) {
   const classes = useStyles();
+
+  async function handleAccept(projectId, resumeID, resumeName) {
+    await updateProject(projectId, resumeID, resumeName);
+    onClickModal();
+  }
+
   return (
     <div>
       <Dialog onClose={onClickModal} open={open}>
@@ -113,6 +120,13 @@ function ApplicationsModal({ onClickModal, open, postulations }) {
                         <div style={{ display: "flex", marginBottom: "3%" }}>
                           <Button
                             color="primary"
+                            onClick={() =>
+                              handleAccept(
+                                projectId,
+                                postulation.resumeId,
+                                postulation.resumeName
+                              )
+                            }
                             style={{ fontSize: "10px", marginLeft: "40%" }}
                             variant="outlined"
                           >
