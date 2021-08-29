@@ -36,6 +36,10 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     margin: "40px 0px 40px 25px",
   },
+  linkCancel: {
+    color: "black",
+    textDecoration: "none",
+  },
 });
 
 function Entry() {
@@ -271,9 +275,11 @@ function Entry() {
               </div>
             </Paper>
           </Box>
-          <Box display="flex" justifyContent="flex-end">
+          <Box display="flex" justifyContent="flex-end" marginBottom="40px">
             <Button className={classes.cancel} variant="contained">
-              Cancel
+              <Link className={classes.linkCancel} to="/resumes">
+                Cancel
+              </Link>
             </Button>
             <Button
               className={classes.create}
