@@ -170,8 +170,8 @@ function Details() {
           setModalInvitations={setModalInvitations}
         />
       ) : null}
-      <div className="back-button">
-        <Link to="/resumes">
+      <div>
+        <Link className="back-resumes-button" to="/resumes">
           <ArrowBackIos></ArrowBackIos>
           Back
         </Link>
