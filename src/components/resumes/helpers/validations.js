@@ -4,7 +4,7 @@ export const entry = () =>
   Yup.object({
     address: Yup.string()
       .min(3, "Address is too short - should be 3 characters minimum")
-      .max(20, "Please enter an address with 20 characters or less")
+      .max(50, "Please enter an address with 20 characters or less")
       .required("Address field is required"),
     birthdate: Yup.string()
       .matches(
