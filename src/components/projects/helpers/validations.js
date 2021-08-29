@@ -17,7 +17,7 @@ export const entry = () =>
       .min(3, "Must be 3 characters or more")
       .max(15, "Must be 15 characters or less")
       .required("Introduce the name off the project")
-      .matches(/^[a-zñA-ZÑ]*$/, "Must be valid characteres"),
+      .matches(/^[a-zñA-ZÑ\s]*$/, "Must be valid characteres"),
     textInvitation: Yup.string()
       .max(160, "Must be 160 characters or less")
       .required("Write a text invitation"),

@@ -7,6 +7,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import NotFound from "../resumes/NotFound";
 import SearchIcon from "@material-ui/icons/Search";
 import { getProjectBySkill } from "./ProjectsAPI.js";
+import { getProjectsBySkillName } from "./helpers";
 import { makeStyles } from "@material-ui/core/styles";
 import { postPostulation } from "../resumes/ResumesAPI.js";
 import {
@@ -46,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ModalProjects({
   idResume,
+  skills,
   setModalProjects,
   setRefreshProjectsAndInvitations,
   title,
@@ -65,6 +67,11 @@ export default function ModalProjects({
     if (send) {
       setRefreshProjectsAndInvitations(true);
     }
+    async function getProjects() {
+      const result = await getProjectsBySkillName(skills);
+      setDataProjects(result);
+    }
+    getProjects();
   }, [send]);
 
   const sendProject = async (idResume, project) => {
@@ -93,32 +100,18 @@ export default function ModalProjects({
         onClose={() => setModalProjects(false)}
         open={true}
       >
-        <div className="dialog-content">
-          <div className="dialog-header">
+        <div className="dialog-content size-dialog">
+          <div className="dialog-header" style={{ marginBottom: "5px" }}>
             <Typography color="primary" variant="h6">
-              Choose your Project
+              Project featured for you
             </Typography>
             <CloseIcon
               className={classes.modalCloseIcon}
               onClick={() => setModalProjects(false)}
             />
           </div>
-          <div className="search-project-box">
-            <div className="search-project-input">
-              <TextField
-                InputProps={{ disableUnderline: "disabled" }}
-                className={classes.searchField}
-                onChange={(event) => setInputValue(event.target.value)}
-                placeholder="Find your Project"
-                type="search"
-              />
-            </div>
-            <div className="search-project-icon">
-              <SearchIcon
-                className={classes.searchIcon}
-                onClick={getProjects}
-              />
-            </div>
+          <div className="dialog-content__text">
+            Based on your skills, this projects may interest you
           </div>
           <DialogContent className={classes.modalContent}>
             <List>
@@ -148,7 +141,10 @@ export default function ModalProjects({
                   </ListItem>
                 ))
               ) : (
-                <Empty message={""} size={50} />
+                <Empty
+                  message={"There are no projetcs with your skills yet"}
+                  size={50}
+                />
               )}
             </List>
           </DialogContent>
