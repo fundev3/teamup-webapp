@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import "./ProjectsSide.scss";
 
 function ProjectsSide(props) {
-  const { idResume, setRefreshProjectsAndInvitations, title } = props;
+  const { idResume, setRefreshProjectsAndInvitations, skills, title } = props;
   const [modalProjects, setModalProjects] = useState(false);
 
   return (
@@ -17,6 +17,7 @@ function ProjectsSide(props) {
             idResume={idResume}
             setModalProjects={setModalProjects}
             setRefreshProjectsAndInvitations={setRefreshProjectsAndInvitations}
+            skills={skills}
             title={title}
           />
         ) : null}
@@ -33,7 +34,7 @@ function ProjectsSide(props) {
             onClick={() => setModalProjects(true)}
             variant="contained"
           >
-            Choose your project
+            Featured for you
           </Button>
         </div>
       </div>
