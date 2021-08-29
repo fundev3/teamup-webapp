@@ -1,33 +1,39 @@
 import Avatar from "@material-ui/core/Avatar";
-import { BASE_URL } from "../../constants";
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import CloseIcon from "@material-ui/icons/Close";
-import Empty from "../../common/EmptyComponent/Empty";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import NotFound from "../resumes/NotFound";
-import SearchIcon from "@material-ui/icons/Search";
 import { getProjectBySkill } from "./ProjectsAPI.js";
 import { getProjectsBySkillName } from "./helpers";
 import { makeStyles } from "@material-ui/core/styles";
 import { postPostulation } from "../resumes/ResumesAPI.js";
+import { BASE_URL, emptyImageSvg } from "../../constants";
 import {
   Dialog,
   DialogContent,
   List,
   ListItem,
   ListItemText,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import "./ModalProjects.scss";
 
 const useStyles = makeStyles((theme) => ({
+  loadingModalProject: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "4vh",
+  },
   modalCloseIcon: {
     color: "#4350af",
+    cursor: "pointer",
     display: "flex",
+    fontSize: "30px",
   },
   modalContent: {
+    alignItems: "center",
     display: "flex",
     flexDirection: "column",
     padding: 0,
@@ -35,13 +41,10 @@ const useStyles = makeStyles((theme) => ({
   modalProject: {
     width: 500,
   },
-  searchField: {
-    "&.MuiFormControl-root": {
-      width: "100%",
-    },
-  },
-  searchIcon: {
-    color: "#ffffff",
+  notFoundLabel: {
+    color: "#C0C0C0",
+    fontSize: "0.9rem",
+    fontWeight: "bold",
   },
 }));
 
@@ -56,6 +59,7 @@ export default function ModalProjects({
   const [dataProjects, setDataProjects] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [send, setSend] = useState(false);
+  const [loadingProject, setLoadingProject] = useState(false);
 
   const getProjects = async (event) => {
     event.preventDefault();
@@ -66,10 +70,12 @@ export default function ModalProjects({
   useEffect(() => {
     if (send) {
       setRefreshProjectsAndInvitations(true);
+      setLoadingProject(false);
     }
     async function getProjects() {
       const result = await getProjectsBySkillName(skills);
       setDataProjects(result);
+      setLoadingProject(true);
     }
     getProjects();
   }, [send]);
@@ -103,7 +109,7 @@ export default function ModalProjects({
         <div className="dialog-content size-dialog">
           <div className="dialog-header" style={{ marginBottom: "5px" }}>
             <Typography color="primary" variant="h6">
-              Project featured for you
+              Projects featured for you
             </Typography>
             <CloseIcon
               className={classes.modalCloseIcon}
@@ -111,7 +117,7 @@ export default function ModalProjects({
             />
           </div>
           <div className="dialog-content__text">
-            Based on your skills, this projects may interest you
+            Based on your skills, this projects may interest you!
           </div>
           <DialogContent className={classes.modalContent}>
             <List>
@@ -140,11 +146,30 @@ export default function ModalProjects({
                     </Button>
                   </ListItem>
                 ))
+              ) : !loadingProject ? (
+                <div className={classes.loadingModalProject}>
+                  <CircularProgress
+                    style={{
+                      height: "50px",
+                      margin: "0px",
+                      width: "50px",
+                    }}
+                  />
+                </div>
               ) : (
-                <Empty
-                  message={"There are no projetcs with your skills yet"}
-                  size={50}
-                />
+                <div className="not-found-projects">
+                  <img
+                    alt="emptyImage"
+                    src={emptyImageSvg}
+                    style={{ width: "130px" }}
+                  />
+                  <Typography className={classes.notFoundLabel}>
+                    Sorry, we couldn't find projects
+                  </Typography>
+                  <Typography className={classes.notFoundLabel}>
+                    that match your skills yet
+                  </Typography>
+                </div>
               )}
             </List>
           </DialogContent>
