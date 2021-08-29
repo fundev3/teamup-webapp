@@ -1,10 +1,9 @@
 import Card from "./Card";
 import ProgressComponent from "../../common/ProgressComponent/ProgressComponent";
-import SearchIcon from "@material-ui/icons/Search";
 import { getProjects } from "./ProjectsAPI.js";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-import { Button, CardContent, InputBase, Paper } from "@material-ui/core";
+import { Button, CardContent, Paper } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import "./Projects.scss";
 
@@ -18,9 +17,6 @@ const useStyles = makeStyles({
   paperBackground: {
     margin: "20px 0px",
     width: "500px",
-  },
-  searchIcon: {
-    color: "#ffffff",
   },
 });
 
@@ -49,14 +45,6 @@ function ProjectList() {
         <Button color="primary" onClick={handleEntryClick} variant="contained">
           New Project
         </Button>
-        <div className="search-box">
-          <div className="search-box-input">
-            <InputBase placeholder="Search project…" />
-          </div>
-          <div className="search-box-icon">
-            <SearchIcon className={classes.searchIcon} />
-          </div>
-        </div>
       </div>
       <div className="projects-list">
         {projects.length === 0 ? (
