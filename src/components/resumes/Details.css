@@ -83,13 +83,12 @@
 .detail-resume-information {
   margin: 15px 0px;
 }
-.back-button {
+.back-to-reumes {
   display: flex;
   align-items: center;
   text-decoration: none;
+  margin-left: 2%;
   color: #4350af;
   font-size: 1.3rem;
   font-weight: 500;
-  margin-left: 17%;
-  margin-top: 3%;
 }
