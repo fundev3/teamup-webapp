@@ -62,7 +62,7 @@ function ApplicationsSide(props) {
         </div>
         <Box display="flex" justifyContent="space-between" mb={5} pt={5}>
           <div className="applications-list">
-            {applications.length === 0 ? (
+            {applications.length == null ? (
               <NotFound message={"There is no applications yet."} size={150} />
             ) : (
               applications.map((application) => (
