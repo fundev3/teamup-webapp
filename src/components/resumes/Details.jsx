@@ -426,6 +426,7 @@ function Details() {
                       inputProps={{ "aria-label": "search google maps" }}
                       onChange={(event) => setSkillInput(event.target.value)}
                       placeholder="Search Skills"
+                      value={skillInput}
                     />
                     <IconButton
                       aria-label="search"
