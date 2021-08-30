@@ -1,7 +1,9 @@
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
+import { alertSuccess } from "../../store/actions/alertActions";
 import { entry as entryValidations } from "./helpers/validations";
 import { makeStyles } from "@material-ui/core/styles";
 import { postResume } from "./ResumesAPI.js";
+import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import {
   Box,
@@ -44,6 +46,7 @@ const useStyles = makeStyles({
 
 function Entry() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const history = useHistory();
   const formik = useFormik({
     initialValues: {
@@ -74,8 +77,11 @@ function Entry() {
         summary: values.summary,
         title: values.firstName + " " + values.lastName,
       };
-      await postResume(resume);
-      history.push("/");
+      const response = await postResume(resume);
+      if (response.ok) {
+        dispatch(alertSuccess("Your profile has been created successfully"));
+        return history.push("/resumes");
+      }
     },
     validationSchema: entryValidations(),
   });
