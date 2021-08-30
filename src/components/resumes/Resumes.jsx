@@ -23,7 +23,6 @@ function ResumeList() {
   return (
     <Container className="resumes-container">
       <div className="head-container">
-        <SearchComponent></SearchComponent>
         <div className="button-container">
           <Link style={{ textDecoration: "none" }} to="/resumes/entry">
             <Button color="primary" variant="contained">

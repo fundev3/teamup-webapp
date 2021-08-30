@@ -11,8 +11,10 @@ import ProgressComponent from "../../common/ProgressComponent/ProgressComponent"
 import ProjectsSide from "../projects/ProjectsSide";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
+import { alertWarning } from "../../store/actions/alertActions";
 import { entry as entryValidations } from "./helpers/validations";
 import { makeStyles } from "@material-ui/core/styles";
+import store from "../../store";
 import { useFormik } from "formik";
 import { userSingleImageSvg } from "../../constants/images";
 import {
@@ -26,10 +28,13 @@ import {
 } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { getResume, getSkillsByName } from "./ResumesAPI.js";
+import { getResume, getSkillsByName, postSkillsById } from "./ResumesAPI.js";
 import "./Details.css";
 
 const useStyles = makeStyles((theme) => ({
+  button: {
+    marginLeft: 10,
+  },
   divider: {
     height: 28,
     margin: 4,
@@ -84,19 +89,18 @@ const useStyles = makeStyles((theme) => ({
   searchBoxContainer: {
     alignItems: "center",
     display: "flex",
-    marginBottom: "15px",
+    margin: "15px",
     padding: "2px 4px",
-    width: "100%",
+    width: "300px",
   },
 }));
 
 function Details() {
   let { id } = useParams();
   const classes = useStyles();
-  const handleDelete = () => {};
   const [data, setData] = useState();
   const [error, setError] = useState();
-  const [stateButton, setStateButton] = useState("Edit");
+  const [stateSearchSkills, setStateSearchSkills] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [skillInput, setSkillInput] = useState("");
   const [openModal, setOpenModal] = React.useState(false);
@@ -119,14 +123,31 @@ function Details() {
     fetchData();
   }, [id]);
 
-  const edit = (event) => {
+  const handleDelete = (chipToDelete) => () => {
+    let { skills, ...information } = data;
+    skills = data.skills.filter((chip) => chip.name !== chipToDelete);
+    setData({ ...information, skills });
+  };
+
+  const cancelSkills = async () => {
+    const response = await getResume(id);
+    const data = response.data;
+    const error = response.handlerError;
+    setError(error);
+    setData(data);
+  };
+
+  const saveSkills = async (event) => {
     event.preventDefault();
-    if (disabled) {
-      setStateButton("Save");
-      setDisabled(false);
+    await postSkillsById(data.id, data.skills);
+    setStateSearchSkills(false);
+  };
+
+  const changeStateSearchSkills = () => {
+    if (stateSearchSkills) {
+      setStateSearchSkills(false);
     } else {
-      setStateButton("Edit");
-      setDisabled(true);
+      setStateSearchSkills(true);
     }
   };
 
@@ -155,9 +176,10 @@ function Details() {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: initialValues,
-    onSubmit: edit,
+    // onSubmit: edit,
     validationSchema: entryValidations(),
   });
+
   if (error)
     return (
       <NotFound message={"Sorry, we couldn't find this resume"} size={200} />
@@ -170,8 +192,8 @@ function Details() {
           setModalInvitations={setModalInvitations}
         />
       ) : null}
-      <div className="back-button">
-        <Link to="/resumes">
+      <div>
+        <Link className="back-resumes-button" to="/resumes">
           <ArrowBackIos></ArrowBackIos>
           Back
         </Link>
@@ -252,10 +274,11 @@ function Details() {
                 <Button
                   className="buttonEdit"
                   color="primary"
-                  onClick={edit}
+                  disabled={stateSearchSkills}
+                  onClick={changeStateSearchSkills}
                   variant="contained"
                 >
-                  {stateButton}
+                  {"Add Skills"}
                 </Button>
               </Grid>
             </div>
@@ -360,49 +383,82 @@ function Details() {
             </div>
           </div>
           <div className="skills-side">
-            <Typography color="primary" gutterBottom variant="h6">
-              Skills
-            </Typography>
-            <div className="resume-detail-searchbar">
-              {!disabled ? (
-                <Paper className={classes.searchBoxContainer} component="form">
-                  <InputBase
-                    className={classes.input}
-                    disabled={disabled}
-                    inputProps={{ "aria-label": "search google maps" }}
-                    onChange={(event) => setSkillInput(event.target.value)}
-                    placeholder="Search Skills"
-                  />
-                  <IconButton
-                    aria-label="search"
-                    className={classes.iconButton}
-                    disabled={disabled}
-                    onClick={getSkills}
-                    type="submit"
+            <div className="skill-title-button">
+              <div>
+                <Typography color="primary" gutterBottom variant="h6">
+                  Skills
+                </Typography>
+              </div>
+              {stateSearchSkills ? (
+                <div className="skills-edit">
+                  <Button
+                    className={classes.button}
+                    onClick={() => {
+                      changeStateSearchSkills();
+                      cancelSkills();
+                    }}
+                    variant="contained"
                   >
-                    <SearchIcon />
-                  </IconButton>
-                  {openModal ? (
-                    <ModalSkills
-                      allInfoData={data}
-                      data={data.skills}
-                      dataSkills={dataSkills}
-                      idUser={id}
-                      setData={setData}
-                      setOpenModal={setOpenModal}
-                    ></ModalSkills>
-                  ) : null}
-                </Paper>
+                    CANCEL
+                  </Button>
+                  <Button
+                    className={classes.button}
+                    color="primary"
+                    onClick={saveSkills}
+                    variant="contained"
+                  >
+                    SAVE
+                  </Button>
+                </div>
               ) : null}
             </div>
-            {data.skills.map((skill) => (
-              <Chip
-                className="chip"
-                key={skill.id}
-                label={skill.name}
-                onDelete={stateButton === "Save" ? handleDelete : null}
-              />
-            ))}
+            {stateSearchSkills ? (
+              <div className="skills-buttons">
+                <div className="skills-search">
+                  <Paper
+                    className={classes.searchBoxContainer}
+                    component="form"
+                  >
+                    <InputBase
+                      className={classes.input}
+                      disabled={false}
+                      inputProps={{ "aria-label": "search google maps" }}
+                      onChange={(event) => setSkillInput(event.target.value)}
+                      placeholder="Search Skills"
+                    />
+                    <IconButton
+                      aria-label="search"
+                      className={classes.iconButton}
+                      disabled={false}
+                      onClick={getSkills}
+                      type="submit"
+                    >
+                      <SearchIcon />
+                    </IconButton>
+                    {openModal ? (
+                      <ModalSkills
+                        allInfoData={data}
+                        data={data.skills}
+                        dataSkills={dataSkills}
+                        idUser={id}
+                        setData={setData}
+                        setOpenModal={setOpenModal}
+                      ></ModalSkills>
+                    ) : null}
+                  </Paper>
+                </div>
+              </div>
+            ) : null}
+            {data.skills.map((skill) =>
+              skill !== null ? (
+                <Chip
+                  className="chip"
+                  key={skill.id}
+                  label={skill.name}
+                  onDelete={stateSearchSkills ? handleDelete(skill.name) : null}
+                />
+              ) : null
+            )}
           </div>
           <ApplicationsSide
             idResume={data.id}
