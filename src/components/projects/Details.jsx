@@ -27,9 +27,6 @@ import React, { useEffect, useState } from "react";
 
 import "./Details.scss";
 const useStyles = makeStyles({
-  buttonEdit: {
-    margin: "0px 90px",
-  },
   customGrayFont: {
     color: "#d2d2d2",
     fontSize: "1.2rem",
@@ -86,7 +83,7 @@ function Details() {
     <div>
       <Container className="container-details">
         <div className="header-container">
-          <Link className="back-button" to="/projects">
+          <Link className="back-button-project" to="/projects">
             <ArrowBackIos></ArrowBackIos>
             Back
           </Link>

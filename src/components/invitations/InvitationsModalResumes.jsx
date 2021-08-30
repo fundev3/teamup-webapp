@@ -1,4 +1,3 @@
-import { BASE_URL } from "../../constants";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -64,6 +63,9 @@ const useStyles = makeStyles((theme) => ({
   modalInvitations: {
     padding: 50,
   },
+  project: {
+    padding: "10px",
+  },
   summary: {
     left: 10,
   },
@@ -100,9 +102,9 @@ function InvitationsModal({ idResume, setModalInvitations, title }) {
       </DialogTitle>
       <DialogContent>
         {dataInvitations.length !== 0 ? (
-          dataInvitations.map((invitation) => (
+          dataInvitations.map((invitation, idx) => (
             <>
-              <Accordion>
+              <Accordion key={idx}>
                 <AccordionSummary
                   aria-controls="panel1a-content"
                   button
@@ -111,10 +113,7 @@ function InvitationsModal({ idResume, setModalInvitations, title }) {
                   id="panel1a-header"
                 >
                   <div className="logo">
-                    <img
-                      alt="logo"
-                      src={`${BASE_URL}/${invitation.pictureResume}`}
-                    />
+                    <img alt="logo" src={`${invitation.pictureResume}`} />
                   </div>
                   <div className={classes.project}>
                     <Typography color="primary" variant="h6">
