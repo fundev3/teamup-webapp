@@ -10,7 +10,6 @@ function InvitationsNotifications(props) {
   useEffect(() => {
     async function data() {
       const invitations = await getInvitationsByResume(idResume);
-      console.log(invitations);
       setNotifications(invitations.length);
     }
     data();
