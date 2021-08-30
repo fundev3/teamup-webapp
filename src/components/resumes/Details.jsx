@@ -158,6 +158,7 @@ function Details() {
       setDataSkills(response.data);
       handleClickOpen();
     }
+    setSkillInput("");
   };
 
   const initialValues = {
