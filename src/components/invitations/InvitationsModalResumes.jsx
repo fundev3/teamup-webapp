@@ -8,9 +8,13 @@ import MuiAccordion from "@material-ui/core/Accordion";
 import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
-import { getInvitationsByResume } from "./InvitationsAPI.js";
 import { Dialog, DialogTitle } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import {
+  acceptRejectInvitations,
+  getInvitationsByResume,
+} from "./InvitationsAPI.js";
+
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import "./InvitationsModalResumes.scss";
 
@@ -72,16 +76,46 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function InvitationsModal({ idResume, setModalInvitations, title }) {
+  const [dataInvitations, setDataInvitations] = useState([]);
+  const [send, setSend] = useState(false);
+
+  const model = [
+    {
+      op: "replace",
+      path: "/status",
+      value: "Invited",
+    },
+  ];
+
   const classes = useStyles();
   useEffect(() => {
     async function data() {
       const invitations = await getInvitationsByResume(idResume);
       setDataInvitations(invitations);
+      invitations.map((data) => (data["disabled"] = false));
+      console.log(invitations);
+      setSend(false);
     }
     data();
   }, [idResume]);
 
-  const [dataInvitations, setDataInvitations] = useState([]);
+  const operationsInvitation = async (operation, idx) => {
+    const information = [...dataInvitations];
+    for (let index = 0; index < information.length; index++) {
+      const element = information[index];
+      if (idx == element.id) {
+        element.disabled = true;
+        model[0].value = operation;
+        if (operation === "Accepted") {
+          await acceptRejectInvitations(idx, model);
+        } else {
+          await acceptRejectInvitations(idx, model);
+        }
+      }
+    }
+    setDataInvitations(information);
+  };
+
   return (
     <Dialog
       aria-describedby="alert-dialog-description"
@@ -102,49 +136,59 @@ function InvitationsModal({ idResume, setModalInvitations, title }) {
       </DialogTitle>
       <DialogContent>
         {dataInvitations.length !== 0 ? (
-          dataInvitations.map((invitation, idx) => (
-            <>
-              <Accordion key={idx}>
-                <AccordionSummary
-                  aria-controls="panel1a-content"
-                  button
-                  className={classes.summary}
-                  expandIcon={<ExpandMoreIcon />}
-                  id="panel1a-header"
-                >
-                  <div className="logo">
-                    <img alt="logo" src={`${invitation.pictureResume}`} />
-                  </div>
-                  <div className={classes.project}>
-                    <Typography color="primary" variant="h6">
-                      {invitation.projectName}
-                    </Typography>
-                    <Typography>{invitation.textInvitation}</Typography>
-                  </div>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Divider />
-                  <div className={classes.buttons}>
-                    <Button
-                      className={classes.button}
-                      color="primary"
-                      variant="outlined"
-                    >
-                      Accept
-                    </Button>
-                    <Button
-                      className={classes.button}
-                      color="secondary"
-                      variant="outlined"
-                    >
-                      Reject
-                    </Button>
-                  </div>
-                </AccordionDetails>
-              </Accordion>
-              <Divider />
-            </>
-          ))
+          dataInvitations.map((invitation, idx) =>
+            invitation.status == "Invited" ? (
+              <>
+                <Accordion key={idx}>
+                  <AccordionSummary
+                    aria-controls="panel1a-content"
+                    button
+                    className={classes.summary}
+                    expandIcon={<ExpandMoreIcon />}
+                    id="panel1a-header"
+                  >
+                    <div className="logo">
+                      <img alt="logo" src={`${invitation.pictureResume}`} />
+                    </div>
+                    <div className={classes.project}>
+                      <Typography color="primary" variant="h6">
+                        {invitation.projectName}
+                      </Typography>
+                      <Typography>{invitation.textInvitation}</Typography>
+                    </div>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Divider />
+                    <div className={classes.buttons}>
+                      <Button
+                        className={classes.button}
+                        color="primary"
+                        disabled={invitation.disabled}
+                        onClick={() =>
+                          operationsInvitation("Accepted", invitation.id)
+                        }
+                        variant="outlined"
+                      >
+                        Accept
+                      </Button>
+                      <Button
+                        className={classes.button}
+                        color="secondary"
+                        disabled={invitation.disabled}
+                        onClick={() =>
+                          operationsInvitation("Rejected", invitation.id)
+                        }
+                        variant="outlined"
+                      >
+                        Reject
+                      </Button>
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+                <Divider />
+              </>
+            ) : null
+          )
         ) : (
           <Accordion>
             <AccordionSummary

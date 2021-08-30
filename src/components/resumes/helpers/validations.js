@@ -2,16 +2,16 @@ import * as Yup from "yup";
 
 export const entry = () =>
   Yup.object({
+    address: Yup.string()
+      .min(3, "Address is too short - should be 3 characters minimum")
+      .max(50, "Please enter an address with 20 characters or less")
+      .required("Address field is required"),
     birthdate: Yup.string()
       .matches(
         /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/,
         "Please enter valid date of birth"
       )
       .required("Date of birth field is required"),
-    direction: Yup.string()
-      .min(3, "Address is too short - should be 3 characters minimum")
-      .max(20, "Please enter an address with 20 characters or less")
-      .required("Address field is required"),
     email: Yup.string()
       .email("Invalid email address")
       .required("Email field is required"),
