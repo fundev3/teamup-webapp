@@ -2,6 +2,7 @@ import ApplicationsSide from "./ApplicationsSide";
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import InvitationsModal from "../invitations/InvitationsModalResumes";
+import InvitationsNotifications from "../invitations/InvitationsNotifications";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import ModalSkills from "./ModalSkills";
@@ -262,15 +263,10 @@ function Details() {
             </div>
             <div className="head-detail-button">
               <Grid className="footer">
-                <Button
-                  className="buttonEdit"
-                  color="primary"
-                  onClick={() => setModalInvitations(true)}
-                  startIcon={<MailOutlineIcon />}
-                  variant="contained"
-                >
-                  {"Project Invitations"}
-                </Button>
+                <InvitationsNotifications
+                  idResume={data.id}
+                  setModalInvitations={setModalInvitations}
+                />
                 <Button
                   className="buttonEdit"
                   color="primary"
