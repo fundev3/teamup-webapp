@@ -129,18 +129,27 @@ function Details() {
     setData({ ...information, skills });
   };
 
+  const cancelSkills = async () => {
+    const response = await getResume(id);
+    const data = response.data;
+    const error = response.handlerError;
+    setError(error);
+    setData(data);
+  };
+
   const saveSkills = async (event) => {
     event.preventDefault();
     await postSkillsById(data.id, data.skills);
     setStateSearchSkills(false);
   };
-  function changeStateSearchSkills() {
+
+  const changeStateSearchSkills = () => {
     if (stateSearchSkills) {
       setStateSearchSkills(false);
     } else {
       setStateSearchSkills(true);
     }
-  }
+  };
 
   const getSkills = async (event) => {
     event.preventDefault();
@@ -384,7 +393,10 @@ function Details() {
                 <div className="skills-edit">
                   <Button
                     className={classes.button}
-                    onClick={changeStateSearchSkills}
+                    onClick={() => {
+                      changeStateSearchSkills();
+                      cancelSkills();
+                    }}
                     variant="contained"
                   >
                     CANCEL
