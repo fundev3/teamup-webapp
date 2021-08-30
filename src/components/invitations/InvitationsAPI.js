@@ -59,3 +59,22 @@ export async function getInvitationsByResume(id) {
     return [];
   }
 }
+
+export async function acceptRejectInvitations(invitationsId, body) {
+  try {
+    const { data } = await axios.patch(
+      `${API_HOST}/api/${API_VERSION}/invitations/${invitationsId}`,
+      body
+    );
+    return data;
+  } catch (error) {
+    if (error.response) {
+      store.dispatch(alertError(error.message));
+    } else if (error.request) {
+      store.dispatch(alertError(error.message));
+    } else {
+      store.dispatch(alertError("Error: Something is wrong"));
+    }
+    return [];
+  }
+}
