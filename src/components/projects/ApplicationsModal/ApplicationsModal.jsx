@@ -7,9 +7,9 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MuiAccordion from "@material-ui/core/Accordion";
 import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
-import { updateProject } from "./ApplicationAPI";
 import { Dialog, DialogContent, List, Typography } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { updatePostulation, updateProject } from "./ApplicationAPI";
 import "./ApplicationsModal.scss";
 
 const Accordion = withStyles({
@@ -76,8 +76,14 @@ const useStyles = makeStyles((theme) => ({
 function ApplicationsModal({ onClickModal, open, postulations, projectId }) {
   const classes = useStyles();
 
-  async function handleAccept(projectId, resumeID, resumeName) {
+  async function handleAccept(projectId, resumeID, resumeName, postulationId) {
+    await updatePostulation(postulationId, "Accepted");
     await updateProject(projectId, resumeID, resumeName);
+    onClickModal();
+  }
+
+  async function handleReject(postulationId) {
+    await updatePostulation(postulationId, "Rejected");
     onClickModal();
   }
 
@@ -124,7 +130,8 @@ function ApplicationsModal({ onClickModal, open, postulations, projectId }) {
                               handleAccept(
                                 projectId,
                                 postulation.resumeId,
-                                postulation.resumeName
+                                postulation.resumeName,
+                                postulation.id
                               )
                             }
                             style={{ fontSize: "10px", marginLeft: "40%" }}
@@ -134,6 +141,7 @@ function ApplicationsModal({ onClickModal, open, postulations, projectId }) {
                           </Button>
                           <Button
                             color="secondary"
+                            onClick={() => handleReject(postulation.id)}
                             style={{ fontSize: "10px", marginLeft: "10%" }}
                             variant="outlined"
                           >
