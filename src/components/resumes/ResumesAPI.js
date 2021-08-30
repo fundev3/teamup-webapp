@@ -118,7 +118,9 @@ export async function getResumesByName(name, id) {
     return { data, handlerError };
   } catch (error) {
     if (error.response) {
-      store.dispatch(alertError(error.message));
+      if (error.response.status !== 404) {
+        store.dispatch(alertError(error.message));
+      }
     } else if (error.request) {
       store.dispatch(alertError(error.message));
     } else {
@@ -139,7 +141,9 @@ export async function getResumesBySkill(skill, id) {
     return { data, handlerError };
   } catch (error) {
     if (error.response) {
-      store.dispatch(alertError(error.message));
+      if (error.response.status !== 404) {
+        store.dispatch(alertError(error.message));
+      }
     } else if (error.request) {
       store.dispatch(alertError(error.message));
     } else {
