@@ -101,6 +101,7 @@ function Details() {
           onClickModal={handleActionModal}
           open={open}
           postulations={postulations}
+          projectId={id}
         />
 
         <div className="box-details">
