@@ -62,7 +62,9 @@ export async function postProject(project) {
 export async function getProjectBySkill(skill) {
   try {
     const { data } = await axios.get(
-      `${API_HOST}/api/${API_VERSION}/${API_NAME}?skill=${skill}`
+      `${API_HOST}/api/${API_VERSION}/${API_NAME}?skill=${encodeURIComponent(
+        skill
+      )}`
     );
     return data;
   } catch (error) {
