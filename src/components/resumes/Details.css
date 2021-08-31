@@ -102,6 +102,8 @@
   color: #3f51b5;
   font-size: 1.3rem;
   font-weight: 500;
+  margin-left: 17%;
+  margin-top: 3%;
 }
 .skills-buttons {
   display: flex;
