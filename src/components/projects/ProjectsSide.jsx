@@ -6,7 +6,13 @@ import React, { useState } from "react";
 import "./ProjectsSide.scss";
 
 function ProjectsSide(props) {
-  const { idResume, setRefreshProjectsAndInvitations, skills, title } = props;
+  const {
+    idResume,
+    setRefreshProjectsAndInvitations,
+    skills,
+    title,
+    postulationList,
+  } = props;
   const [modalProjects, setModalProjects] = useState(false);
 
   return (
@@ -15,6 +21,7 @@ function ProjectsSide(props) {
         {modalProjects ? (
           <ModalProjects
             idResume={idResume}
+            postulationList={postulationList}
             setModalProjects={setModalProjects}
             setRefreshProjectsAndInvitations={setRefreshProjectsAndInvitations}
             skills={skills}

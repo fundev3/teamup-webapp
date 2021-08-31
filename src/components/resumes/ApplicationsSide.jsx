@@ -36,6 +36,7 @@ function ApplicationsSide(props) {
     idResume,
     refreshProjectsAndInvitations,
     setRefreshProjectsAndInvitations,
+    setPostulationList,
   } = props;
   const [applications, setApplications] = useState([]);
 
@@ -43,6 +44,7 @@ function ApplicationsSide(props) {
     async function data() {
       const applicationsData = await getApplicationsByResumeId(idResume);
       setApplications(applicationsData.data);
+      setPostulationList(applicationsData.data);
     }
     if (refreshProjectsAndInvitations === true || idResume !== null) {
       data();
