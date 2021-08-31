@@ -1,6 +1,7 @@
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import DateFnsUtils from "@date-io/date-fns";
 import { entry as entryValidations } from "./helpers/validations";
+import { format } from "date-fns";
 import { makeStyles } from "@material-ui/core/styles";
 import { postResume } from "./ResumesAPI.js";
 import { useFormik } from "formik";
@@ -52,12 +53,13 @@ function Entry() {
   const classes = useStyles();
   const history = useHistory();
   const [selectedDate, setSelectedDate] = useState(
-    new Date("2014-08-18T21:11:54")
+    new Date("1995-05-10T00:00")
   );
 
   const handleDateChange = (date) => {
+    debugger;
     setSelectedDate(date);
-    console.log("date: ", date);
+    formik.setFieldValue("birthdate", format(date, "dd/MM/yyyy"));
   };
   const formik = useFormik({
     initialValues: {
@@ -79,7 +81,7 @@ function Entry() {
         creationDate: new Date().toDateString(),
         lastUpdate: new Date().toDateString(),
         person: {
-          birthdate: values.birthdate,
+          birthdate: new Date(values.birthdate).toISOString(),
           firstName: values.firstName,
           lastName: values.lastName,
           picture: null,
@@ -88,8 +90,6 @@ function Entry() {
         summary: values.summary,
         title: values.firstName + " " + values.lastName,
       };
-      console.log("resume", resume);
-      console.log("values", values);
       await postResume(resume);
       history.push("/");
     },
@@ -180,15 +180,13 @@ function Entry() {
                         ? formik.errors.birthdate
                         : ""
                     }
-                    id="date"
+                    id="birthdate"
                     label="Birthday"
                     margin="normal"
                     name="birthdate"
                     onBlur={formik.handleBlur}
-                    // onChange={formik.handleChange}
                     onChange={handleDateChange}
                     value={selectedDate}
-                    // value={formik.values.birthdate}
                     variant="outlined"
                   />
                 </MuiPickersUtilsProvider>
@@ -211,7 +209,7 @@ function Entry() {
                   name="summary"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  placeholder="Enter a brief description of you. 
+                  placeholder="Enter a brief description of you.
                   Describe your professional skills and experience."
                   value={formik.values.summary}
                   variant="outlined"
