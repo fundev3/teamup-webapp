@@ -73,18 +73,24 @@ export default function ModalProjects(props) {
     }
     async function getProjects() {
       const result = await getProjectsBySkillName(skills);
-      result.forEach((item) => {
-        item.isSelected = false;
-      });
-      postulationList.forEach((postulation) => {
-        result.forEach((item, idx) => {
-          if (postulation.projectId === item.id) {
-            result.splice(idx, 1);
-          }
+      if (result.length !== 0) {
+        result.forEach((item) => {
+          item.isSelected = false;
         });
-      });
-      setDataProjects(result);
-      setLoadingProject(true);
+        if (Object.entries(postulationList).length !== 0) {
+          postulationList.forEach((postulation) => {
+            result.forEach((item, idx) => {
+              if (postulation.projectId === item.id) {
+                result.splice(idx, 1);
+              }
+            });
+          });
+        }
+        setDataProjects(result);
+        setLoadingProject(true);
+      } else {
+        setLoadingProject(true);
+      }
     }
     getProjects();
   }, [send]);
