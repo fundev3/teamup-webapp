@@ -75,7 +75,7 @@ export async function getSkillsByName(name) {
     return { data, handlerError };
   } catch (error) {
     if (error.response) {
-      store.dispatch(alertError(error.message));
+      store.dispatch(alertError("Please write a valid skill name"));
     } else if (error.request) {
       store.dispatch(alertError(error.message));
     } else {

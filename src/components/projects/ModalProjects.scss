@@ -15,15 +15,19 @@
   width: 520px;
   min-height: 40vh;
 }
-.not-found-projects{
+.not-found-projects {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.MuiTypography-colorTextSecondary{
+.MuiTypography-colorTextSecondary {
   text-align: justify;
 }
-.MuiListItemText-multiline{
+.MuiListItemText-multiline {
   margin-right: 10px;
+}
+
+.Button-Accept-Cancel{
+  width: 60px;
 }
