@@ -5,6 +5,7 @@ export const entry = () =>
     address: Yup.string()
       .min(3, "Address is too short - should be 3 characters minimum")
       .max(50, "Please enter an address with 20 characters or less")
+      .matches(/^(?=.*[a-z])/, "Must contain at least one lowercase character")
       .required("Address field is required"),
     birthdate: Yup.string()
       .matches(
