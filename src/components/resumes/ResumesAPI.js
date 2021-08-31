@@ -13,15 +13,10 @@ export async function postResume(resume) {
       `${API_HOST}/api/${API_VERSION}/${API_NAME}`,
       resume
     );
-    if (result.status === 200) {
-      return { ok: true };
-    } else {
-      result.ok = false;
-      result.statusText = "Data not saved";
-    }
-    return result;
+    if (result.status === 201) return { ok: true, result };
+    return { ok: false, result: null };
   } catch (err) {
-    store.dispatch(alertError("Couldn't save your profile, please try again"));
+    store.dispatch(alertError(`Couldn't save your profile ${err}`));
     return { ok: false };
   }
 }
