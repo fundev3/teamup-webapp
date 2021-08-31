@@ -11,6 +11,7 @@ function resetInitialValues() {
 }
 
 export async function getProjectsBySkillName(skills) {
+  if (skills[0] === null) return [];
   resetInitialValues();
   for (const skill of skills) {
     const skillName = skill.name;

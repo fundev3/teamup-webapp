@@ -13,15 +13,10 @@ export async function postResume(resume) {
       `${API_HOST}/api/${API_VERSION}/${API_NAME}`,
       resume
     );
-    if (result.status === 200) {
-      return { ok: true };
-    } else {
-      result.ok = false;
-      result.statusText = "Data not saved";
-    }
-    return result;
+    if (result.status === 201) return { ok: true, result };
+    return { ok: false, result: null };
   } catch (err) {
-    store.dispatch(alertError("Couldn't save your profile, please try again"));
+    store.dispatch(alertError(`Couldn't save your profile ${err}`));
     return { ok: false };
   }
 }
@@ -164,7 +159,9 @@ export async function getApplicationsByResumeId(id) {
     return { data, handlerError };
   } catch (error) {
     if (error.response) {
-      store.dispatch(alertError(error.message));
+      if (error.response.status !== 404) {
+        store.dispatch(alertError(error.message));
+      }
     } else if (error.request) {
       store.dispatch(alertError(error.message));
     } else {
