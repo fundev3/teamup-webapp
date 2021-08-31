@@ -10,7 +10,8 @@ function InvitationsNotifications(props) {
   useEffect(() => {
     async function data() {
       const invitations = await getInvitationsByResume(idResume);
-      setNotifications(invitations.length);
+      const size = invitations.filter((data) => data.status === "Invited");
+      setNotifications(size.length);
     }
     data();
   }, [idResume]);
