@@ -105,7 +105,6 @@ function Entry() {
         <Typography className={classes.head} gutterBottom variant="h3">
           Let's get to know you!
         </Typography>
-        <div>{formik.values.birthdate}</div>
         <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
           <Box display="flex" justifyContent="space-between" mb={1}>
             <Paper className="paper-entry" elevation={1}>
