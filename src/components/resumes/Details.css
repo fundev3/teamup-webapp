@@ -80,15 +80,28 @@
 .detail-resume-information {
   margin: 15px 0px;
 }
-.back-resumes-button {
+.detail-resume-container {
+  margin-top: 70px;
+  align-items: center;
+  flex-direction: column;
+}
+.MuiContainer-root.detail-resume-container {
+  display: flex;
+}
+.detail-header-resume {
+  display: flex;
+  justify-content: space-between;
+}
+.detail-header-left {
+  float: left;
+}
+.back-link {
   display: flex;
   align-items: center;
   text-decoration: none;
   color: #3f51b5;
   font-size: 1.3rem;
   font-weight: 500;
-  margin-left: 18%;
-  margin-top: 3%;
 }
 .skills-buttons {
   display: flex;

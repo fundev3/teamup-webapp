@@ -20,6 +20,7 @@ import { userSingleImageSvg } from "../../constants/images";
 import {
   Button,
   Chip,
+  Container,
   Grid,
   IconButton,
   InputBase,
@@ -193,22 +194,16 @@ function Details() {
           setModalInvitations={setModalInvitations}
         />
       ) : null}
-      <div>
-        <Link className="back-resumes-button" to="/resumes">
-          <ArrowBackIos></ArrowBackIos>
-          Back
-        </Link>
-      </div>
-      <Grid
-        className={classes.content}
-        container
-        direction="row"
-        justifyContent="center"
-        style={{
-          position: "absolute",
-          top: "20%",
-        }}
-      >
+      <Container className="detail-resume-container">
+        <div className="detail-header-resume">
+          <div className="detail-header-left">
+            <Link className="back-link" to="/resumes">
+              <ArrowBackIos></ArrowBackIos>
+              Back
+            </Link>
+          </div>
+          <div className="detail-header-right"></div>
+        </div>
         <Paper className={classes.paper}>
           <div className="head-detail-resume">
             <div className="head-image">
@@ -474,7 +469,7 @@ function Details() {
             title={data.title}
           />
         </Paper>
-      </Grid>
+      </Container>
     </>
   ) : (
     <ProgressComponent />
