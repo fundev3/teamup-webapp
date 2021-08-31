@@ -83,7 +83,7 @@ function Entry() {
         creationDate: new Date().toDateString(),
         lastUpdate: new Date().toDateString(),
         person: {
-          birthdate: new Date(values.birthdate).toISOString(),
+          birthdate: selectedDate.toISOString(),
           firstName: values.firstName,
           lastName: values.lastName,
           picture: null,
