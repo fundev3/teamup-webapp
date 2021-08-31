@@ -20,6 +20,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
+    maxHeight: 320,
     maxWidth: 400,
     width: 400,
   },
