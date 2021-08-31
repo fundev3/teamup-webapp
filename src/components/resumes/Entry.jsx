@@ -57,7 +57,6 @@ function Entry() {
   );
 
   const handleDateChange = (date) => {
-    debugger;
     setSelectedDate(date);
     formik.setFieldValue("birthdate", format(date, "dd/MM/yyyy"));
   };
