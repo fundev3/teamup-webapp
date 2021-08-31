@@ -1,6 +1,6 @@
-import { alertError } from "../../store/actions/alertActions";
 import axios from "axios";
 import store from "../../store";
+import { alertError, alertWarning } from "../../store/actions/alertActions";
 
 const API_HOST = process.env.REACT_APP_API_RESUMES_URL;
 const API_NAME = "resumes";
@@ -75,7 +75,7 @@ export async function getSkillsByName(name) {
     return { data, handlerError };
   } catch (error) {
     if (error.response) {
-      store.dispatch(alertError("Please write a valid skill name"));
+      store.dispatch(alertWarning("Please write a valid skill name"));
     } else if (error.request) {
       store.dispatch(alertError(error.message));
     } else {
@@ -164,7 +164,7 @@ export async function getApplicationsByResumeId(id) {
     return { data, handlerError };
   } catch (error) {
     if (error.response) {
-      store.dispatch(alertError(error.message));
+      store.dispatch(alertWarning("This resume doesn't contain applications"));
     } else if (error.request) {
       store.dispatch(alertError(error.message));
     } else {
