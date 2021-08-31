@@ -180,6 +180,7 @@ export default function ModalProjects(props) {
                     />
                     {!project.isSelected ? (
                       <Button
+                        className="Button-Accept-Cancel"
                         color="primary"
                         onClick={() => handleProjectApplied(project.id, true)}
                         variant="outlined"
@@ -188,6 +189,7 @@ export default function ModalProjects(props) {
                       </Button>
                     ) : (
                       <Button
+                        className="Button-Accept-Cancel"
                         color="secondary"
                         onClick={() => handleProjectApplied(project.id, false)}
                         variant="outlined"

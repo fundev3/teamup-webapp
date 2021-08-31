@@ -158,8 +158,10 @@ function Details() {
     event.preventDefault();
     if (skillInput !== "") {
       const response = await getSkillsByName(skillInput);
-      setDataSkills(response.data);
-      handleClickOpen();
+      if (response.handlerError !== true) {
+        setDataSkills(response.data);
+        handleClickOpen();
+      }
     }
     setSkillInput("");
   };
