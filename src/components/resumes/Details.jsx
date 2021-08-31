@@ -107,6 +107,7 @@ function Details() {
   const [openModal, setOpenModal] = React.useState(false);
   const [modalInvitations, setModalInvitations] = React.useState(false);
   const [dataSkills, setDataSkills] = React.useState([]);
+  const [postulationList, setPostulationList] = React.useState([]);
   const [refreshProjectsAndInvitations, setRefreshProjectsAndInvitations] =
     useState(false);
   const handleClickOpen = () => {
@@ -460,10 +461,12 @@ function Details() {
           <ApplicationsSide
             idResume={data.id}
             refreshProjectsAndInvitations={refreshProjectsAndInvitations}
+            setPostulationList={setPostulationList}
             setRefreshProjectsAndInvitations={setRefreshProjectsAndInvitations}
           />
           <ProjectsSide
             idResume={data.id}
+            postulationList={postulationList}
             setRefreshProjectsAndInvitations={setRefreshProjectsAndInvitations}
             skills={data.skills}
             title={data.title}
