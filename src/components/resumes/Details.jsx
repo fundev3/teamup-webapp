@@ -2,6 +2,7 @@ import ApplicationsSide from "./ApplicationsSide";
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import InvitationsModal from "../invitations/InvitationsModalResumes";
+import InvitationsNotifications from "../invitations/InvitationsNotifications";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import ModalSkills from "./ModalSkills";
@@ -20,6 +21,7 @@ import { userSingleImageSvg } from "../../constants/images";
 import {
   Button,
   Chip,
+  Container,
   Grid,
   IconButton,
   InputBase,
@@ -29,7 +31,7 @@ import {
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { getResume, getSkillsByName, postSkillsById } from "./ResumesAPI.js";
-import "./Details.css";
+import "./Details.scss";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -84,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     margin: "20px 0px",
     padding: theme.spacing(4),
-    width: "1000px",
+    width: "100%",
   },
   searchBoxContainer: {
     alignItems: "center",
@@ -106,6 +108,7 @@ function Details() {
   const [openModal, setOpenModal] = React.useState(false);
   const [modalInvitations, setModalInvitations] = React.useState(false);
   const [dataSkills, setDataSkills] = React.useState([]);
+  const [postulationList, setPostulationList] = React.useState([]);
   const [refreshProjectsAndInvitations, setRefreshProjectsAndInvitations] =
     useState(false);
   const handleClickOpen = () => {
@@ -158,6 +161,7 @@ function Details() {
       setDataSkills(response.data);
       handleClickOpen();
     }
+    setSkillInput("");
   };
 
   const initialValues = {
@@ -192,22 +196,13 @@ function Details() {
           setModalInvitations={setModalInvitations}
         />
       ) : null}
-      <div>
-        <Link className="back-resumes-button" to="/resumes">
-          <ArrowBackIos></ArrowBackIos>
-          Back
-        </Link>
-      </div>
-      <Grid
-        className={classes.content}
-        container
-        direction="row"
-        justifyContent="center"
-        style={{
-          position: "absolute",
-          top: "20%",
-        }}
-      >
+      <Container className="detail-resume-container">
+        <div className="detail-header-resume">
+          <Link className="back-resumes-button" to="/resumes">
+            <ArrowBackIos></ArrowBackIos>
+            Back
+          </Link>
+        </div>
         <Paper className={classes.paper}>
           <div className="head-detail-resume">
             <div className="head-image">
@@ -262,15 +257,10 @@ function Details() {
             </div>
             <div className="head-detail-button">
               <Grid className="footer">
-                <Button
-                  className="buttonEdit"
-                  color="primary"
-                  onClick={() => setModalInvitations(true)}
-                  startIcon={<MailOutlineIcon />}
-                  variant="contained"
-                >
-                  {"Project Invitations"}
-                </Button>
+                <InvitationsNotifications
+                  idResume={data.id}
+                  setModalInvitations={setModalInvitations}
+                />
                 <Button
                   className="buttonEdit"
                   color="primary"
@@ -425,6 +415,7 @@ function Details() {
                       inputProps={{ "aria-label": "search google maps" }}
                       onChange={(event) => setSkillInput(event.target.value)}
                       placeholder="Search Skills"
+                      value={skillInput}
                     />
                     <IconButton
                       aria-label="search"
@@ -463,16 +454,18 @@ function Details() {
           <ApplicationsSide
             idResume={data.id}
             refreshProjectsAndInvitations={refreshProjectsAndInvitations}
+            setPostulationList={setPostulationList}
             setRefreshProjectsAndInvitations={setRefreshProjectsAndInvitations}
           />
           <ProjectsSide
             idResume={data.id}
+            postulationList={postulationList}
             setRefreshProjectsAndInvitations={setRefreshProjectsAndInvitations}
             skills={data.skills}
             title={data.title}
           />
         </Paper>
-      </Grid>
+      </Container>
     </>
   ) : (
     <ProgressComponent />

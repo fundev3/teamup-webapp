@@ -4,31 +4,6 @@
   justify-content: space-between;
   margin-bottom: 15px;
 }
-.search-project-input {
-  padding: 2px 10px 2px 15px;
-  background-color: #ffffff;
-  border-radius: 6px 0px 0px 6px;
-  width: 100%;
-  justify-content: space-between;
-  display: flex;
-  align-items: center;
-  border: solid 1px #dddddd;
-}
-.search-project-box {
-  display: flex;
-  align-items: center;
-  align-self: center;
-}
-.search-project-icon {
-  background-color: #4350af;
-  border-radius: 0px 4px 4px 0px;
-  width: 42px;
-  height: 38px;
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
 .dialog-content {
   &__text {
     font-size: 0.9rem;
@@ -37,5 +12,18 @@
   }
 }
 .size-dialog {
-  width: 450px;
+  width: 520px;
+  min-height: 40vh;
+}
+.not-found-projects{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.MuiTypography-colorTextSecondary{
+  text-align: justify;
+}
+.MuiListItemText-multiline{
+  margin-right: 10px;
 }

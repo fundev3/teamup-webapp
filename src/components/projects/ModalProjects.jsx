@@ -1,33 +1,39 @@
 import Avatar from "@material-ui/core/Avatar";
-import { BASE_URL } from "../../constants";
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import CloseIcon from "@material-ui/icons/Close";
-import Empty from "../../common/EmptyComponent/Empty";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import NotFound from "../resumes/NotFound";
-import SearchIcon from "@material-ui/icons/Search";
 import { getProjectBySkill } from "./ProjectsAPI.js";
 import { getProjectsBySkillName } from "./helpers";
 import { makeStyles } from "@material-ui/core/styles";
 import { postPostulation } from "../resumes/ResumesAPI.js";
+import { BASE_URL, emptyImageSvg } from "../../constants";
 import {
   Dialog,
   DialogContent,
   List,
   ListItem,
   ListItemText,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import "./ModalProjects.scss";
 
 const useStyles = makeStyles((theme) => ({
+  loadingModalProject: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "4vh",
+  },
   modalCloseIcon: {
     color: "#4350af",
+    cursor: "pointer",
     display: "flex",
+    fontSize: "30px",
   },
   modalContent: {
+    alignItems: "center",
     display: "flex",
     flexDirection: "column",
     padding: 0,
@@ -35,62 +41,104 @@ const useStyles = makeStyles((theme) => ({
   modalProject: {
     width: 500,
   },
-  searchField: {
-    "&.MuiFormControl-root": {
-      width: "100%",
-    },
-  },
-  searchIcon: {
-    color: "#ffffff",
+  notFoundLabel: {
+    color: "#C0C0C0",
+    fontSize: "0.9rem",
+    fontWeight: "bold",
   },
 }));
 
-export default function ModalProjects({
-  idResume,
-  skills,
-  setModalProjects,
-  setRefreshProjectsAndInvitations,
-  title,
-}) {
+export default function ModalProjects(props) {
+  const {
+    idResume,
+    skills,
+    setModalProjects,
+    setRefreshProjectsAndInvitations,
+    title,
+    postulationList,
+  } = props;
   const classes = useStyles();
   const [dataProjects, setDataProjects] = useState([]);
-  const [inputValue, setInputValue] = useState("");
   const [send, setSend] = useState(false);
-
-  const getProjects = async (event) => {
-    event.preventDefault();
-    let projects = await getProjectBySkill(inputValue);
-    setDataProjects(projects);
-  };
+  const [loadingProject, setLoadingProject] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
+  const [projectSelected, setProjectSelected] = useState([]);
+  const [isAdded, setIsAdded] = useState(true);
+  const [filteredDataProjects, setFilteredDataProjects] = useState([]);
 
   useEffect(() => {
     if (send) {
       setRefreshProjectsAndInvitations(true);
+      setLoadingProject(false);
     }
     async function getProjects() {
       const result = await getProjectsBySkillName(skills);
-      setDataProjects(result);
+      if (result.length !== 0) {
+        result.forEach((item) => {
+          item.isSelected = false;
+        });
+        if (Object.entries(postulationList).length !== 0) {
+          postulationList.forEach((postulation) => {
+            result.forEach((item, idx) => {
+              if (postulation.projectId === item.id) {
+                result.splice(idx, 1);
+              }
+            });
+          });
+        }
+        setDataProjects(result);
+        setLoadingProject(true);
+      } else {
+        setLoadingProject(true);
+      }
     }
     getProjects();
   }, [send]);
 
-  const sendProject = async (idResume, project) => {
-    var postulation = {
-      creationDate: new Date().toDateString(),
-      lastUpdate: new Date().toDateString(),
-      picture: project.logo,
-      projectId: project.id,
-      projectName: project.name,
-      resumeId: idResume,
-      resumeName: title,
-      state: "Applied",
-    };
-    let response = await postPostulation(postulation);
-    if (response) {
-      setSend(true);
+  const handleProjectApplied = (id, status) => {
+    let project = dataProjects.find((item) => item.id === id);
+    let found = [];
+    if (!status) {
+      found = projectSelected.filter((value) => value.id !== id);
     } else {
-      setSend(false);
+      projectSelected.push(project);
+      found = projectSelected;
     }
+    let projectIsSelected = [...dataProjects];
+    projectIsSelected = projectIsSelected.map((project) => {
+      if (project.id === id) {
+        return { ...project, isSelected: status };
+      }
+      return project;
+    });
+    setDataProjects(projectIsSelected);
+    setProjectSelected(found);
+    setIsSelected(status);
+    setIsAdded(found.length === 0);
+  };
+
+  const sendProject = async (idResume, project) => {
+    for (const project of projectSelected) {
+      var postulation = {
+        creationDate: new Date().toDateString(),
+        id: "1",
+        lastUpdate: new Date().toDateString(),
+        picture: project.logo,
+        projectId: project.id,
+        projectName: project.name,
+        resumeId: idResume,
+        resumeName: title,
+        state: "Applied",
+      };
+      let response = await postPostulation(postulation);
+      if (response) {
+        setSend(true);
+      } else {
+        setSend(false);
+      }
+      setProjectSelected([]);
+    }
+    setModalProjects(false);
   };
 
   return (
@@ -103,7 +151,7 @@ export default function ModalProjects({
         <div className="dialog-content size-dialog">
           <div className="dialog-header" style={{ marginBottom: "5px" }}>
             <Typography color="primary" variant="h6">
-              Project featured for you
+              Projects featured for you
             </Typography>
             <CloseIcon
               className={classes.modalCloseIcon}
@@ -111,7 +159,7 @@ export default function ModalProjects({
             />
           </div>
           <div className="dialog-content__text">
-            Based on your skills, this projects may interest you
+            Based on your skills, this projects may interest you!
           </div>
           <DialogContent className={classes.modalContent}>
             <List>
@@ -130,23 +178,75 @@ export default function ModalProjects({
                       primary={project.name}
                       secondary={project.description}
                     />
-                    <Button
-                      color="primary"
-                      disabled={send}
-                      onClick={() => sendProject(idResume, project, title)}
-                      variant="outlined"
-                    >
-                      Apply
-                    </Button>
+                    {!project.isSelected ? (
+                      <Button
+                        color="primary"
+                        onClick={() => handleProjectApplied(project.id, true)}
+                        variant="outlined"
+                      >
+                        Apply
+                      </Button>
+                    ) : (
+                      <Button
+                        color="secondary"
+                        onClick={() => handleProjectApplied(project.id, false)}
+                        variant="outlined"
+                      >
+                        Cancel
+                      </Button>
+                    )}
                   </ListItem>
                 ))
+              ) : !loadingProject ? (
+                <div className={classes.loadingModalProject}>
+                  <CircularProgress
+                    style={{
+                      height: "50px",
+                      margin: "0px",
+                      width: "50px",
+                    }}
+                  />
+                </div>
               ) : (
-                <Empty
-                  message={"There are no projetcs with your skills yet"}
-                  size={50}
-                />
+                <div className="not-found-projects">
+                  <img
+                    alt="emptyImage"
+                    src={emptyImageSvg}
+                    style={{ width: "130px" }}
+                  />
+                  <Typography className={classes.notFoundLabel}>
+                    Sorry, we couldn't find projects
+                  </Typography>
+                  <Typography className={classes.notFoundLabel}>
+                    that match your skills yet
+                  </Typography>
+                </div>
               )}
             </List>
+            {dataProjects.length !== 0 ? (
+              isAdded ? (
+                <Button
+                  disabled
+                  style={{ margin: "30px 0px 40px", width: "100%" }}
+                  variant="contained"
+                >
+                  Send Invitation
+                </Button>
+              ) : (
+                <Button
+                  color="primary"
+                  onClick={() =>
+                    sendProject(idResume, dataProjects.project, title)
+                  }
+                  style={{ margin: "30px 0px 40px", width: "100%" }}
+                  variant="contained"
+                >
+                  Send application
+                </Button>
+              )
+            ) : (
+              <></>
+            )}
           </DialogContent>
         </div>
       </Dialog>

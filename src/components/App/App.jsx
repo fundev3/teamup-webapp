@@ -8,7 +8,7 @@ import React from "react";
 import ResumeDetails from "../resumes/Details";
 import ResumeEntry from "../resumes/Entry";
 import Resumes from "../resumes/Resumes";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Route, HashRouter as Router, Switch } from "react-router-dom";
 import "./App.scss";
 
 function App() {

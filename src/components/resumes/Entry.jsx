@@ -1,9 +1,11 @@
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import DateFnsUtils from "@date-io/date-fns";
+import { alertSuccess } from "../../store/actions/alertActions";
 import { entry as entryValidations } from "./helpers/validations";
 import { format } from "date-fns";
 import { makeStyles } from "@material-ui/core/styles";
 import { postResume } from "./ResumesAPI.js";
+import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { useState } from "react";
 import {
@@ -51,6 +53,7 @@ const useStyles = makeStyles({
 
 function Entry() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const history = useHistory();
   const [selectedDate, setSelectedDate] = useState(
     new Date("1995-05-10T00:00")
@@ -89,8 +92,11 @@ function Entry() {
         summary: values.summary,
         title: values.firstName + " " + values.lastName,
       };
-      await postResume(resume);
-      history.push("/");
+      const response = await postResume(resume);
+      if (response.ok) {
+        dispatch(alertSuccess("Your profile has been created successfully"));
+        return history.push("/resumes");
+      }
     },
     validationSchema: entryValidations(),
   });
