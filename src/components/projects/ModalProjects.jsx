@@ -48,24 +48,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalProjects({
-  idResume,
-  skills,
-  setModalProjects,
-  setRefreshProjectsAndInvitations,
-  title,
-}) {
+export default function ModalProjects(props) {
+  const {
+    idResume,
+    skills,
+    setModalProjects,
+    setRefreshProjectsAndInvitations,
+    title,
+    postulationList,
+  } = props;
   const classes = useStyles();
   const [dataProjects, setDataProjects] = useState([]);
-  const [inputValue, setInputValue] = useState("");
   const [send, setSend] = useState(false);
   const [loadingProject, setLoadingProject] = useState(false);
-
-  const getProjects = async (event) => {
-    event.preventDefault();
-    let projects = await getProjectBySkill(inputValue);
-    setDataProjects(projects);
-  };
+  const [isSelected, setIsSelected] = useState(false);
+  const [projectSelected, setProjectSelected] = useState([]);
+  const [isAdded, setIsAdded] = useState(true);
+  const [filteredDataProjects, setFilteredDataProjects] = useState([]);
 
   useEffect(() => {
     if (send) {
@@ -74,29 +73,66 @@ export default function ModalProjects({
     }
     async function getProjects() {
       const result = await getProjectsBySkillName(skills);
+      result.forEach((item) => {
+        item.isSelected = false;
+      });
+      postulationList.forEach((postulation) => {
+        result.forEach((item, idx) => {
+          if (postulation.projectId === item.id) {
+            result.splice(idx, 1);
+          }
+        });
+      });
       setDataProjects(result);
       setLoadingProject(true);
     }
     getProjects();
   }, [send]);
 
-  const sendProject = async (idResume, project) => {
-    var postulation = {
-      creationDate: new Date().toDateString(),
-      lastUpdate: new Date().toDateString(),
-      picture: project.logo,
-      projectId: project.id,
-      projectName: project.name,
-      resumeId: idResume,
-      resumeName: title,
-      state: "Applied",
-    };
-    let response = await postPostulation(postulation);
-    if (response) {
-      setSend(true);
+  const handleProjectApplied = (id, status) => {
+    let project = dataProjects.find((item) => item.id === id);
+    let found = [];
+    if (!status) {
+      found = projectSelected.filter((value) => value.id !== id);
     } else {
-      setSend(false);
+      projectSelected.push(project);
+      found = projectSelected;
     }
+    let projectIsSelected = [...dataProjects];
+    projectIsSelected = projectIsSelected.map((project) => {
+      if (project.id === id) {
+        return { ...project, isSelected: status };
+      }
+      return project;
+    });
+    setDataProjects(projectIsSelected);
+    setProjectSelected(found);
+    setIsSelected(status);
+    setIsAdded(found.length === 0);
+  };
+
+  const sendProject = async (idResume, project) => {
+    for (const project of projectSelected) {
+      var postulation = {
+        creationDate: new Date().toDateString(),
+        id: "1",
+        lastUpdate: new Date().toDateString(),
+        picture: project.logo,
+        projectId: project.id,
+        projectName: project.name,
+        resumeId: idResume,
+        resumeName: title,
+        state: "Applied",
+      };
+      let response = await postPostulation(postulation);
+      if (response) {
+        setSend(true);
+      } else {
+        setSend(false);
+      }
+      setProjectSelected([]);
+    }
+    setModalProjects(false);
   };
 
   return (
@@ -136,14 +172,23 @@ export default function ModalProjects({
                       primary={project.name}
                       secondary={project.description}
                     />
-                    <Button
-                      color="primary"
-                      disabled={send}
-                      onClick={() => sendProject(idResume, project, title)}
-                      variant="outlined"
-                    >
-                      Apply
-                    </Button>
+                    {!project.isSelected ? (
+                      <Button
+                        color="primary"
+                        onClick={() => handleProjectApplied(project.id, true)}
+                        variant="outlined"
+                      >
+                        Apply
+                      </Button>
+                    ) : (
+                      <Button
+                        color="secondary"
+                        onClick={() => handleProjectApplied(project.id, false)}
+                        variant="outlined"
+                      >
+                        Cancel
+                      </Button>
+                    )}
                   </ListItem>
                 ))
               ) : !loadingProject ? (
@@ -172,6 +217,30 @@ export default function ModalProjects({
                 </div>
               )}
             </List>
+            {dataProjects.length !== 0 ? (
+              isAdded ? (
+                <Button
+                  disabled
+                  style={{ margin: "30px 0px 40px", width: "100%" }}
+                  variant="contained"
+                >
+                  Send Invitation
+                </Button>
+              ) : (
+                <Button
+                  color="primary"
+                  onClick={() =>
+                    sendProject(idResume, dataProjects.project, title)
+                  }
+                  style={{ margin: "30px 0px 40px", width: "100%" }}
+                  variant="contained"
+                >
+                  Send application
+                </Button>
+              )
+            ) : (
+              <></>
+            )}
           </DialogContent>
         </div>
       </Dialog>
