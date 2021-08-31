@@ -222,7 +222,7 @@ function Details() {
                 <TextField
                   InputProps={{ disableUnderline: disabled }}
                   className={classes.headName}
-                  defaultValue={`${data.title}`}
+                  defaultValue={`${data.person.firstName}${data.person.lastName}`}
                   disabled={disabled}
                   error={
                     formik.touched.firstName && Boolean(formik.errors.firstName)
