@@ -1,10 +1,13 @@
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
+import DateFnsUtils from "@date-io/date-fns";
 import { alertSuccess } from "../../store/actions/alertActions";
 import { entry as entryValidations } from "./helpers/validations";
+import { format } from "date-fns";
 import { makeStyles } from "@material-ui/core/styles";
 import { postResume } from "./ResumesAPI.js";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -13,6 +16,10 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import { Link, useHistory } from "react-router-dom";
 import "./Entry.css";
 
@@ -48,6 +55,14 @@ function Entry() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const [selectedDate, setSelectedDate] = useState(
+    new Date("1995-05-10T00:00")
+  );
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    formik.setFieldValue("birthdate", format(date, "dd/MM/yyyy"));
+  };
   const formik = useFormik({
     initialValues: {
       address: "",
@@ -68,7 +83,7 @@ function Entry() {
         creationDate: new Date().toDateString(),
         lastUpdate: new Date().toDateString(),
         person: {
-          birthdate: values.birthdate,
+          birthdate: new Date(values.birthdate).toISOString(),
           firstName: values.firstName,
           lastName: values.lastName,
           picture: null,
@@ -158,23 +173,27 @@ function Entry() {
                 <Typography align="justify" gutterBottom>
                   Date of birth
                 </Typography>
-                <TextField
-                  className={classes.field}
-                  error={formik.touched.birthdate && formik.errors.birthdate}
-                  helperText={
-                    formik.touched.birthdate && formik.errors.birthdate
-                      ? formik.errors.birthdate
-                      : ""
-                  }
-                  id="birthdate"
-                  name="birthdate"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  placeholder="dd/mm/yyyy"
-                  type="text"
-                  value={formik.values.birthdate}
-                  variant="outlined"
-                />
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    KeyboardButtonProps={{ "aria-label": "change date" }}
+                    className={classes.field}
+                    error={formik.touched.birthdate && formik.errors.birthdate}
+                    format="dd/MM/yyyy"
+                    helperText={
+                      formik.touched.birthdate && formik.errors.birthdate
+                        ? formik.errors.birthdate
+                        : ""
+                    }
+                    id="birthdate"
+                    label="Birthday"
+                    margin="normal"
+                    name="birthdate"
+                    onBlur={formik.handleBlur}
+                    onChange={handleDateChange}
+                    value={selectedDate}
+                    variant="outlined"
+                  />
+                </MuiPickersUtilsProvider>
               </div>
               <div className="u-mb-1">
                 <Typography align="justify" gutterBottom>
@@ -194,7 +213,7 @@ function Entry() {
                   name="summary"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  placeholder="Enter a brief description of you. 
+                  placeholder="Enter a brief description of you.
                   Describe your professional skills and experience."
                   value={formik.values.summary}
                   variant="outlined"
