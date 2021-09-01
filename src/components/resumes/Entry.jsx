@@ -185,7 +185,6 @@ function Entry() {
                         : ""
                     }
                     id="birthdate"
-                    label="Birthday"
                     margin="normal"
                     name="birthdate"
                     onBlur={formik.handleBlur}
